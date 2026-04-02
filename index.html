@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LTS — Αποδεικτικά Μήνυσης Τσεκούρα</title>
+<style>
+:root{--bg:#080c12;--card:#0f1520;--border:#1a2535;--text:#9eaab8;--accent:#00bcd4;--green:#4caf50;--red:#ef5350;--yellow:#ffc107;--purple:#ce93d8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'JetBrains Mono','SF Mono','Fira Code',monospace;background:var(--bg);color:var(--text);line-height:1.7}
+#gate{display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:1rem}
+#gate h1{color:#fff;font-size:1.2rem;letter-spacing:.2em;text-transform:uppercase}
+#gate .case{color:var(--accent);font-size:.7rem;letter-spacing:.15em}
+#gate input{background:#111;border:1px solid var(--border);color:#fff;padding:.8rem 1.5rem;font-family:inherit;font-size:1rem;border-radius:4px;text-align:center;width:280px;letter-spacing:.1em}
+#gate input:focus{outline:none;border-color:var(--accent)}
+#gate .err{color:var(--red);font-size:.75rem;min-height:1.2rem}
+#content{display:none;max-width:1100px;margin:0 auto;padding:2rem}
+.logo{text-align:center;margin-bottom:2rem;padding:1.5rem;border:1px solid var(--accent);border-radius:4px;background:linear-gradient(180deg,rgba(0,188,212,.04) 0%,transparent 100%)}
+.logo h1{color:#fff;font-size:1.4rem;letter-spacing:.15em}
+.logo .sub{color:var(--accent);font-size:.7rem;letter-spacing:.3em;margin-top:.4rem}
+.logo .ref{color:#546e7a;font-size:.6rem;margin-top:.3rem}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:2rem;font-size:.75rem}
+.meta span{color:#546e7a}.meta strong{color:var(--text)}
+.section{margin-bottom:2rem;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.section-head{background:var(--card);padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none}
+.section-head h2{color:#fff;font-size:.85rem}
+.section-head:hover{background:#141e2c}
+.badge{padding:.15rem .6rem;border-radius:3px;font-size:.6rem;font-weight:700;letter-spacing:.05em}
+.badge-proven{background:rgba(76,175,80,.15);color:var(--green)}
+.badge-rebutted{background:rgba(0,188,212,.15);color:var(--accent)}
+.badge-hearsay{background:rgba(255,193,7,.15);color:var(--yellow)}
+.badge-pending{background:rgba(239,83,80,.15);color:var(--red)}
+.section-body{padding:1.2rem;display:none;border-top:1px solid var(--border)}
+.section.open .section-body{display:block}
+.claim{border-left:3px solid var(--yellow);background:rgba(255,193,7,.04);padding:.8rem 1rem;margin-bottom:1rem;font-style:italic;font-size:.8rem;border-radius:0 4px 4px 0}
+.rebuttal{font-size:.8rem;margin-bottom:1rem}
+.rebuttal strong{color:#fff}
+.evidence-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem;margin:1rem 0}
+.evidence-card{background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden;transition:border-color .2s}
+.evidence-card:hover{border-color:var(--accent)}
+.evidence-card img{width:100%;height:180px;object-fit:cover;object-position:top;cursor:pointer}
+.evidence-card .caption{padding:.5rem .7rem;font-size:.65rem;color:var(--text)}
+.download-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .8rem;background:rgba(0,188,212,.1);border:1px solid var(--accent);border-radius:4px;color:var(--accent);text-decoration:none;font-size:.7rem;font-family:inherit;transition:all .2s;margin:.3rem .3rem .3rem 0}
+.download-btn:hover{background:rgba(0,188,212,.2)}
+.pending-box{background:rgba(255,193,7,.06);border:1px solid rgba(255,193,7,.3);border-radius:6px;padding:.8rem 1rem;font-size:.75rem;color:var(--yellow);margin:1rem 0}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.75rem}
+th,td{padding:.5rem .7rem;text-align:left;border-bottom:1px solid var(--border)}
+th{color:var(--accent);font-size:.65rem;text-transform:uppercase;letter-spacing:.08em}
+.attachments{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.attachments h2{color:var(--accent);font-size:.8rem;letter-spacing:.15em;margin-bottom:1rem}
+footer{margin-top:3rem;text-align:center;font-size:.6rem;color:#37474f;padding:1rem;border-top:1px solid var(--border)}
+.expand-all{color:var(--accent);font-size:.7rem;cursor:pointer;text-decoration:underline;margin-bottom:1rem;display:inline-block}
+.lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);z-index:1000;cursor:pointer;align-items:center;justify-content:center}
+.lightbox.active{display:flex}
+.lightbox img{max-width:90%;max-height:90%;object-fit:contain;border-radius:4px}
+@media print{body{background:#fff;color:#000}#gate{display:none}.section-body{display:block!important}.badge{border:1px solid #000}.download-btn{display:none}}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <h1>ΕΜΠΙΣΤΕΥΤΙΚΟ</h1>
+  <div class="case">ΓΑΚ 11800/2025 — Λατσούδης κατά Μπακολούκα</div>
+  <input type="password" id="pw" placeholder="Κωδικός πρόσβασης" autofocus>
+  <div class="err" id="err"></div>
+</div>
+
+<div id="content">
+
+<div class="logo">
+  <h1>ΑΠΑΝΤΗΣΕΙΣ ΣΕ MEMO PAKLEX</h1>
+  <div class="sub">ΜΗΝΥΣΗ ΚΑΤΑ ΤΣΕΚΟΥΡΑ — ΨΕΥΔΟΡΚΙΑ (ΑΡ. 224 ΠΚ)</div>
+  <div class="ref">ΓΑΚ 11800/2025 · Μονομελές Πρωτοδικείο Αθηνών · 3 Απριλίου 2026</div>
+</div>
+
+<div class="meta">
+  <div><span>Προς:</span> <strong>Μαρλίν Κούση</strong> (kousi@paklex.gr)</div>
+  <div><span>Κοιν:</span> <strong>Αντώνης Πεπελάσης</strong> (pepelasis@paklex.gr)</div>
+  <div><span>Από:</span> <strong>Ευθύμιος Λατσούδης</strong></div>
+  <div><span>Απαντά σε:</span> <strong>memo_minisi (ΟΡΘΗ ΕΠΑΝΑΛΗΨΗ)</strong></div>
+</div>
+
+<span class="expand-all" onclick="document.querySelectorAll('.section').forEach(s=>s.classList.toggle('open',true))">Ανοίξτε όλες τις ενότητες</span>
+
+<!-- §1 -->
+<div class="section open">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§1 — «Ήταν εκείνη που είχε εντοπίσει πρώιμα σημάδια...»</h2>
+    <span class="badge badge-proven">ΑΠΟΔΕΔΕΙΓΜΕΝΟ</span>
+  </div>
+  <div class="section-body">
+    <div class="claim">«Ήταν εκείνη που είχε εντοπίσει πρώιμα σημάδια μαθησιακών δυσκολιών των παιδιών της, αναζητούσε συμβουλές και θεραπείες και είχε αναλάβει κάθε πτυχή της ζωής τους»</div>
+    <div class="rebuttal">
+      <strong>ΨΕΥΔΕΣ.</strong> Η πρωτοβουλία ήταν <strong>αποκλειστικά του πατέρα</strong>. Αδιάσειστα αποδεικτικά:
+      <table>
+        <tr><th>Ημερομηνία</th><th>Ενέργεια</th><th>Αποδεικτικό</th></tr>
+        <tr><td>17/10/2023</td><td>Έρευνα ΚΕΔΑΣΥ — εντοπισμός 2ου ΚΕΔΑΣΥ Δ' Αθήνας</td><td>Slack μηνύματα</td></tr>
+        <tr><td>19/11/2023</td><td>Άννα Οικονόμου συστήνει Φώφη Τζάνη <strong>στον πατέρα</strong></td><td>SMS screenshot</td></tr>
+        <tr><td>20/11/2023</td><td>Ο πατέρας επικοινωνεί με Φώφη Τζάνη</td><td>SMS screenshot</td></tr>
+        <tr><td>28/11/2023</td><td>Ο πατέρας επικοινωνεί με Μάνο Χατζηδάκη</td><td>SMS screenshot</td></tr>
+        <tr><td>29/1/2024</td><td>Ο πατέρας πηγαίνει τον Αίαντα στη Σταματοπούλου</td><td>Γνωμάτευση</td></tr>
+        <tr><td>Μάρτ. 2025</td><td>ΚΕΔΑΣΥ — επίσημη αξιολόγηση</td><td>Πόρισμα ΚΕΔΑΣΥ</td></tr>
+      </table>
+      <strong>Η μητέρα δεν εμφανίζεται ΠΟΥΘΕΝΑ.</strong> Η ίδια στην αίτηση ασφαλιστικών (σελ. 7): «του ζήτησα να ασχοληθεί με τα διαδικαστικά» — ομολογία.
+    </div>
+    <div class="evidence-grid">
+      <div class="evidence-card">
+        <img src="evidence/screenshots/SMS-Anna-Oikonomou-Fofi-Tzanni-19-20-Nov-2023.jpg" onclick="openLightbox(this.src)" alt="SMS Οικονόμου">
+        <div class="caption">SMS Οικονόμου → Ντέμης: Σύσταση Φώφης Τζάνη (19-20/11/2023)</div>
+      </div>
+      <div class="evidence-card">
+        <img src="evidence/screenshots/slack-kedasy-initiative.png" onclick="openLightbox(this.src)" alt="Slack KEDASY">
+        <div class="caption">Slack: ΚΕΔΑΣΥ πρωτοβουλία πατέρα (Οκτ-Νοε 2023)</div>
+      </div>
+    </div>
+    <a class="download-btn" href="evidence/screenshots/SMS-Anna-Oikonomou-Fofi-Tzanni-19-20-Nov-2023.jpg" download>↓ SMS Οικονόμου</a>
+    <a class="download-btn" href="evidence/screenshots/slack-kedasy-initiative.png" download>↓ Slack Screenshot</a>
+    <a class="download-btn" href="evidence/pdfs/kedasy-porisma.pdf" download>↓ Πόρισμα ΚΕΔΑΣΥ (PDF)</a>
+    <a class="download-btn" href="evidence/pdfs/stamatopoulou-gnomateysi.pdf" download>↓ Γνωμάτευση Σταματοπούλου (PDF)</a>
+  </div>
+</div>
+
+<!-- §2 -->
+<div class="section">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§2 — «Η Έφη είχε καταλήξει στο ΚΕΔΑΣΥ...»</h2>
+    <span class="badge badge-proven">ΑΠΟΔΕΔΕΙΓΜΕΝΟ</span>
+  </div>
+  <div class="section-body">
+    <div class="claim">«Η Έφη μου είχε αναφέρει ότι την απασχολούσε η δυσκολία του Αίαντα στο διάβασμα και είχε καταλήξει στο συμπέρασμα ότι το καλύτερο για το παιδί της ήταν να περάσει από το ΚΕΔΑΣΥ»</div>
+    <div class="rebuttal">
+      <strong>ΨΕΥΔΕΣ.</strong> Η πρωτοβουλία ΚΕΔΑΣΥ ανήκει αποκλειστικά στον πατέρα (βλ. §1). Η εκπαιδευτικός ήταν η <strong>Άννα Οικονόμου</strong> — γνωστή του πατέρα. Σύστησε τη Φώφη Τζάνη <strong>στον πατέρα</strong>, όχι στη μητέρα.
+    </div>
+  </div>
+</div>
+
+<!-- §3 -->
+<div class="section">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§3 — «Μου ζήτησε να της συστήσω παιδοψυχίατρο»</h2>
+    <span class="badge badge-proven">ΑΠΟΔΕΔΕΙΓΜΕΝΟ</span>
+  </div>
+  <div class="section-body">
+    <div class="claim">«Μου ζήτησε να της συστήσω παιδοψυχίατρο και της έδωσα τα στοιχεία της κας Σταματοπούλου, η οποία διέγνωσε ότι ο Αίαντας παρουσιάζει διάσπαση προσοχής και υπερκινητικότητα»</div>
+    <div class="rebuttal">
+      <strong>Email thread «ΕΡΩΤΗΜΑΤΟΛΟΓΙΑ» (28/11 - 9/12/2023)</strong> — 16 μηνύματα αποδεικνύουν ότι ο <strong>πατέρας</strong> έκανε τα πάντα:
+      <table>
+        <tr><th>Ημερομηνία</th><th>Ενέργεια</th></tr>
+        <tr><td>28/11/2023 13:46</td><td>Γραφείο Σταματοπούλου στέλνει ερωτηματολόγια <strong>στον πατέρα</strong></td></tr>
+        <tr><td>28/11/2023 14:03</td><td>Ο πατέρας <strong>προωθεί στη μητέρα</strong> (CC) — εκείνη δεν κάνει τίποτα</td></tr>
+        <tr><td>7/12/2023 20:27</td><td>Ο πατέρας <strong>στέλνει στο φροντιστήριο</strong></td></tr>
+        <tr><td>9/12/2023 17:23</td><td>Ο πατέρας <strong>επικοινωνεί με τη δασκάλα La Salle</strong>: «είμαι ο μπαμπάς του Αίαντα... σας προωθώ»</td></tr>
+      </table>
+      <strong>Αποκρυπτόμενη αλήθεια:</strong> Η γνωμάτευση αναφέρει <strong>εναντιωματικές συμπεριφορές</strong> — η Τσεκούρα τις αποσιωπά σκοπίμως.
+    </div>
+    <a class="download-btn" href="evidence/pdfs/email-erotimatologia.pdf" download>↓ Email Thread ΕΡΩΤΗΜΑΤΟΛΟΓΙΑ (PDF, 11 σελίδες)</a>
+    <a class="download-btn" href="evidence/pdfs/stamatopoulou-gnomateysi.pdf" download>↓ Γνωμάτευση Σταματοπούλου F90.0</a>
+  </div>
+</div>
+
+<!-- §4 -->
+<div class="section">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§4 — «Ο Ντέμης δεν είχε καθημερινή παρουσία...»</h2>
+    <span class="badge badge-rebutted">ΑΝΤΙΚΡΟΥΕΤΑΙ</span>
+  </div>
+  <div class="section-body">
+    <div class="claim">«Αντίθετα ο Ντέμης δεν είχε καθημερινή παρουσία στην οικογένεια... απέφευγε συστηματικά την συμμετοχή σε κοινές εξόδους ή δραστηριότητες»</div>
+    <div class="rebuttal">
+      <strong>ΨΕΥΔΕΣ.</strong> Η ίδια η Τσεκούρα στα Viber (2/1/2025): «μέσα από την Έφη σε εκτιμώ». Ήταν παρούσα σε Πρωτοχρονιά 2023, Πρέβεζα 2023, Πρωτοχρονιά 2025 — βλέποντας τον πατέρα ενεργά παρόντα.
+    </div>
+    <div class="pending-box">ΕΚΚΡΕΜΕΙ: Συγκεκριμένα περιστατικά στα οποία η Τσεκούρα είδε τον πατέρα ενεργό. Φωτογραφίες;</div>
+  </div>
+</div>
+
+<!-- §5 -->
+<div class="section">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§5 — «Εναντίωση στον εμβολιασμό»</h2>
+    <span class="badge badge-rebutted">ΑΝΤΙΚΡΟΥΕΤΑΙ</span>
+  </div>
+  <div class="section-body">
+    <div class="claim">«Ο Ντέμης εξέφραζε σταθερά έντονες και απόλυτες απόψεις... ενδεικτικά η εναντίωση στον εμβολιασμό»</div>
+    <div class="rebuttal">Τα παιδιά είναι <strong>πλήρως εμβολιασμένα</strong>, παρακολουθούνται κανονικά από παιδίατρο. Αποδεικνύεται από βιβλιάριο υγείας.</div>
+  </div>
+</div>
+
+<!-- §6 -->
+<div class="section">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§6 — «Πρέβεζα... αδιαφορία»</h2>
+    <span class="badge badge-proven">ΑΠΟΔΕΔΕΙΓΜΕΝΟ</span>
+  </div>
+  <div class="section-body">
+    <div class="claim">«Σε κοινές οικογενειακές μας διακοπές, όπως τα Χριστούγεννα του 2022-2023 και το καλοκαίρι του 2023 στην Πρέβεζα, επιβεβαιώθηκε για ακόμη μία φορά η απόσταση του Ντέμη και η αδιαφορία του»</div>
+    <div class="rebuttal">
+      <strong>6 φωτογραφίες</strong> από Πρέβεζα Αύγουστος 2023 αποδεικνύουν το αντίθετο. <strong>Η Τσεκούρα ΗΤΑΝ ΕΚΕΙ</strong> — εμφανίζεται στη φωτογραφία rafting. Ισχυρίζεται «αδιαφορία» ενώ βλέπει τον πατέρα να κρατά τα παιδιά στους ώμους.
+      <br><br><strong>Αποκρύπτει</strong> το περιστατικό Πρωτοχρονιάς 2022 — ο γιος της Ίωνας χτυπούσε τον Ντέμη επί 20 λεπτά.
+    </div>
+    <div class="evidence-grid">
+      <div class="evidence-card">
+        <img src="evidence/preveza/viber_image_2023-08-23_01-45-33-509.jpg" onclick="openLightbox(this.src)" alt="Rafting Acheron">
+        <div class="caption">Rafting Αχέροντα — ολόκληρη η παρέα (Τσεκούρα παρούσα)</div>
+      </div>
+      <div class="evidence-card">
+        <img src="evidence/preveza/viber_image_2023-08-23_01-45-33-769.jpg" onclick="openLightbox(this.src)" alt="Clio shoulders">
+        <div class="caption">Κλειώ στους ώμους πατέρα, Αίαντας δίπλα</div>
+      </div>
+      <div class="evidence-card">
+        <img src="evidence/preveza/viber_image_2023-08-23_01-45-45-180.jpg" onclick="openLightbox(this.src)" alt="Father Clio rocks">
+        <div class="caption">Ντέμης κρατάει Κλειώ — βράχια ποταμού</div>
+      </div>
+    </div>
+    <a class="download-btn" href="evidence/preveza/viber_image_2023-08-23_01-45-33-509.jpg" download>↓ Rafting</a>
+    <a class="download-btn" href="evidence/preveza/viber_image_2023-08-23_01-45-33-769.jpg" download>↓ Ώμοι</a>
+    <a class="download-btn" href="evidence/preveza/viber_image_2023-08-23_01-45-45-180.jpg" download>↓ Αγκαλιά</a>
+    <a class="download-btn" href="evidence/photos/20230102_121921.jpg" download>↓ Σημείωμα Ίωνα</a>
+  </div>
+</div>
+
+<!-- §7 -->
+<div class="section">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§7 — «Γαλαξίδι — φώναξε στον Αίαντα»</h2>
+    <span class="badge badge-hearsay">ΕΞ ΑΚΟΗΣ</span>
+  </div>
+  <div class="section-body">
+    <div class="claim">«Το καλοκαίρι του 2024... σύμφωνα με τα όσα μου περιέγραψαν η κόρη μου και η πεθερά μου, που ήταν παρούσες...»</div>
+    <div class="rebuttal"><strong>Η Τσεκούρα ΔΕΝ ΗΤΑΝ ΠΑΡΟΥΣΑ.</strong> Ρητά αναφέρει ότι άκουσε από τρίτους. Μαρτυρία εξ ακοής.</div>
+    <div class="pending-box">ΕΚΚΡΕΜΕΙ: Τι ακριβώς έγινε στο Γαλαξίδι εκείνο το δείπνο; Θέμα εναντιωματικότητας; Ποιοι παρόντες;</div>
+  </div>
+</div>
+
+<!-- §8 -->
+<div class="section">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§8 — «Έγινε πολύ επιθετικός»</h2>
+    <span class="badge badge-rebutted">ΑΝΤΙΚΡΟΥΕΤΑΙ</span>
+  </div>
+  <div class="section-body">
+    <div class="claim">«Εισέπραξε την αρνητική συμπεριφορά του, ο οποίος έκτοτε έγινε πολύ επιθετικός, εριστικός και απαξιωτικός»</div>
+    <div class="rebuttal">
+      Η ίδια η μητέρα <strong>ΔΕΝ χρησιμοποιεί</strong> τη λέξη «επιθετικός» στα δικόγραφά της — κατασκευασμένος χαρακτηρισμός. Η αίτηση ασφαλιστικών αναφέρει σύμβουλο γονέων-γάμου (κοινή προσπάθεια) και ήρεμη ενημέρωση για μετακόμιση.
+    </div>
+    <div class="pending-box">ΕΚΚΡΕΜΕΙ: Μηνύματα με Μπακολούκα κατά τη διάσταση (συναινετική στάση)</div>
+  </div>
+</div>
+
+<!-- §9 -->
+<div class="section">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§9 — «Μηνύματα με επικριτικό ύφος»</h2>
+    <span class="badge badge-pending">ΕΚΚΡΕΜΕΙ</span>
+  </div>
+  <div class="section-body">
+    <div class="claim">«Επισκεφθεί κοινή γνωστή... έστειλε μηνύματα με έντονα επικριτικό ύφος... παρατηρήσεις για το αν υπήρχε φαγητό, με τρόπο αυταρχικό»</div>
+    <div class="pending-box">ΕΚΚΡΕΜΕΙ: Ποιο περιστατικό; Πότε; Σε ποιανού σπίτι; Υπάρχουν τα μηνύματα;</div>
+  </div>
+</div>
+
+<!-- §10-13 -->
+<div class="section">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§10-13 — Πρωτοχρονιά 2025 / Viber</h2>
+    <span class="badge badge-proven">ΑΠΟΔΕΔΕΙΓΜΕΝΟ</span>
+  </div>
+  <div class="section-body">
+    <div class="claim">«Ο Αίαντας παρουσίασε καταθλιπτική διάθεση... Ο Ντέμης ήρθε σε έντονη ψυχολογική κατάσταση... ήταν ιδιαίτερα επιθετικός»</div>
+    <div class="rebuttal">
+      <strong>14 Viber screenshots</strong> (2/1/2025) αποδεικνύουν:
+      <br>1. <strong>Μυστικός συντονισμός</strong> με Μπακολούκα πίσω από πλάτη πατέρα
+      <br>2. <strong>«Διάγνωση» χωρίς κλινική αξιολόγηση:</strong> «θα αρχίσει κρίσεις πανικού... καταθλιπτική συμπεριφορά» — <strong>100% εσφαλμένη</strong>
+      <br>3. <strong>Ομολογία μεροληψίας:</strong> «Δεν ήμασταν ποτέ πολύ κοντά με εσένα»
+      <br>4. <strong>Ο Αίαντας επέλεξε τον πατέρα</strong> — ήρθαν και οι δύο, διάλεξε εκείνος
+      <br>5. Ο τόνος Ντέμη: <strong>αξιοπρεπής αλλά αποφασιστικός</strong> — όχι «επιθετικός»
+      <br><br><strong>12 ημέρες πριν</strong> η Μπακολούκα καταθέσει ασφαλιστικά μέτρα (14/1/2025).
+    </div>
+    <a class="download-btn" href="evidence/screenshots/viber_image_2026-03-18_08-41-02-315.jpg" download>↓ Viber 1</a>
+    <a class="download-btn" href="evidence/screenshots/viber_image_2026-03-18_08-41-02-790.jpg" download>↓ Viber 2</a>
+    <a class="download-btn" href="evidence/screenshots/viber_image_2026-03-18_08-41-02-820.jpg" download>↓ Viber 3</a>
+    <a class="download-btn" href="evidence/screenshots/viber_image_2026-03-19_21-52-20-641.jpg" download>↓ Viber 4</a>
+    <div class="pending-box">ΕΚΚΡΕΜΕΙ (§10): Τι πυροδότησε αντίδραση Αίαντα στο τηλέφωνο;</div>
+  </div>
+</div>
+
+<!-- §14 -->
+<div class="section">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§14 — «Κλειώ έκλαιγε στο ασανσέρ»</h2>
+    <span class="badge badge-pending">ΕΚΚΡΕΜΕΙ</span>
+  </div>
+  <div class="section-body">
+    <div class="claim">«Η Κλειώ παραπονιόταν και έκλαιγε στο ασανσέρ, διότι ήθελε να την πάρει η μητέρα της»</div>
+    <div class="pending-box">ΕΚΚΡΕΜΕΙ: Πώς αντικρούουμε; Υπάρχει κάτι;</div>
+  </div>
+</div>
+
+<!-- §15-17 -->
+<div class="section">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§15-17 — Υβριστικοί ισχυρισμοί / Βία / Αποξένωση</h2>
+    <span class="badge badge-rebutted">ΑΝΤΙΚΡΟΥΕΤΑΙ</span>
+  </div>
+  <div class="section-body">
+    <div class="rebuttal">
+      <strong>§15:</strong> Δεν κατονομάζει μάρτυρες — «σύμφωνα με γνωστούς» = αόριστο.
+      <br><br><strong>§16 — ΑΝΤΙΣΤΡΕΦΕΙ ΤΗ ΒΙΑ:</strong>
+      <br>• 17/3/2025: Η μητέρα χτύπησε τον Αίαντα ενώπιον Γαβαλά & Κετσιτζή
+      <br>• 1/4/2025: Κλωτσιές, μώλωπες — δικογραφία ενδοοικογενειακής
+      <br>• 3/4/2025: Ο ίδιος ο Αίαντας κάλεσε Άμεση Δράση
+      <br><br><strong>§17 — ΑΠΟΚΡΥΠΤΕΙ:</strong>
+      <br>• Η μητέρα <strong>συναίνεσε ενώπιον δικαστηρίου</strong> στη διαμονή με πατέρα
+      <br>• Ο Αίαντας <strong>δήλωσε στο δικαστήριο</strong> ότι θέλει να μείνει με τον πατέρα
+    </div>
+  </div>
+</div>
+
+<!-- §18 -->
+<div class="section">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§18 — «Η Κλειώ δεν θέλει τον πατέρα»</h2>
+    <span class="badge badge-proven">ΑΠΟΔΕΔΕΙΓΜΕΝΟ</span>
+  </div>
+  <div class="section-body">
+    <div class="claim">«Η Κλειώ αισθάνεται μεγάλη ασφάλεια δίπλα στη μητέρα της... κάθε φορά που πρόκειται να μείνει στο σπίτι του πατέρα της, έχει άγχος»</div>
+    <div class="rebuttal">
+      <strong>40 φωτογραφίες</strong> (επιλεγμένες από δικηγόρο Άννα Σβορώνου) αποδεικνύουν στοργική, ενεργή σχέση πατέρα-παιδιών. Μάρτιος — Ιούλιος 2025.
+    </div>
+    <div class="evidence-grid">
+      <div class="evidence-card">
+        <img src="evidence/photos/20250413_185422.jpg" onclick="openLightbox(this.src)" alt="Kiss">
+        <div class="caption">Ντέμης φιλάει Κλειώ — παιδικό πάρτι (Απρ 2025)</div>
+      </div>
+      <div class="evidence-card">
+        <img src="evidence/photos/20250524_161752.jpg" onclick="openLightbox(this.src)" alt="Super Dad">
+        <div class="caption">SUPER DAD / SON / DAUGHTER — ασορτί μπλουζάκια</div>
+      </div>
+      <div class="evidence-card">
+        <img src="evidence/photos/20250605_231749.jpg" onclick="openLightbox(this.src)" alt="Dinner">
+        <div class="caption">Οικογενειακό δείπνο — όλοι χαμογελούν</div>
+      </div>
+      <div class="evidence-card">
+        <img src="evidence/photos/20250628_191423.jpg" onclick="openLightbox(this.src)" alt="Galaxidi">
+        <div class="caption">Γαλαξίδι — πατέρας με τα δύο παιδιά</div>
+      </div>
+      <div class="evidence-card">
+        <img src="evidence/photos/20250629_105404.jpg" onclick="openLightbox(this.src)" alt="Boat">
+        <div class="caption">Σκάφος — Αίαντας & Κλειώ με σωσίβια</div>
+      </div>
+      <div class="evidence-card">
+        <img src="evidence/photos/20250721_120840.jpg" onclick="openLightbox(this.src)" alt="SUP">
+        <div class="caption">SUP στη θάλασσα — Γαλαξίδι Ιούλ 2025</div>
+      </div>
+    </div>
+    <a class="download-btn" href="evidence/photos/20250413_185422.jpg" download>↓ Φιλί</a>
+    <a class="download-btn" href="evidence/photos/20250524_161752.jpg" download>↓ Super Dad</a>
+    <a class="download-btn" href="evidence/photos/20250605_231749.jpg" download>↓ Δείπνο</a>
+    <a class="download-btn" href="evidence/photos/20250628_191423.jpg" download>↓ Γαλαξίδι</a>
+    <a class="download-btn" href="evidence/photos/20250629_105404.jpg" download>↓ Σκάφος</a>
+    <a class="download-btn" href="evidence/photos/20250721_120840.jpg" download>↓ SUP</a>
+  </div>
+</div>
+
+<!-- §19 -->
+<div class="section">
+  <div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+    <h2>§19 — «Αποξένωση»</h2>
+    <span class="badge badge-rebutted">ΑΝΤΙΚΡΟΥΕΤΑΙ</span>
+  </div>
+  <div class="section-body">
+    <div class="claim">«Η μόνιμη παραμονή του στο σπίτι του πατέρα θα οδηγήσει σε αποξένωση»</div>
+    <div class="rebuttal">
+      Ο Αίαντας <strong>ακμάζει</strong>: ΜΟ 15,8 — 6 μαθήματα 18-19. Χατζηδάκης: «πρόοδος υπερβαίνει τις πιο αισιόδοξες εκτιμήσεις». Η «αποξένωση» ήταν <strong>επιλογή του παιδιού</strong> μετά τεκμηριωμένη κακοποίηση.
+    </div>
+  </div>
+</div>
+
+<!-- ATTACHMENTS -->
+<div class="attachments">
+  <h2>ΕΥΡΕΤΗΡΙΟ ΑΠΟΔΕΙΚΤΙΚΩΝ — 12/12 ΔΙΑΘΕΣΙΜΑ</h2>
+  <table>
+    <tr><th>#</th><th>Αποδεικτικό</th><th>Λήψη</th></tr>
+    <tr><td>1</td><td>Screenshot Slack — ΚΕΔΑΣΥ πρωτοβουλία</td><td><a class="download-btn" href="evidence/screenshots/slack-kedasy-initiative.png" download>↓ PNG</a></td></tr>
+    <tr><td>2-3</td><td>SMS Φώφη Τζάνη + Μάνος Χατζηδάκης (στο Slack)</td><td>—</td></tr>
+    <tr><td>4</td><td>Viber Τσεκούρα 2/1/2025 (14 εικόνες)</td><td><a class="download-btn" href="evidence/screenshots/viber_image_2026-03-18_08-41-02-315.jpg" download>↓ Δείγμα</a></td></tr>
+    <tr><td>5</td><td>Γνωμάτευση Σταματοπούλου — F90.0 + εναντιωματικές</td><td><a class="download-btn" href="evidence/pdfs/stamatopoulou-gnomateysi.pdf" download>↓ PDF</a></td></tr>
+    <tr><td>6</td><td>Πόρισμα ΚΕΔΑΣΥ — ΔΕΠΥ + δυσγραφία + ΔΕΑ</td><td><a class="download-btn" href="evidence/pdfs/kedasy-porisma.pdf" download>↓ PDF</a></td></tr>
+    <tr><td>7</td><td>Έκθεση Χατζηδάκη (13/3/2026)</td><td>Διαθέσιμη στο φάκελο</td></tr>
+    <tr><td>8</td><td>Σημείωμα συγγνώμης Ίωνα</td><td><a class="download-btn" href="evidence/photos/20230102_121921.jpg" download>↓ JPG</a></td></tr>
+    <tr><td>9</td><td>40 φωτογραφίες πατέρα-παιδιών (Σβορώνου)</td><td>11 δείγματα στη σελίδα</td></tr>
+    <tr><td>10</td><td>SMS Οικονόμου → Τζάνη</td><td><a class="download-btn" href="evidence/screenshots/SMS-Anna-Oikonomou-Fofi-Tzanni-19-20-Nov-2023.jpg" download>↓ JPG</a></td></tr>
+    <tr><td>11</td><td>6 φωτογραφίες Πρέβεζα (Αύγ. 2023)</td><td>3 στη σελίδα + downloads</td></tr>
+    <tr><td>12</td><td>Email ΕΡΩΤΗΜΑΤΟΛΟΓΙΑ (28/11-9/12/2023)</td><td><a class="download-btn" href="evidence/pdfs/email-erotimatologia.pdf" download>↓ PDF</a></td></tr>
+  </table>
+</div>
+
+<footer>
+  ΓΑΚ 11800/2025 — Λατσούδης κατά Μπακολούκα · Ποινική: Μήνυση κατά Τσεκούρα (Άρ. 224 ΠΚ)<br>
+  Σύνταξη: 3 Απριλίου 2026 · ΕΜΠΙΣΤΕΥΤΙΚΟ — Δικηγορικό Απόρρητο
+</footer>
+
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lb-img" src="" alt="Evidence">
+</div>
+
+<script>
+// Password gate
+const HASH = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'; // sha256 of 'admin'
+document.getElementById('pw').addEventListener('keydown', async function(e) {
+  if (e.key !== 'Enter') return;
+  const val = this.value;
+  const hash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(val)))).map(b=>b.toString(16).padStart(2,'0')).join('');
+  if (hash === HASH || val === 'paklex2026') {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  } else {
+    document.getElementById('err').textContent = 'Λάθος κωδικός';
+  }
+});
+
+// Lightbox
+function openLightbox(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+</script>
+</body>
+</html>
