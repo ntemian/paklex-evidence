@@ -6,22 +6,22 @@
 <title>ΕΜΠΙΣΤΕΥΤΙΚΟ — Λατσούδης κατά Μπακολούκα</title>
 <style>
 :root {
-  --bg: #080c12;
-  --bg-alt: #0d1117;
-  --bg-section: #0f1419;
-  --bg-highlight: #111922;
-  --cyan: #00bcd4;
-  --cyan-dim: #00838f;
-  --cyan-glow: rgba(0, 188, 212, 0.15);
-  --green: #4caf50;
-  --red: #f44336;
-  --orange: #ff9800;
-  --yellow: #ffc107;
-  --text: #c9d1d9;
-  --text-dim: #8b949e;
-  --text-bright: #e6edf3;
-  --border: #21262d;
-  --font: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  --bg: #f5f7fa;
+  --bg-alt: #eef1f6;
+  --bg-section: #ffffff;
+  --bg-highlight: #e8f4f8;
+  --cyan: #0077b6;
+  --cyan-dim: #005f8a;
+  --cyan-glow: rgba(0, 119, 182, 0.08);
+  --green: #2d8a4e;
+  --red: #cf222e;
+  --orange: #d4760a;
+  --yellow: #9a6700;
+  --text: #1f2937;
+  --text-dim: #57606a;
+  --text-bright: #0d1117;
+  --border: #d0d7de;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -40,7 +40,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: var(--bg);
+  background: #1e3a5f;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,7 +63,7 @@ body {
 }
 #gate p { color: var(--text-dim); font-size: 12px; }
 #gate input {
-  background: var(--bg-alt);
+  background: var(--bg-section);
   border: 1px solid var(--border);
   color: var(--text);
   padding: 12px 20px;
@@ -96,7 +96,7 @@ body {
   border: 1px solid var(--cyan);
   padding: 32px;
   margin-bottom: 40px;
-  background: var(--bg-alt);
+  background: var(--bg-section);
   position: relative;
 }
 .header::before {
@@ -104,7 +104,7 @@ body {
   position: absolute;
   top: -12px;
   left: 24px;
-  background: var(--bg-alt);
+  background: var(--bg-section);
   color: var(--red);
   padding: 0 12px;
   font-size: 11px;
@@ -416,7 +416,7 @@ tr:hover td { background: var(--bg-highlight); }
 
 /* Print */
 @media print {
-  #gate { display: none !important; }
+  #gate_old { display: none !important; }
   #content { display: block !important; max-width: 100%; padding: 20px; }
   body { background: white; color: black; font-size: 11px; }
   .collapsible-body { display: block !important; }
@@ -634,12 +634,12 @@ tr:hover td { background: var(--bg-highlight); }
         <table>
           <thead><tr><th>Ημερομηνία</th><th>Ενέργεια</th><th>Αποδεικτικό</th></tr></thead>
           <tbody>
-            <tr><td>17/10/2023</td><td>Έρευνα ΚΕΔΑΣΥ — εντοπισμός 2ου ΚΕΔΑΣΥ Δ' Αθήνας</td><td>Slack screenshots</td></tr>
-            <tr><td>19/11/2023</td><td>Άννα Οικονόμου συστήνει Φώφη Τζάνη <strong>στον πατέρα</strong></td><td>SMS screenshot</td></tr>
+            <tr><td>17/10/2023</td><td>Έρευνα ΚΕΔΑΣΥ — εντοπισμός 2ου ΚΕΔΑΣΥ Δ' Αθήνας</td><td><a class="download-btn" href="evidence/screenshots/slack-kedasy-initiative.png" download>Slack screenshots</a></td></tr>
+            <tr><td>19/11/2023</td><td>Άννα Οικονόμου συστήνει Φώφη Τζάνη <strong>στον πατέρα</strong></td><td><a class="download-btn" href="evidence/screenshots/SMS-Anna-Oikonomou-Fofi-Tzanni-19-20-Nov-2023.jpg" download>SMS screenshot ↓</a></td></tr>
             <tr><td>20/11/2023</td><td>Ο πατέρας επικοινωνεί με Φώφη Τζάνη</td><td>SMS + Slack</td></tr>
-            <tr><td>28/11/2023</td><td>Ο πατέρας επικοινωνεί με Μάνο Χατζηδάκη</td><td>SMS screenshot</td></tr>
-            <tr><td>29/1/2024</td><td>Ο πατέρας πηγαίνει τον Αίαντα στη Σταματοπούλου</td><td>Γνωμάτευση F90.0</td></tr>
-            <tr><td>Μάρτ. 2025</td><td>ΚΕΔΑΣΥ — επίσημη αξιολόγηση</td><td>Πόρισμα</td></tr>
+            <tr><td>28/11/2023</td><td>Ο πατέρας επικοινωνεί με Μάνο Χατζηδάκη</td><td><a class="download-btn" href="evidence/screenshots/SMS-Anna-Oikonomou-Fofi-Tzanni-19-20-Nov-2023.jpg" download>SMS screenshot ↓</a></td></tr>
+            <tr><td>29/1/2024</td><td>Ο πατέρας πηγαίνει τον Αίαντα στη Σταματοπούλου</td><td><a class="download-btn" href="evidence/pdfs/stamatopoulou-gnomateysi.pdf" download>Γνωμάτευση F90.0 ↓</a></td></tr>
+            <tr><td>Μάρτ. 2025</td><td>ΚΕΔΑΣΥ — επίσημη αξιολόγηση</td><td><a class="download-btn" href="evidence/pdfs/kedasy-porisma.pdf" download>Πόρισμα ΚΕΔΑΣΥ ↓</a></td></tr>
           </tbody>
         </table>
         <p>Η μητέρα δεν εμφανίζεται πουθενά. Η ίδια (αίτηση ασφ., σελ. 7): <em>&laquo;του ζήτησα να ασχοληθεί με τα διαδικαστικά&raquo;</em> — ομολογία.</p>
@@ -994,13 +994,13 @@ tr:hover td { background: var(--bg-highlight); }
         <td>3</td>
         <td>SMS Ντέμης &rarr; Χατζηδάκης (28/11/2023)</td>
         <td>&sect;1</td>
-        <td>—</td>
+        <td><a class="download-btn" href="evidence/screenshots/slack-kedasy-initiative.png" download>Λήψη</a></td>
       </tr>
       <tr>
         <td>4</td>
         <td>Viber Τσεκούρα 2/1/2025 — 14 εικόνες</td>
         <td>&sect;10-13, Εισαγωγή</td>
-        <td>—</td>
+        <td><a class="download-btn" href="evidence/screenshots/viber_image_2026-03-18_08-41-02-315.jpg" download>Λήψη 1</a> <a class="download-btn" href="evidence/screenshots/viber_image_2026-03-18_08-41-02-790.jpg" download>2</a> <a class="download-btn" href="evidence/screenshots/viber_image_2026-03-18_08-41-02-820.jpg" download>3</a></td>
       </tr>
       <tr>
         <td>5</td>
@@ -1042,7 +1042,7 @@ tr:hover td { background: var(--bg-highlight); }
         <td>11</td>
         <td>6 φωτογραφίες Πρέβεζα (Αύγ. 2023)</td>
         <td>&sect;6</td>
-        <td>—</td>
+        <td><a class="download-btn" href="evidence/preveza/viber_image_2023-08-23_01-45-33-509.jpg" download>1</a> <a class="download-btn" href="evidence/preveza/viber_image_2023-08-23_01-45-33-769.jpg" download>2</a> <a class="download-btn" href="evidence/preveza/viber_image_2023-08-23_01-45-45-180.jpg" download>3</a></td>
       </tr>
       <tr>
         <td>12</td>
