@@ -386,13 +386,24 @@ footer{margin-top:3rem;text-align:center;font-size:.6rem;color:#37474f;padding:1
     <tr><td>4</td><td>Viber Τσεκούρα 2/1/2025 (14 εικόνες)</td><td><a class="download-btn" href="evidence/screenshots/viber_image_2026-03-18_08-41-02-315.jpg" download>↓ Δείγμα</a></td></tr>
     <tr><td>5</td><td>Γνωμάτευση Σταματοπούλου — F90.0 + εναντιωματικές</td><td><a class="download-btn" href="evidence/pdfs/stamatopoulou-gnomateysi.pdf" download>↓ PDF</a></td></tr>
     <tr><td>6</td><td>Πόρισμα ΚΕΔΑΣΥ — ΔΕΠΥ + δυσγραφία + ΔΕΑ</td><td><a class="download-btn" href="evidence/pdfs/kedasy-porisma.pdf" download>↓ PDF</a></td></tr>
-    <tr><td>7</td><td>Έκθεση Χατζηδάκη (13/3/2026)</td><td>Διαθέσιμη στο φάκελο</td></tr>
+    <tr><td>7</td><td>Έκθεση Χατζηδάκη (13/3/2026)</td><td><a class="download-btn" href="evidence/pdfs/chatzidakis-ekthesi.pdf" download>↓ PDF</a></td></tr>
     <tr><td>8</td><td>Σημείωμα συγγνώμης Ίωνα</td><td><a class="download-btn" href="evidence/photos/20230102_121921.jpg" download>↓ JPG</a></td></tr>
-    <tr><td>9</td><td>40 φωτογραφίες πατέρα-παιδιών (Σβορώνου)</td><td>11 δείγματα στη σελίδα</td></tr>
+    <tr><td>9</td><td>40 φωτογραφίες πατέρα-παιδιών (Σβορώνου)</td><td><a class="download-btn" onclick="document.getElementById('all-photos').style.display='block'">Δείτε όλες ↓</a></td></tr>
     <tr><td>10</td><td>SMS Οικονόμου → Τζάνη</td><td><a class="download-btn" href="evidence/screenshots/SMS-Anna-Oikonomou-Fofi-Tzanni-19-20-Nov-2023.jpg" download>↓ JPG</a></td></tr>
-    <tr><td>11</td><td>6 φωτογραφίες Πρέβεζα (Αύγ. 2023)</td><td>3 στη σελίδα + downloads</td></tr>
+    <tr><td>11</td><td>6 φωτογραφίες Πρέβεζα (Αύγ. 2023)</td><td><a class="download-btn" href="evidence/preveza/viber_image_2023-08-23_01-45-33-509.jpg" download>↓ 1</a><a class="download-btn" href="evidence/preveza/viber_image_2023-08-23_01-45-33-769.jpg" download>↓ 2</a><a class="download-btn" href="evidence/preveza/viber_image_2023-08-23_01-45-45-180.jpg" download>↓ 3</a></td></tr>
     <tr><td>12</td><td>Email ΕΡΩΤΗΜΑΤΟΛΟΓΙΑ (28/11-9/12/2023)</td><td><a class="download-btn" href="evidence/pdfs/email-erotimatologia.pdf" download>↓ PDF</a></td></tr>
   </table>
+</div>
+
+<!-- All 40 photos gallery -->
+<div id="all-photos" style="display:none;margin-top:2rem;border:1px solid var(--border);border-radius:8px;padding:1.2rem">
+  <h2 style="color:var(--accent);font-size:.8rem;letter-spacing:.15em;margin-bottom:1rem">ΟΛΕΣ ΟΙ ΦΩΤΟΓΡΑΦΙΕΣ (40) — Επιλογή Σβορώνου</h2>
+  <div class="evidence-grid" id="photo-grid"></div>
+</div>
+
+<!-- Tsekoura affidavit -->
+<div style="margin-top:1.5rem">
+  <a class="download-btn" href="evidence/pdfs/affidavit-tsekoura.pdf" download>↓ Ένορκη Βεβαίωση Τσεκούρα (PDF)</a>
 </div>
 
 <footer>
@@ -421,6 +432,43 @@ document.getElementById('pw').addEventListener('keydown', async function(e) {
     document.getElementById('err').textContent = 'Λάθος κωδικός';
   }
 });
+
+// Populate all 40 photos gallery — all values are hardcoded, no user input
+const photos = [
+"20230102_121921.jpg","20250328_151303.jpg","20250413_185422.jpg","20250426_205341.jpg",
+"20250427_211221.jpg","20250505_170723.jpg","20250507_152158(0).jpg","20250511_201959.jpg",
+"20250521_224421.jpg","20250524_161752.jpg","20250525_131405.jpg","20250528_203423.jpg",
+"20250605_231749.jpg","20250609_122138.jpg","20250609_131143.jpg","20250614_164026.jpg",
+"20250619_213535.jpg","20250619_220033.jpg","20250621_161019.jpg","20250622_211242.jpg",
+"20250624_152217.jpg","20250628_191423.jpg","20250629_105404.jpg","20250629_202017.jpg",
+"20250630_094400.jpg","20250630_131841(0).jpg","20250711_161215.jpg","20250714_154954.jpg",
+"20250716_111122.jpg","20250717_203517.jpg","20250717_211705.jpg","20250719_210341.jpg",
+"20250720_190856.jpg","20250720_194928.jpg","20250721_120840.jpg","20250721_211505.jpg",
+"20250722_230140.jpg","20250723_101537.jpg","20250724_215137.jpg","20250725_173455.jpg"
+];
+const grid = document.getElementById('photo-grid');
+if (grid) {
+  photos.forEach(function(p) {
+    const card = document.createElement('div');
+    card.className = 'evidence-card';
+    const img = document.createElement('img');
+    img.src = 'evidence/photos/' + p;
+    img.alt = p;
+    img.loading = 'lazy';
+    img.onclick = function() { openLightbox(this.src); };
+    card.appendChild(img);
+    const caption = document.createElement('div');
+    caption.className = 'caption';
+    const link = document.createElement('a');
+    link.className = 'download-btn';
+    link.href = 'evidence/photos/' + p;
+    link.download = p;
+    link.textContent = '\u2193 ' + p;
+    caption.appendChild(link);
+    card.appendChild(caption);
+    grid.appendChild(card);
+  });
+}
 
 // Lightbox
 function openLightbox(src) {
