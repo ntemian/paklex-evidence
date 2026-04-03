@@ -6,7 +6,7 @@
 <title>Λατσούδης — Απαντήσεις Paklex</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.8; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; background: #1a1f2e; color: #d1d5db; line-height: 1.8; }
 #gate { position: fixed; inset: 0; z-index: 9999; background: #1e3a5f; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
 #gate.hidden { display: none; }
 #gate h1 { color: #e2e8f0; font-size: 22px; letter-spacing: 6px; border: 2px solid #e2e8f0; padding: 10px 28px; }
@@ -15,24 +15,24 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Ne
 #gate input:focus { border-color: #60a5fa; }
 #gate .err { color: #f87171; font-size: 13px; min-height: 1.2em; }
 #content { display: none; max-width: 900px; margin: 0 auto; padding: 2rem; }
-h1 { color: #1e3a5f; font-size: 1.5rem; margin: 1.5rem 0 1rem; border-bottom: 3px solid #2563eb; padding-bottom: 0.5rem; }
-h2 { color: #1e3a5f; font-size: 1.25rem; margin: 2rem 0 0.8rem; padding: 0.6rem 1rem; background: #e8f4f8; border-left: 4px solid #2563eb; }
-h3 { color: #374151; font-size: 1.05rem; margin: 1.5rem 0 0.5rem; }
+h1 { color: #93c5fd; font-size: 1.5rem; margin: 1.5rem 0 1rem; border-bottom: 3px solid #3b82f6; padding-bottom: 0.5rem; }
+h2 { color: #93c5fd; font-size: 1.25rem; margin: 2rem 0 0.8rem; padding: 0.6rem 1rem; background: #252d3d; border-left: 4px solid #3b82f6; }
+h3 { color: #cbd5e1; font-size: 1.05rem; margin: 1.5rem 0 0.5rem; }
 p { margin: 0.6rem 0; }
-strong { color: #1e3a5f; }
+strong { color: #93c5fd; }
 ul, ol { margin: 0.5rem 0 0.5rem 1.5rem; }
 li { margin: 0.3rem 0; }
-hr { border: none; border-top: 1px solid #d0d7de; margin: 2rem 0; }
+hr { border: none; border-top: 1px solid #374151; margin: 2rem 0; }
 table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
-th { background: #e8f4f8; color: #1e3a5f; padding: 0.6rem 0.8rem; text-align: left; border: 1px solid #d0d7de; font-weight: 600; }
-td { padding: 0.5rem 0.8rem; border: 1px solid #d0d7de; }
-tr:nth-child(even) { background: #f8f9fa; }
-a { color: #2563eb; }
+th { background: #252d3d; color: #93c5fd; padding: 0.6rem 0.8rem; text-align: left; border: 1px solid #374151; font-weight: 600; }
+td { padding: 0.5rem 0.8rem; border: 1px solid #374151; }
+tr:nth-child(even) { background: #1a1f2e; }
+a { color: #60a5fa; }
 a:hover { color: #1d4ed8; }
-.dl { display: inline-block; padding: 2px 8px; background: #dbeafe; border-radius: 4px; text-decoration: none; font-size: 0.85em; color: #1e40af; }
-.dl:hover { background: #bfdbfe; }
+.dl { display: inline-block; padding: 2px 8px; background: #1e3a5f; border-radius: 4px; text-decoration: none; font-size: 0.85em; color: #93c5fd; }
+.dl:hover { background: #2d4a6f; }
 .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 1rem 0; }
-.photo-grid img { width: 100%; height: 200px; object-fit: cover; object-position: top; border-radius: 6px; border: 1px solid #d0d7de; cursor: pointer; transition: transform 0.2s; }
+.photo-grid img { width: 100%; height: 200px; object-fit: cover; object-position: top; border-radius: 6px; border: 1px solid #374151; cursor: pointer; transition: transform 0.2s; }
 .photo-grid img:hover { transform: scale(1.03); }
 .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; cursor: pointer; align-items: center; justify-content: center; }
 .lightbox.active { display: flex; }
@@ -431,7 +431,7 @@ a:hover { color: #1d4ed8; }
 <p><strong>Ευθύμιος Λατσούδης</strong></p>
 
 
-<div style="margin-top:2rem; padding-top:1rem; border-top:2px solid #2563eb;">
+<div style="margin-top:2rem; padding-top:1rem; border-top:2px solid #3b82f6;">
   <p><strong><a href="#" onclick="document.getElementById('gallery').style.display=document.getElementById('gallery').style.display==='none'?'block':'none'; return false;">Δείτε όλες τις 40 φωτογραφίες (Σβορώνου) ↓</a></strong></p>
   <div id="gallery"></div>
 </div>
