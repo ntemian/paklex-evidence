@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <title>ΑΠΑΝΤΗΣΕΙΣ ΣΕ MEMO PAKLEX — Μήνυση κατά Τσεκούρα</title>
 <style>
 :root{--bg:#111;--card:#1a1a1a;--border:#333;--text:#ddd;--bright:#fff;--red:#e74c3c;--gold:#f5c542;--blue:#5dade2;--green:#27ae60;--orange:#e67e22;--amber:#f39c12}
@@ -594,7 +595,8 @@ Operations Manager</div>
 </div>
 
 <script>
-function tryUnlock(){var p=document.getElementById('gate-pw').value;if(p==='paklex2026'){document.getElementById('gate').classList.add('hidden');document.getElementById('content').classList.add('visible')}else{document.getElementById('gate-pw').classList.add('error');setTimeout(function(){document.getElementById('gate-pw').classList.remove('error')},400)}}
+async function hashPassword(pw){var enc=new TextEncoder().encode(pw);var buf=await crypto.subtle.digest('SHA-256',enc);return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('')}
+async function tryUnlock(){var p=document.getElementById('gate-pw').value;var h=await hashPassword(p);if(h==='b9cf7ae9f816157d4a15a092d4c5949f0c632828f5330957365b548b3a43c658'){document.getElementById('gate').classList.add('hidden');document.getElementById('content').classList.add('visible')}else{document.getElementById('gate-pw').classList.add('error');setTimeout(function(){document.getElementById('gate-pw').classList.remove('error')},400)}}
 document.getElementById('gate-pw').addEventListener('keydown',function(e){if(e.key==='Enter')tryUnlock()});
 function toggleSection(h){h.parentElement.classList.toggle('open')}
 function openLightbox(s){document.getElementById('lb-img').src=s;document.getElementById('lightbox').classList.add('active')}
