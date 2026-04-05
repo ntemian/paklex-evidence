@@ -656,7 +656,7 @@ function toggleSection(h){h.parentElement.classList.toggle('open')}
 var currentLbSrc='';
 function openLightbox(s){currentLbSrc=s.replace('?v=3','');document.getElementById('lb-img').src=currentLbSrc;document.getElementById('lightbox').classList.add('active')}
 function closeLightbox(){document.getElementById('lightbox').classList.remove('active')}
-function downloadImg(){if(!currentLbSrc)return;fetch(currentLbSrc).then(function(r){return r.blob()}).then(function(b){var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=currentLbSrc.split('/').pop();document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)})}
+function downloadImg(){if(!currentLbSrc)return;var a=document.createElement('a');a.href=currentLbSrc;a.download=currentLbSrc.split('/').pop();a.target='_blank';document.body.appendChild(a);a.click();document.body.removeChild(a)}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox()});
 function toggleGallery(){var g=document.getElementById('full-gallery');g.classList.toggle('show');var b=g.previousElementSibling;b.textContent=g.classList.contains('show')?'Κλείσιμο γκαλερί':'Δείτε όλες τις 39 φωτογραφίες Σβορώνου'}
 function openAndScroll(sectionId,claimId){var s=document.getElementById(sectionId);if(s&&!s.classList.contains('open'))s.classList.add('open');var target=claimId?document.getElementById(claimId):s;if(target)setTimeout(function(){target.scrollIntoView({behavior:'smooth',block:'start'})},100);return false}
@@ -671,15 +671,14 @@ document.addEventListener('DOMContentLoaded',function(){
     wrap.style.position='relative';
     img.parentNode.insertBefore(wrap,img);
     wrap.appendChild(img);
-    var dl=document.createElement('div');
+    var src=img.getAttribute('src').replace('?v=3','');
+    var dl=document.createElement('a');
     dl.className='img-dl';
     dl.title='Λήψη';
+    dl.href=src;
+    dl.download=src.split('/').pop();
     dl.textContent='\u2B07';
-    dl.addEventListener('click',function(e){
-      e.stopPropagation();e.preventDefault();
-      var s=this.parentElement.querySelector('img').src.replace('?v=3','');
-      fetch(s).then(function(r){return r.blob()}).then(function(b){var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=s.split('/').pop();document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)});
-    });
+    dl.addEventListener('click',function(e){e.stopPropagation()});
     wrap.appendChild(dl);
   });
 });
