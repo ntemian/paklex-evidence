@@ -51,7 +51,7 @@ a:hover{color:#85c1e9;text-decoration:underline}
 .badge-true{background:rgba(39,174,96,.15);color:var(--green)}
 .badge-hearsay{background:rgba(230,126,34,.15);color:var(--orange)}
 .badge-pending{background:rgba(243,156,18,.15);color:var(--amber)}
-.close-btn{position:fixed;top:20px;right:30px;font-size:2.5rem;color:#fff;background:none;border:none;cursor:pointer;z-index:10001}
+.close-btn{display:none}
 .claim{border-left:3px solid var(--gold);background:rgba(245,197,66,.05);padding:.8rem 1rem;margin:.8rem 0;font-style:italic;border-radius:0 4px 4px 0}
 .section{margin-bottom:1.5rem;border:1px solid var(--border);border-radius:6px;overflow:hidden}
 .section-header{background:var(--card);padding:.8rem 1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
@@ -86,9 +86,13 @@ a:hover{color:#85c1e9;text-decoration:underline}
 .photo-card:hover{border-color:var(--blue)}
 .photo-card img{width:100%;height:220px;object-fit:cover;object-position:top}
 .photo-card .caption{padding:8px 10px;font-size:.75rem;color:#999;background:var(--card);line-height:1.4}
-.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:10000;cursor:pointer;align-items:center;justify-content:center}
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:10000;align-items:center;justify-content:center}
 .lightbox.active{display:flex}
-.lightbox img{max-width:90%;max-height:90%;object-fit:contain}
+.lightbox img{max-width:90%;max-height:90%;object-fit:contain;cursor:default}
+.lb-close{position:absolute;top:16px;right:24px;width:40px;height:40px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:1.4rem;transition:all .2s;z-index:10001}
+.lb-close:hover{background:rgba(231,76,60,.6);border-color:#e74c3c;transform:scale(1.1)}
+.lb-download{position:absolute;top:16px;right:76px;width:40px;height:40px;background:rgba(93,173,226,.15);border:1px solid rgba(93,173,226,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#5dade2;font-size:1.1rem;transition:all .2s;z-index:10001;text-decoration:none}
+.lb-download:hover{background:rgba(93,173,226,.4);border-color:#5dade2;transform:scale(1.1);color:#fff}
 .gallery-toggle{display:inline-block;padding:10px 20px;background:var(--card);border:1px solid var(--border);color:var(--blue);border-radius:6px;cursor:pointer;font-weight:600;margin:16px 0;font-size:.9rem}
 .gallery-toggle:hover{background:#222}
 .gallery-expanded{display:none}
@@ -139,8 +143,9 @@ a:hover{color:#85c1e9;text-decoration:underline}
 </div>
 
 <div id="lightbox" onclick="closeLightbox()">
-  <button class="close-btn" aria-label="Close">&times;</button>
-  <img id="lb-img" src="" alt="">
+  <div class="lb-close" onclick="closeLightbox()" title="Κλείσιμο">&times;</div>
+  <a class="lb-download" id="lb-dl" href="#" onclick="event.stopPropagation();downloadImg()" title="Λήψη">⬇</a>
+  <img id="lb-img" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
 <div id="content" class="container">
@@ -649,8 +654,10 @@ async function hashPassword(pw){var enc=new TextEncoder().encode(pw);var buf=awa
 async function tryUnlock(){var p=document.getElementById('gate-pw').value;var h=await hashPassword(p);if(h==='b9cf7ae9f816157d4a15a092d4c5949f0c632828f5330957365b548b3a43c658'){document.getElementById('gate').classList.add('hidden');document.getElementById('content').classList.add('visible')}else{document.getElementById('gate-pw').classList.add('error');setTimeout(function(){document.getElementById('gate-pw').classList.remove('error')},400)}}
 document.getElementById('gate-pw').addEventListener('keydown',function(e){if(e.key==='Enter')tryUnlock()});
 function toggleSection(h){h.parentElement.classList.toggle('open')}
-function openLightbox(s){document.getElementById('lb-img').src=s;document.getElementById('lightbox').classList.add('active')}
+var currentLbSrc='';
+function openLightbox(s){currentLbSrc=s.replace('?v=3','');document.getElementById('lb-img').src=currentLbSrc;document.getElementById('lightbox').classList.add('active')}
 function closeLightbox(){document.getElementById('lightbox').classList.remove('active')}
+function downloadImg(){if(!currentLbSrc)return;fetch(currentLbSrc).then(function(r){return r.blob()}).then(function(b){var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=currentLbSrc.split('/').pop();document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)})}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox()});
 function toggleGallery(){var g=document.getElementById('full-gallery');g.classList.toggle('show');var b=g.previousElementSibling;b.textContent=g.classList.contains('show')?'Κλείσιμο γκαλερί':'Δείτε όλες τις 39 φωτογραφίες Σβορώνου'}
 function openAndScroll(sectionId,claimId){var s=document.getElementById(sectionId);if(s&&!s.classList.contains('open'))s.classList.add('open');var target=claimId?document.getElementById(claimId):s;if(target)setTimeout(function(){target.scrollIntoView({behavior:'smooth',block:'start'})},100);return false}
@@ -667,13 +674,16 @@ document.addEventListener('DOMContentLoaded',function(){
     if(parent.classList.contains('photo-grid')){wrap.style.width='100%';wrap.style.height='100%'}
     img.parentNode.insertBefore(wrap,img);
     wrap.appendChild(img);
-    var dl=document.createElement('a');
-    dl.href=img.src.replace('?v=3','');
-    dl.download='';
+    var dl=document.createElement('div');
     dl.className='img-dl';
     dl.title='Λήψη';
     dl.textContent='⬇';
-    dl.addEventListener('click',function(e){e.stopPropagation()});
+    var dlSrc=img.src.replace('?v=3','');
+    dl.addEventListener('click',function(e){
+      e.stopPropagation();e.preventDefault();
+      var s=this.parentElement.querySelector('img').src.replace('?v=3','');
+      fetch(s).then(function(r){return r.blob()}).then(function(b){var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=s.split('/').pop();document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)});
+    });
     wrap.appendChild(dl);
   });
 });
