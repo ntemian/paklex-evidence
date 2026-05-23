@@ -1,688 +1,1111 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="el">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-<title>ΑΠΑΝΤΗΣΕΙΣ ΣΕ MEMO PAKLEX — Μήνυση κατά Τσεκούρα</title>
+<title>ΑΠΑΝΤΗΣΕΙΣ ΣΕ MEMO PAKLEX — Evidence Portal</title>
 <style>
-:root{--bg:#111;--card:#1a1a1a;--border:#333;--text:#ddd;--bright:#fff;--red:#e74c3c;--gold:#f5c542;--blue:#5dade2;--green:#27ae60;--orange:#e67e22;--amber:#f39c12}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--text);line-height:1.85;font-size:15px}
-#gate{position:fixed;inset:0;z-index:9999;background:#000;display:flex;align-items:center;justify-content:center}
-#gate-box,.gate-box-fallback{background:#111;border:1px solid #333;border-radius:12px;padding:48px 40px;text-align:center;max-width:400px;width:90%}
-#gate-box input,#gate input,#pw{width:100%;padding:12px 16px;border:1px solid #444;border-radius:8px;background:#1a1a1a;color:#fff;font-size:1rem;text-align:center;outline:none;font-family:inherit}
-#gate-box input:focus,#gate input:focus,#pw:focus{border-color:#888}
-#gate-box input.error{border-color:var(--red);animation:shake .3s}
-#gate h1,#gate-box h1,.gate-title{color:#fff;font-size:1.3rem;letter-spacing:6px;margin-bottom:8px}
-#gate p,.gate-sub{color:#666;font-size:.85rem;margin-bottom:24px}
-#gate button,.gate-btn{background:transparent;border:1px solid #555;color:#ccc;padding:10px 28px;cursor:pointer;font-family:inherit;margin-top:12px;border-radius:6px}
-#gate button:hover,.gate-btn:hover{background:#222;color:#fff}
-.gate-error,#gate .err{color:var(--red);font-size:.85rem;min-height:1.2em;margin-top:8px}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-#gate.hidden{display:none!important}
-#content{display:none;max-width:840px;margin:0 auto;padding:3rem 2rem}
-#content.visible{display:block}
-h1{color:var(--bright);font-size:1.4rem;margin:2rem 0 1rem;padding-bottom:.6rem;border-bottom:2px solid var(--red)}
-h2{color:var(--red);font-size:1.1rem;margin:2.5rem 0 .8rem;padding:.5rem .8rem;background:var(--card);border-left:4px solid var(--red);text-transform:uppercase;letter-spacing:.04em}
-h3{color:var(--gold);font-size:1rem;margin:1.5rem 0 .5rem}
-p{margin:.7rem 0}
-strong{color:var(--bright)}
-em{color:var(--gold);font-style:italic}
-ul,ol{margin:.5rem 0 .5rem 1.8rem}
-li{margin:.4rem 0}
-hr{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
-table{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.88rem}
-th{background:var(--card);color:var(--red);padding:.6rem .8rem;text-align:left;border:1px solid var(--border);font-weight:700}
-td{padding:.5rem .8rem;border:1px solid var(--border)}
-tr:nth-child(even){background:var(--card)}
-a{color:var(--blue);text-decoration:none}
-a:hover{color:#85c1e9;text-decoration:underline}
-.dl,.dl-link,.download-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(93,173,226,.08);border:1px solid rgba(93,173,226,.25);border-radius:6px;text-decoration:none;font-size:.85em;color:var(--blue);margin:3px 2px;transition:all .2s}
-.dl:hover,.dl-link:hover,.download-btn:hover{background:rgba(93,173,226,.18);border-color:rgba(93,173,226,.5);transform:translateY(-1px)}
-.dl-link[href$=".pdf"]::before{content:"📄";font-size:1.1em}
-.dl-link[href$=".png"]::before,.dl-link[href$=".jpg"]::before{content:"🖼";font-size:1.1em}
-.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:.75rem;font-weight:700;letter-spacing:.03em}
-.badge-green{background:rgba(39,174,96,.15);color:var(--green)}
-.badge-red{background:rgba(231,76,60,.15);color:var(--red)}
-.badge-orange{background:rgba(230,126,34,.15);color:var(--orange)}
-.badge-amber{background:rgba(243,156,18,.15);color:var(--amber)}
-.badge-false{background:rgba(231,76,60,.15);color:var(--red)}
-.badge-true{background:rgba(39,174,96,.15);color:var(--green)}
-.badge-hearsay{background:rgba(230,126,34,.15);color:var(--orange)}
-.badge-pending{background:rgba(243,156,18,.15);color:var(--amber)}
-.close-btn{display:none}
-.claim{border-left:3px solid var(--gold);background:rgba(245,197,66,.05);padding:.8rem 1rem;margin:.8rem 0;font-style:italic;border-radius:0 4px 4px 0}
-.section{margin-bottom:1.5rem;border:1px solid var(--border);border-radius:6px;overflow:hidden}
-.section-header{background:var(--card);padding:.8rem 1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
-.section-header:hover{background:#222}
-.section-header h2,.section-header h3{margin:0;font-size:.95rem;color:var(--bright)}
-.section-header h2{color:var(--red);font-size:1rem;text-transform:uppercase;letter-spacing:.04em;border:none;background:none;padding:0}
-.chevron{width:24px;height:24px;min-width:24px;flex-shrink:0;transition:transform .3s;color:#888}
-.section.open .chevron{transform:rotate(180deg)}
-.section-body{padding:1rem;display:none}
-.section.open .section-body{display:block}
-.evidence-embed{margin:1rem 0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--card);position:relative}
-.evidence-embed img{width:100%;max-width:700px;display:block;cursor:pointer}
-.evidence-embed .ev-caption{padding:8px 12px;font-size:.8rem;color:#888;border-top:1px solid var(--border)}
-.img-dl{position:absolute;top:8px;right:8px;width:34px;height:34px;background:rgba(0,0,0,.75);border:1px solid rgba(255,255,255,.25);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#5dade2;font-size:1rem;transition:all .2s;z-index:5;cursor:pointer;line-height:1}
-.img-dl:hover{background:rgba(93,173,226,.4);border-color:#5dade2;transform:scale(1.1);color:#fff}
-.evidence-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:1rem 0}
-.evidence-gallery .evidence-embed{margin:0}
-.evidence-gallery .evidence-embed img{max-width:100%}
-.email-card{border:1px solid var(--border);border-radius:8px;margin:1rem 0;overflow:hidden;background:var(--card)}
-.email-header{padding:10px 14px;border-bottom:1px solid var(--border);font-size:.8rem;color:#888;display:flex;flex-wrap:wrap;gap:4px 16px}
-.email-header .label{color:var(--gold);font-weight:700}
-.email-body{padding:14px 18px;font-size:.9rem;line-height:1.7;white-space:pre-wrap;color:var(--text)}
-.email-body .highlight{background:rgba(245,197,66,.15);padding:2px 4px;border-radius:3px;color:var(--gold);font-weight:700}
-.email-card.evidence{border-color:var(--red);border-width:2px}
-.emphasis-box{border:1px solid var(--red);background:rgba(231,76,60,.05);border-radius:6px;padding:1rem;margin:1rem 0}
-.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:1rem 0}
-.photo-grid>img,.photo-grid>.pg-wrap>img{width:100%;height:220px;object-fit:cover;object-position:top;border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:border-color .2s}
-.photo-grid>img:hover,.photo-grid>.pg-wrap>img:hover{border-color:var(--blue)}
-.photo-grid>.pg-wrap{position:relative}
-.photo-card{border:1px solid var(--border);border-radius:6px;overflow:hidden;cursor:pointer;transition:border-color .2s}
-.photo-card:hover{border-color:var(--blue)}
-.photo-card img{width:100%;height:220px;object-fit:cover;object-position:top}
-.photo-card .caption{padding:8px 10px;font-size:.75rem;color:#999;background:var(--card);line-height:1.4}
-.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:10000;align-items:center;justify-content:center}
-.lightbox.active{display:flex}
-.lightbox img{max-width:90%;max-height:90%;object-fit:contain;cursor:default}
-.lb-close{position:absolute;top:16px;right:24px;width:40px;height:40px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:1.4rem;transition:all .2s;z-index:10001}
-.lb-close:hover{background:rgba(231,76,60,.6);border-color:#e74c3c;transform:scale(1.1)}
-.lb-download{position:absolute;top:16px;right:76px;width:40px;height:40px;background:rgba(93,173,226,.15);border:1px solid rgba(93,173,226,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#5dade2;font-size:1.1rem;transition:all .2s;z-index:10001;text-decoration:none}
-.lb-download:hover{background:rgba(93,173,226,.4);border-color:#5dade2;transform:scale(1.1);color:#fff}
-.gallery-toggle{display:inline-block;padding:10px 20px;background:var(--card);border:1px solid var(--border);color:var(--blue);border-radius:6px;cursor:pointer;font-weight:600;margin:16px 0;font-size:.9rem}
-.gallery-toggle:hover{background:#222}
-.gallery-expanded{display:none}
-.gallery-expanded.show{display:block}
-.gallery-expanded .photo-grid{grid-template-columns:repeat(4,1fr)}
-.comparison-table th{background:var(--card);color:var(--gold)}
-.signature{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border)}
-.footer{margin-top:2rem;text-align:center;color:#666;font-size:.85rem;padding:1rem;border-top:1px solid var(--border)}
-.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.5rem;margin:1.5rem 0 2rem}
-.toc-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}
-.toc-title h3{color:var(--bright);font-size:1rem;margin:0}
-.toc-controls{display:flex;gap:8px}
-.toc-controls button{background:transparent;border:1px solid var(--border);color:#888;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:.75rem;font-family:inherit}
-.toc-controls button:hover{background:#222;color:#fff}
-.toc-sections{list-style:none;margin:0;padding:0}
-.toc-sections li{padding:6px 0;border-bottom:1px solid rgba(51,51,51,.5)}
-.toc-sections li:last-child{border-bottom:none}
-.toc-sections a{color:var(--text);text-decoration:none;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.88rem}
-.toc-sections a:hover{color:var(--blue)}
-.toc-sections .toc-badge{flex-shrink:0}
-.progress-bar{margin:1.5rem 0;padding:1rem 1.2rem;background:var(--card);border:1px solid var(--border);border-radius:8px}
-.progress-bar .bar-label{display:flex;justify-content:space-between;font-size:.85rem;color:#888;margin-bottom:6px}
-.progress-bar .bar-label strong{color:var(--bright)}
-.progress-bar .bar-track{height:8px;background:#222;border-radius:4px;overflow:hidden}
-.progress-bar .bar-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:4px;transition:width .5s}
-.claim-toc{list-style:none;margin:.8rem 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px 16px}
-.claim-toc li{font-size:.8rem;padding:3px 0;display:flex;justify-content:space-between;align-items:center;gap:6px}
-.claim-toc li a{color:var(--text);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.claim-toc li a:hover{color:var(--blue)}
-.claim-toc .badge{font-size:.65rem;flex-shrink:0}
-#back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:var(--card);border:1px solid var(--border);border-radius:50%;color:var(--text);font-size:1.2rem;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:999;transition:all .2s}
-#back-to-top:hover{background:#333;color:#fff;transform:translateY(-2px)}
-#back-to-top.visible{display:flex}
-@media print{#gate{display:none!important}#content{display:block!important;background:#fff;color:#000}h1,h2,h3,strong{color:#000}td,th{border-color:#999}.toc,.progress-bar,#back-to-top{display:none!important}}
-@media(max-width:600px){.photo-grid,.gallery-expanded .photo-grid{grid-template-columns:1fr 1fr}#content{padding:1rem}.claim-toc{grid-template-columns:1fr}}
+:root {
+  color-scheme: dark;
+  --bg: #101114;
+  --panel: #17191f;
+  --panel-2: #20232b;
+  --line: #343946;
+  --text: #e7e9ee;
+  --muted: #a6adbb;
+  --red: #f05d5e;
+  --gold: #f0c35b;
+  --blue: #70b7ff;
+  --green: #63d293;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.72 Georgia, "Times New Roman", serif;
+}
+a { color: var(--blue); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+strong { color: #fff; }
+em { color: var(--gold); }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: .94rem; }
+th, td { border: 1px solid var(--line); padding: .55rem .7rem; vertical-align: top; }
+th { color: var(--gold); background: var(--panel-2); text-align: left; }
+tr:nth-child(even) td { background: rgba(255,255,255,.025); }
+hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+#gate {
+  position: fixed; inset: 0; z-index: 50;
+  display: grid; place-items: center;
+  background: #050506;
+}
+#gate.hidden { display: none; }
+.gate-box {
+  width: min(92vw, 420px);
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 2.2rem;
+  border-radius: 8px;
+  text-align: center;
+}
+.gate-box h1 { margin: 0 0 .4rem; font-size: 1.2rem; letter-spacing: .08em; color: #fff; }
+.gate-box p { margin: 0 0 1.2rem; color: var(--muted); font-size: .9rem; }
+.gate-row { display: flex; gap: .6rem; }
+#gate-pw {
+  min-width: 0; flex: 1;
+  border: 1px solid var(--line);
+  background: #101114;
+  color: #fff;
+  border-radius: 6px;
+  padding: .75rem .85rem;
+  font: inherit;
+}
+.gate-box button, .download, .nav button {
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 6px;
+  padding: .55rem .8rem;
+  cursor: pointer;
+  font: inherit;
+}
+.gate-box button:hover, .download:hover, .nav button:hover { border-color: var(--blue); color: #fff; }
+#gate-error { min-height: 1.4rem; margin-top: .7rem; color: var(--red); font-size: .88rem; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 2rem; width: min(1380px, 100%); margin: 0 auto; padding: 2rem; }
+main { min-width: 0; max-width: 900px; }
+.hero {
+  border-bottom: 2px solid var(--red);
+  padding: 1rem 0 1.4rem;
+  margin-bottom: 1.2rem;
+}
+.hero h1 { margin: 0 0 .8rem; font-size: clamp(1.45rem, 3vw, 2.15rem); line-height: 1.18; color: #fff; }
+.hero p { margin: .25rem 0; color: var(--muted); }
+.memo {
+  background: transparent;
+}
+.memo h1, .memo h2 {
+  color: #fff;
+  border-left: 4px solid var(--red);
+  background: var(--panel);
+  padding: .7rem .9rem;
+  margin: 2.2rem 0 .9rem;
+  font-size: 1.3rem;
+  line-height: 1.28;
+}
+.memo h3 {
+  color: var(--gold);
+  margin: 1.7rem 0 .6rem;
+  font-size: 1.05rem;
+}
+.memo p { margin: .75rem 0; }
+.memo li { margin: .35rem 0; }
+.memo blockquote {
+  margin: 1rem 0;
+  border-left: 3px solid var(--gold);
+  background: rgba(240,195,91,.08);
+  padding: .8rem 1rem;
+  color: #fff;
+}
+.nav {
+  position: sticky;
+  top: 1rem;
+  align-self: start;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 8px;
+  padding: 1rem;
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+}
+.nav h2 { margin: 0 0 .75rem; color: #fff; font-size: 1rem; }
+.nav a { display: block; color: var(--muted); text-decoration: none; padding: .28rem 0; font-size: .9rem; }
+.nav a:hover { color: var(--blue); }
+.nav .actions { display: grid; gap: .45rem; margin-top: .9rem; }
+.evidence-section {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--red);
+}
+.evidence-section h2 { color: #fff; font-size: 1.35rem; }
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: .9rem;
+  margin: 1rem 0 1.5rem;
+}
+.evidence-card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.thumb {
+  display: block;
+  width: 100%;
+  height: 170px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: #0b0c0f;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+}
+.thumb img, .gallery-item img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.pdf-thumb iframe { width: 100%; height: 100%; border: 0; pointer-events: none; background: #fff; }
+.evidence-meta { padding: .8rem; }
+.evidence-meta h3 { margin: 0 0 .25rem; font-size: .98rem; color: var(--gold); }
+.evidence-meta p { margin: 0 0 .7rem; color: var(--muted); font-size: .88rem; line-height: 1.45; }
+.download { display: inline-block; text-decoration: none; font-size: .86rem; }
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: .65rem;
+  margin: 1rem 0 1.5rem;
+}
+.gallery-item {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--muted);
+  border-radius: 7px;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+}
+.gallery-item img { height: 130px; }
+.gallery-item span { display: block; padding: .45rem .55rem; font-size: .8rem; }
+#lightbox {
+  display: none;
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(0,0,0,.94);
+  align-items: center; justify-content: center;
+  padding: 2rem;
+}
+#lightbox.active { display: flex; }
+#lightbox img { max-width: 94vw; max-height: 90vh; object-fit: contain; }
+.lb-actions { position: fixed; top: 1rem; right: 1rem; display: flex; gap: .6rem; }
+.lb-actions a, .lb-actions button {
+  width: 42px; height: 42px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: #fff;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+.top-link {
+  position: fixed; right: 1rem; bottom: 1rem;
+  width: 42px; height: 42px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--panel);
+  color: #fff;
+  text-decoration: none;
+}
+@media (max-width: 980px) {
+  .layout { display: block; padding: 1rem; }
+  .nav { position: static; max-height: none; margin-bottom: 1rem; }
+  table { display: block; max-width: 100%; overflow-x: auto; }
+  th, td { overflow-wrap: anywhere; }
+}
+@media print {
+  #gate, .nav, #lightbox, .top-link { display: none !important; }
+  body { background: white; color: black; }
+  .layout { display: block; padding: 0; }
+  .memo h1, .memo h2 { color: black; background: white; }
+  a { color: black; }
+}
 </style>
 </head>
 <body>
-
 <div id="gate">
-  <div id="gate-box">
-    <h2>PAKLEX Evidence Portal</h2>
-    <p>Λατσούδης κατά Μπακολούκα — Εμπιστευτικό</p>
-    <input type="password" id="gate-pw" placeholder="Κωδικός πρόσβασης" autocomplete="off">
-    <br>
-    <button onclick="tryUnlock()">Είσοδος</button>
-  </div>
+  <form class="gate-box" id="gate-form">
+    <h1>PAKLEX EVIDENCE</h1>
+    <p>Λατσούδης κατά Μπακολούκα · εμπιστευτικό</p>
+    <div class="gate-row">
+      <input id="gate-pw" type="password" placeholder="Κωδικός" autocomplete="off" autofocus>
+      <button type="submit">Είσοδος</button>
+    </div>
+    <div id="gate-error"></div>
+  </form>
 </div>
 
-<div id="lightbox" onclick="closeLightbox()">
-  <div class="lb-close" onclick="closeLightbox()" title="Κλείσιμο">&times;</div>
-  <a class="lb-download" id="lb-dl" href="#" onclick="event.stopPropagation();downloadImg()" title="Λήψη">⬇</a>
-  <img id="lb-img" src="" alt="" onclick="event.stopPropagation()">
+<div id="lightbox" aria-hidden="true">
+  <div class="lb-actions">
+    <a id="lb-download" href="#" download title="Download">↓</a>
+    <button id="lb-close" type="button" title="Κλείσιμο">×</button>
+  </div>
+  <img id="lb-img" src="" alt="">
 </div>
 
-<div id="content" class="container">
+<div class="layout" id="page">
+  <main>
+    <header class="hero">
+      <h1>ΑΠΑΝΤΗΣΕΙΣ ΣΕ MEMO PAKLEX — Μήνυση κατά Τσεκούρα</h1>
+      <p>Πηγή: τελικό memo 3 Απριλίου 2026. Κωδικός portal: paklex2026.</p>
+      <p>Όλα τα εξωτερικά και αποδεικτικά links ανοίγουν σε νέο tab.</p>
+    </header>
+    <article class="memo">
+      <section id="απαντησεισ-σε-memo-paklex--μήνυση-κατά-τσεκούρα-ψευδορκία-άρ-224-πκ" class="level1">
+<h1>ΑΠΑΝΤΗΣΕΙΣ ΣΕ MEMO PAKLEX — Μήνυση κατά Τσεκούρα (Ψευδορκία, Άρ. 224 ΠΚ)</h1>
+<p><strong>Ημερομηνία:</strong> 3 Απριλίου 2026 <strong>Απαντά σε:</strong> memo_minisi latsoudi kata mpakolouka_tsekoura_.docx (ΟΡΘΗ ΕΠΑΝΑΛΗΨΗ, 2/4/2026) <strong>Προς:</strong> Μαρλίν Κούση (<a href="mailto:kousi@paklex.gr">kousi@paklex.gr</a>), Αντώνης Πεπελάσης (<a href="mailto:pepelasis@paklex.gr">pepelasis@paklex.gr</a>) <strong>Από:</strong> Ευθύμιος Λατσούδης <strong>Αποδεικτικά (πλήρες αρχείο):</strong> <a href="https://ntemian.github.io/paklex-evidence/">https://ntemian.github.io/paklex-evidence/</a> (κωδικός: paklex2026) <strong>Υπόθεση:</strong> ΓΑΚ 11800/2025 — Λατσούδης κατά Μπακολούκα</p>
+<hr />
+<section id="πλαισιο" class="level2">
+<h2>ΠΛΑΙΣΙΟ</h2>
+<p>Η ένορκη βεβαίωση της Αναστασίας Τσεκούρα εντάσσεται σε ένα σύνολο <strong>4 ενόρκων βεβαιώσεων</strong> που φέρουν κοινά χαρακτηριστικά:</p>
+<ul>
+<li><strong>Ίδια ημέρα:</strong> 19 Μαρτίου 2026 — <strong>μία ημέρα πριν τη δίκη</strong> των ασφαλιστικών μέτρων</li>
+<li><strong>Ίδιο γραφείο:</strong> Λεωφ. Μεσογείων 2-4, γραφείο Μπρέγιανου</li>
+<li><strong>Ίδια δικηγόρος:</strong> Δήμητρα Κουρκουλή (ΑΜ 29253 ΔΣΑ)</li>
+<li><strong>Διαδοχικοί αριθμοί πρωτοκόλλου:</strong> Τσεκούρα 0077759 · Marinova 0077761 · Τσάκαλου 0077762 · Κανδύλη 0077763</li>
+<li><strong>Ταυτόσημη αφηγηματική δομή</strong> και ταυτόσημα talking points σε όλες</li>
+<li><strong>Κατά βάση κατάθεση εξ ακοής</strong> — καμία μάρτυρας δεν ήταν παρούσα στα κρίσιμα γεγονότα</li>
+</ul>
+<p><strong>Ειδική επισήμανση — ΑΦΜ Marinova:</strong> Στην ένορκη βεβαίωση της Emilie Marinova (ΔΣΑ_ΕΒ_0077761_2026) αναγράφεται ΑΦΜ <strong>076733377</strong> — που είναι <strong>το ΑΦΜ της ίδιας της αντιδίκου Ευθυμίας Μπακολούκα</strong>. Αυτό δεν είναι ένα απλό τυπογραφικό λάθος. Ο ΑΦΜ στην ελληνική έννομη τάξη αποτελεί <strong>μοναδικό ταυτοποιητικό στοιχείο</strong> φυσικού προσώπου — αντίστοιχο με τον αριθμό ταυτότητας. Η εγγραφή του ΑΦΜ της αντιδίκου στο έγγραφο αλλοδαπής μάρτυρα αποκαλύπτει ότι <strong>η Μπακολούκα είχε τον πλήρη έλεγχο</strong> της διαδικασίας κατάθεσης — παρείχε τα δικά της στοιχεία, υπαγόρευσε ή συντόνισε τα κείμενα, και η δικηγόρος Κουρκουλή αντέγραψε μηχανικά χωρίς επαλήθευση. Η Μπακολούκα δεν ήταν απλώς αιτούσα — ήταν η <strong>ηθική αυτουργός</strong> αυτών των καταθέσεων. Ακόμη κι αν αποδοθεί σε αμέλεια, καταδεικνύει τον βαθμό ελέγχου της αντιδίκου επί της μαρτυρικής διαδικασίας και την πλήρη απουσία ανεξαρτησίας των μαρτύρων.</p>
+<p>Η ένορκη Τσεκούρα κληρονομεί αυτά τα ελαττώματα, αλλά φέρει και <strong>ιδιαίτερα δικά της</strong>, που αναλύονται κατωτέρω.</p>
+<hr />
+</section>
+<section id="γιατι-η-τσεκουρα-ειναι-ιδιαιτερα-υπολογη" class="level2">
+<h2>ΓΙΑΤΙ Η ΤΣΕΚΟΥΡΑ ΕΙΝΑΙ ΙΔΙΑΙΤΕΡΑ ΥΠΟΛΟΓΗ</h2>
+<p>Κατά τον χρόνο κατάθεσης της ένορκης (19/3/2026), η Τσεκούρα <strong>γνώριζε ή όφειλε να γνωρίζει</strong> τα ακόλουθα — και τα απέκρυψε <strong>όλα</strong>:</p>
+<section id="α-επίσημη-κρατική-αξιολόγηση-κεδασυ" class="level3">
+<h3>Α. Επίσημη Κρατική Αξιολόγηση (ΚΕΔΑΣΥ)</h3>
+<p>Υφίστατο ήδη <strong>επίσημο Πόρισμα ΚΕΔΑΣΥ</strong> (17/3/2025 — ένα ολόκληρο χρόνο πριν την κατάθεσή της), το οποίο:</p>
+<ul>
+<li>Εκδόθηκε από <strong>4 ειδικούς</strong> (ψυχολόγος, κοινωνική λειτουργός, ειδικός παιδαγωγός, λογοθεραπευτής)</li>
+<li>Βασίστηκε σε αξιολόγηση <strong>πολλών εβδομάδων</strong></li>
+<li>Επιβεβαίωσε: <strong>ΔΕΠΥ + δυσγραφία + εναντιωματική-προκλητική διαταραχή (ΔΕΑ)</strong></li>
+<li>Αποτελεί <strong>επίσημο κρατικό πόρισμα</strong> — φέρει ιδιαίτερη βαρύτητα στην ελληνική έννομη τάξη</li>
+</ul>
+<p>Επιπλέον, <strong>δύο χρόνια πριν</strong> την κατάθεσή της, υπήρχαν ήδη:</p>
+<ul>
+<li><strong>Γνωμάτευση παιδοψυχιάτρου Σταματοπούλου</strong> (29/1/2024 — <strong>26 μήνες πριν</strong> την ένορκη) — F90.0 + εναντιωματικές συμπεριφορές, με δύο επιβεβαιώσεις σε διαφορετικούς χρόνους</li>
+<li>Συνεχής επιβεβαίωση από <strong>ψυχολόγο</strong> και <strong>ειδικό παιδαγωγό Χατζηδάκη</strong> που παρακολουθούν τον Αίαντα καθημερινά</li>
+</ul>
+<p>Δεν υφίσταται <strong>καμία δικαιολογία</strong> για άγνοια. Η Τσεκούρα είτε γνώριζε και απέκρυψε σκοπίμως, είτε δεν γνώριζε επειδή <strong>αρνήθηκε να ενημερωθεί</strong> (βλ. §Δ κατωτέρω) — σε κάθε περίπτωση, η ευθύνη της είναι δεδομένη.</p>
+<p>Η Τσεκούρα — ως «ψυχολόγος» που αυτοπροσδιορίζεται ως «ειδική παιδαγωγός» — <strong>δεν αναφέρει τίποτε</strong> από αυτά σε 9 σελίδες ένορκης. Η λέξη <strong>«εναντιωματικότητα» δεν εμφανίζεται ούτε μία φορά</strong>.</p>
+<p><strong>Γιατί η απόκρυψη της εναντιωματικότητας είναι κρίσιμη:</strong></p>
+<p>Η Εναντιωματική-Προκλητική Διαταραχή (ΔΕΑ) είναι η <strong>κεντρική διάγνωση</strong> που εξηγεί τη συμπεριφορά του Αίαντα — θυμό, εκρήξεις, αντιδράσεις. Η απόκρυψή της εξυπηρετεί συγκεκριμένη στρατηγική:</p>
+<ul>
+<li><p><strong>Ο συνδυασμός ΔΕΠΥ + ΔΕΑ είναι κληρονομικός.</strong> Τα συμπεριφορικά χαρακτηριστικά του Αίαντα (θυμός, εναντίωση, αδυναμία αυτορρύθμισης) παρατηρούνται και στη μητέρα — η οποία εμφανίζει ακριβώς τα ίδια μοτίβα: εκρήξεις θυμού, σωματική βία, αδυναμία διαχείρισης. Η αναγνώριση της ΔΕΑ θα αναδείκνυε αυτή τη σύνδεση.</p></li>
+<li><p><strong>Παιδί με ΔΕΑ δεν «τιμωρείται» — θεραπεύεται.</strong> Τα χτυπήματα, η βία, η φωνή, η πίεση κατά παιδιού με εναντιωματικότητα δεν είναι απλώς αναποτελεσματικά — είναι <strong>κλινικά αντενδεδειγμένα</strong> και <strong>ποινικά κολάσιμα</strong>, καθώς επιδεινώνουν τα συμπτώματα. Αυτό ακριβώς έκανε η μητέρα — χτυπούσε επανειλημμένα ένα παιδί που χρειαζόταν θεραπευτική προσέγγιση.</p></li>
+<li><p><strong>Η στρατηγική της αντιδίκου — τεκμηριωμένη σε emails:</strong></p>
+<ul>
+<li><strong>5/12/2023:</strong> Η μητέρα της αντιδίκου (Λέλα Μπακολούκα) γράφει στον πατέρα προσπαθώντας να αποτρέψει την επίσκεψη στον παιδοψυχίατρο — <strong>πριν ακόμη από την αξιολόγηση ΚΕΔΑΣΥ</strong>: <em>«Πρακτικά σου λέω ότι ο Αίαντάς μας το μόνο που έχει είναι η διάσπαση της προσοχής»</em>. Η στρατηγική απόκρυψης ξεκίνησε δηλαδή <strong>από την αρχή</strong>, πριν καν υπάρξει επίσημη διάγνωση.</li>
+<li><strong>26/12/2024:</strong> Ο πατέρας ζητά από τη Λέλα πληροφορίες για το κληρονομικό ιστορικό της Έφης (υιοθετημένη — άγνωστο βιολογικό υπόβαθρο) — κρίσιμο δεδομένου ότι <strong>ΔΕΠΥ + ΔΕΑ είναι κληρονομικά</strong></li>
+<li><strong>27/12/2024:</strong> Η Έφη απαντά <strong>αρνούμενη</strong> ότι υπάρχει οποιαδήποτε κληρονομική προδιάθεση: <em>«ποιοί είναι οι ειδικοί που έχουν πει ότι οποιοδήποτε από τα παιδιά έχει κάποια διαταραχή ή κληρονομική προδιάθεση;»</em> — και <strong>απειλεί</strong> με δικαστικές ενέργειες αν ο πατέρας συνεχίσει να ερευνά</li>
+<li><strong>14/1/2025 (18 ημέρες μετά):</strong> Η Έφη <strong>καταθέτει αίτηση ασφαλιστικών μέτρων</strong> ζητώντας την αφαίρεση της επιμέλειας του πατέρα — στο δικόγραφό της γράφει: <em>«Προφασίζεται ότι δήθεν ο υιός πάσχει από κάποια παθογένεια»</em>. Η χρονική σύνδεση είναι αποκαλυπτική: <strong>αμέσως μόλις ο πατέρας συνέδεσε τη διάγνωση με το κληρονομικό υπόβαθρο της υιοθεσίας, η μητέρα αντέδρασε καταθέτοντας αίτηση αφαίρεσης επιμέλειας</strong> — ισχυριζόμενη ότι ο πατέρας «εφευρίσκει» τη διαταραχή. Δεν αρνήθηκε απλώς τη διάγνωση — <strong>πέρασε στην επίθεση</strong> για να σταματήσει τη διερεύνηση.</li>
+</ul>
+<p>Η Τσεκούρα, <strong>ένα χρόνο μετά</strong> τη γνωμάτευση Σταματοπούλου και <strong>ένα χρόνο μετά</strong> το Πόρισμα ΚΕΔΑΣΥ, <strong>συνεχίζει ακριβώς την ίδια στρατηγική</strong> — αποκρύπτοντας την εναντιωματικότητα ώστε η βία της μητέρας κατά παιδιού με αναπτυξιακή διαταραχή να μην αναγνωσθεί ως αυτό που είναι: <strong>κακοποίηση</strong>.</p></li>
+</ul>
+</section>
+<section id="β-δικαστική-συναίνεση-μητέρας--και-αντίληψη-δικαστηρίου" class="level3">
+<h3>Β. Δικαστική Συναίνεση Μητέρας — και Αντίληψη Δικαστηρίου</h3>
+<p>Μετά την κατάθεση της αίτησης μεταρρύθμισης, η μητέρα <strong>προσήλθε στο δικαστήριο</strong> (Απρίλιος 2025) και <strong>συναίνεσε</strong> στη <strong>διαμονή</strong> του Αίαντα στο σπίτι του πατέρα (η επιμέλεια παρέμεινε κοινή). Ο δικαστής ωστόσο, αξιολογώντας τα στοιχεία του φακέλου, <strong>χορήγησε αποκλειστική επιμέλεια</strong> στον πατέρα — πέρα από αυτό που ζήτησε η ίδια η μητέρα. Στη συνέχεια, η δικηγόρος της μητέρας (Νικόλ Τσαγκαράκη) <strong>μεταρρύθμισε</strong> την απόφαση ώστε να αντιστοιχεί στη συμφωνία (κοινή επιμέλεια + διαμονή στον πατέρα).</p>
+<p><strong>Αυτό αποκαλύπτει δύο πράγματα:</strong></p>
+<ol type="1">
+<li>Η μητέρα <strong>η ίδια συμφώνησε</strong> ότι ο Αίαντας πρέπει να μείνει με τον πατέρα — η ένορκη Τσεκούρα υπονοεί «αποξένωση» αποκρύπτοντας αυτή τη συναίνεση</li>
+<li>Η δικαστής <strong>πήγε ακόμη παραπέρα</strong> — έκρινε ότι ο πατέρας δικαιούται αποκλειστική επιμέλεια, γεγονός που δείχνει την <strong>αντίληψη του δικαστηρίου</strong> για τις ικανότητες του πατέρα</li>
+</ol>
+</section>
+<section id="γ-δύο-ποινικές-δικογραφίες-κατά-μητέρας" class="level3">
+<h3>Γ. Δύο Ποινικές Δικογραφίες κατά Μητέρας</h3>
+<p>Σημειώνεται ότι ο πατέρας <strong>δεν είναι δικαστικός δικηγόρος</strong> — είναι σύμβουλος επιχειρήσεων και δεν επιθυμεί δικαστικές αντιπαραθέσεις. Γι' αυτό ακριβώς <strong>η αντίδικος κίνησε πρώτη</strong> δικαστικές διαδικασίες. Ο πατέρας κατέθεσε μήνυση για ενδοοικογενειακή βία <strong>μόνο μετά</strong> από πολλαπλά περιστατικά και <strong>μόνο μετά</strong> τη σύσταση της ψυχολόγου ότι το κράτος θα αφαιρούσε τα παιδιά αν δεν ενεργούσε.</p>
+<ul>
+<li><strong>ΑΒΜ Φ25-3866:</strong> Μήνυση πατέρα για κατ' εξακολούθηση ενδοοικογενειακή βία — 5 τεκμηριωμένα περιστατικά, βιντεοσκοπημένα, με απομαγνητοφωνήσεις, ανάλυση Δρ. Αντωνοπούλου, 2 ιατροδικαστικές εκθέσεις. <strong>Δίκη 5 Ιουνίου 2026.</strong></li>
+<li><strong>ΑΒΜ ΑΕ25-5389:</strong> Ο ίδιος ο <strong>Αίαντας κάλεσε μόνος του την Αστυνομία</strong> (3/4/2025) για να γλιτώσει. Ο πατέρας <strong>δεν κατέθεσε μήνυση</strong> για αυτό το δεύτερο περιστατικό — η δικογραφία προχώρησε <strong>αυτεπαγγέλτως</strong>, αφού ο Αίαντας έδωσε κατάθεση στον αστυνομικό που προσήλθε στο σπίτι. Ένα 12χρονο παιδί παίρνει τηλέφωνο την Άμεση Δράση — αυτό δεν γίνεται υπό καθοδήγηση.</li>
+</ul>
+<p>Η ένορκη <strong>αποσιωπά πλήρως</strong> και τις δύο δικογραφίες.</p>
+</section>
+<section id="δ-ο-πατέρας-ζητησε-να-την-ενημερώσει--αρνήθηκε" class="level3">
+<h3>Δ. Ο Πατέρας ΖΗΤΗΣΕ να την Ενημερώσει — Αρνήθηκε</h3>
+<p>Στα Viber (2/1/2025 — 14,5 μήνες πριν την ένορκη), ο πατέρας:</p>
+<ul>
+<li>Της <strong>πρότεινε γραπτώς</strong> να μιλήσουν 5 λεπτά — <strong>δεν απάντησε</strong></li>
+<li>Της είπε: <em>«Έχω τους καλύτερους ειδικούς για το παιδί μου και αν ρωτούσες θα μάθαινες»</em> — <strong>δεν ρώτησε</strong></li>
+<li>Της επεσήμανε: <em>«Μόνο μίλαγες με τη φίλη σου που σε ενημέρωνε αποσπασματικά»</em> — <strong>δεν αρνήθηκε</strong></li>
+</ul>
+<p>Παρ' όλα αυτά, <strong>είδε</strong> τον πατέρα να κρατά τα παιδιά στους ώμους στην Πρέβεζα, <strong>ήξερε</strong> ότι υπάρχουν ειδικοί, <strong>αρνήθηκε</strong> να μάθει — και ψεύδεται ενώπιον δικαστηρίου βάσει μονομερούς πληροφόρησης.</p>
+<p><strong>Η Τσεκούρα δεν απλώς αποσιώπησε. Αρνήθηκε ενεργά να μάθει την αλήθεια, και κατέθεσε ψευδώς βάσει αποκλειστικά μονομερούς πληροφόρησης από την ηθική αυτουργό μητέρα.</strong></p>
+<hr />
+</section>
+</section>
+<section id="εισαγωγικεσ-παρατηρησεισ--τρεις-κρίσιμες-επισημάνσεις" class="level2">
+<h2>ΕΙΣΑΓΩΓΙΚΕΣ ΠΑΡΑΤΗΡΗΣΕΙΣ — Τρεις κρίσιμες επισημάνσεις</h2>
+<section id="ι-η-τσεκούρα-δεν-ειναι-ειδική-παιδαγωγός" class="level3">
+<h3>Ι. Η Τσεκούρα ΔΕΝ ΕΙΝΑΙ «Ειδική Παιδαγωγός»</h3>
+<p>Αυτοπροσδιορίζεται ως «Ψυχολόγος / Ειδική Παιδαγωγός» στην ένορκη για να προσδώσει επιστημοσύνη. <strong>Ο τίτλος είναι ψευδής.</strong></p>
+<p>Κατά το <strong>Άρθρο 20 του Ν.3699/2008</strong> (Ειδική Αγωγή &amp; Εκπαίδευση — <a href="https://www.opengov.gr/ypepth/?p=2148">https://www.opengov.gr/ypepth/?p=2148</a>), «Εκπαιδευτικοί Ειδικής Εκπαίδευσης» ορίζονται αποκλειστικά ως:</p>
+<ul>
+<li><strong>(Α) Κλάδος ΠΕ 71</strong> (Δασκάλων Ειδικής Εκπαίδευσης): Πτυχίο <strong>Παιδαγωγικών Τμημάτων Δημοτικής Εκπαίδευσης Ειδικής Αγωγής</strong>, ή <strong>Τμημάτων Εκπαιδευτικής και Κοινωνικής Πολιτικής</strong> με κατεύθυνση εκπαίδευση ατόμων με αναπηρία, ή <strong>Παιδαγωγικά Τμήματα Ειδικής Αγωγής</strong> κατεύθυνσης Δασκάλων — Πανεπιστημίων ημεδαπής ή αναγνωρισμένο ισότιμο αλλοδαπής (ΔΟΑΤΑΠ) + πιστοποιητικό Ελληνομάθειας</li>
+<li><strong>(Β) Κλάδος ΠΕ 70.50</strong>: Πτυχίο <strong>Παιδαγωγικού Τμήματος Δημοτικής Εκπαίδευσης</strong> + μεταπτυχιακό/διδακτορικό στην Ε.Ε. ή Σχολική Ψυχολογία, ή 2ετής μετεκπαίδευση Διδασκαλείων, ή 3ετής προϋπηρεσία σε δομές Ε.Ε.</li>
+</ul>
+<p>Η Τσεκούρα: <strong>BSc Psychology (University of Luton)</strong> + <strong>MSc Special Education (IoE, London)</strong>. Το BSc Psychology δεν είναι πτυχίο <strong>Παιδαγωγικού Τμήματος</strong> — είναι τμήμα Ψυχολογίας. Ακόμη κι αν το MSc αναγνωρίζεται ως μεταπτυχιακό Ε.Ε., απαιτείται <strong>βασικό πτυχίο</strong> Παιδαγωγικού Τμήματος (που δεν κατέχει). Δεν κατέχει ΠΕ 71, ΠΕ 78, ούτε ΠΕ 70.50. Δεν έχει αναγνώριση ΔΟΑΤΑΠ ως ειδική παιδαγωγός.</p>
+<p><strong>Πηγές:</strong></p>
+<ul>
+<li><strong>Νομοθεσία:</strong> <a href="https://www.opengov.gr/ypepth/?p=2148">Ν.3699/2008, Άρθρο 20 — Εκπαιδευτικοί Ειδικής Εκπαίδευσης</a> (Υπουργείο Παιδείας)</li>
+<li><strong>Μάνος Χατζηδάκης</strong> (πραγματικός ΠΕ 71, καθημερινή παρακολούθηση Αίαντα): <em>«Η Τσεκούρα ΔΕΝ είναι ειδικός παιδαγωγός. Το δηλώνει για λόγους μάρκετινγκ επειδή έχει κέντρο ειδικής αγωγής.»</em></li>
+<li><strong>Νομική αξιολόγηση Πεπελάση</strong> (email 26-30/3/2026): <em>«Εντάσσεται στο πεδίο εφαρμογής του 224 ΠΚ... αυξάνει το δόλο της η ιδιότητά της... η δόλια απόκρυψη συνιστά ψευδή κατάθεση... η ηθική αυτουργία είναι δεδομένη... μπορεί να υποβληθεί καταγγελία στο ΣΕΨΥ.»</em></li>
+</ul>
+<p>Αποτελεί <strong>ψευδή παράσταση ιδιότητας</strong> σε ένορκη βεβαίωση — αυτοτελής βάση μήνυσης.</p>
+</section>
+<section id="ιι-ο-πατέρας-ζητησε-να-ενημερώσει-την-τσεκούρα--εκείνη-αρνήθηκε" class="level3">
+<h3>ΙΙ. Ο πατέρας ΖΗΤΗΣΕ να ενημερώσει την Τσεκούρα — εκείνη αρνήθηκε</h3>
+<p>Στα Viber (2/1/2025), ο πατέρας της προτείνει γραπτώς να μιλήσουν:</p>
+<ul>
+<li><em>«Σου πρότεινα γραπτώς να μιλήσουμε 5 λεπτά... Και δεν μου απάντησες τίποτα»</em></li>
+<li><em>«Έχω τους καλύτερους ειδικούς για το παιδί μου και αν ρωτούσες θα μάθαινες»</em></li>
+<li><em>«Μόνο μίλαγες με τη φίλη σου που η ίδια σε ενημέρωνε αποσπασματικά»</em></li>
+</ul>
+<p><strong>Η Τσεκούρα δεν αρνείται κανένα.</strong> Δεν ρώτησε ποιοι είναι οι ειδικοί, δεν δέχτηκε την πρόταση ενημέρωσης. Η μοναδική πηγή της ήταν η Μπακολούκα — μονομερώς, φιλτραρισμένα. Ωστόσο στην ένορκη παρουσιάζεται ως αντικειμενική ειδικός.</p>
+</section>
+<section id="ιιι-η-πρωτοβουλία-ήταν-αποκλειστικα-του-πατέρα" class="level3">
+<h3>ΙΙΙ. Η πρωτοβουλία ήταν ΑΠΟΚΛΕΙΣΤΙΚΑ του πατέρα</h3>
+<p>Η Τσεκούρα υποστηρίζει ότι η μητέρα πρωτοστάτησε. Τα αποδεικτικά δείχνουν το αντίθετο — βλ. αναλυτικά §1-3.</p>
+</section>
+<section id="σύγκριση-τσεκούρα--χατζηδάκης" class="level3">
+<h3>Σύγκριση Τσεκούρα — Χατζηδάκης</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Τσεκούρα</th>
+<th>Χατζηδάκης</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Τίτλος</td>
+<td>«Ειδική Παιδαγωγός» — <strong>ΨΕΥΔΗΣ</strong></td>
+<td>ΠΕ 71 — <strong>ΠΡΑΓΜΑΤΙΚΟΣ</strong></td>
+</tr>
+<tr>
+<td>Σπουδές</td>
+<td>BSc Luton + MSc IoE London</td>
+<td>Ελληνικό Παιδαγωγικό Τμήμα</td>
+</tr>
+<tr>
+<td>Επαφή με Αίαντα</td>
+<td>1 διανυκτέρευση (2/1/2025)</td>
+<td>Καθημερινά — 16+ μήνες</td>
+</tr>
+<tr>
+<td>«Διάγνωση»</td>
+<td>«Κατάθλιψη + πανικός» → <strong>100% ΛΑΘΟΣ</strong></td>
+<td>«Πρόοδος υπερβαίνει εκτιμήσεις» → <strong>ΣΩΣΤΟ</strong></td>
+</tr>
+<tr>
+<td>Πηγή πληροφόρησης</td>
+<td>Αποκλειστικά Μπακολούκα (μονομερής)</td>
+<td>Ανεξάρτητη επαγγελματική αξιολόγηση</td>
+</tr>
+<tr>
+<td>Πρόταση πατέρα για ενημέρωση</td>
+<td><strong>Αρνήθηκε</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</section>
+</section>
+<section id="επι-των-ψευδων-χωριων" class="level2">
+<h2>ΕΠΙ ΤΩΝ ΨΕΥΔΩΝ ΧΩΡΙΩΝ</h2>
+<section id="1--ήταν-εκείνη-που-εντόπισε-τα-σημάδια-αναζητούσε-θεραπείες" class="level3">
+<h3>§1 — «Ήταν εκείνη που εντόπισε τα σημάδια... αναζητούσε θεραπείες...»</h3>
+<p><strong>ΨΕΥΔΕΣ — Αδιάσειστα αποδεικτικά:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ημερομηνία</th>
+<th>Ενέργεια</th>
+<th>Αποδεικτικό</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>17/10/2023</td>
+<td>Έρευνα ΚΕΔΑΣΥ — εντοπισμός 2ου ΚΕΔΑΣΥ Δ' Αθήνας</td>
+<td>Slack screenshots</td>
+</tr>
+<tr>
+<td>19/11/2023</td>
+<td>Άννα Οικονόμου συστήνει Φώφη Τζάνη <strong>στον πατέρα</strong></td>
+<td>SMS screenshot</td>
+</tr>
+<tr>
+<td>20/11/2023</td>
+<td>Ο πατέρας επικοινωνεί με Φώφη Τζάνη</td>
+<td>SMS + Slack</td>
+</tr>
+<tr>
+<td>28/11/2023</td>
+<td>Ο πατέρας επικοινωνεί με Μάνο Χατζηδάκη</td>
+<td>SMS screenshot</td>
+</tr>
+<tr>
+<td>29/1/2024</td>
+<td>Ο πατέρας πηγαίνει τον Αίαντα στη Σταματοπούλου</td>
+<td>Γνωμάτευση F90.0</td>
+</tr>
+<tr>
+<td>Μάρτ. 2025</td>
+<td>ΚΕΔΑΣΥ — επίσημη αξιολόγηση</td>
+<td>Πόρισμα</td>
+</tr>
+</tbody>
+</table>
+<p>Η μητέρα δεν εμφανίζεται πουθενά. Η ίδια (αίτηση ασφ., σελ. 7): «του ζήτησα να ασχοληθεί με τα διαδικαστικά» — ομολογία.</p>
+</section>
+<section id="2--η-έφη-είχε-καταλήξει-στο-κεδασυ" class="level3">
+<h3>§2 — «Η Έφη είχε καταλήξει στο ΚΕΔΑΣΥ...»</h3>
+<p><strong>ΨΕΥΔΕΣ.</strong> Η εκπαιδευτικός ήταν η Άννα Οικονόμου — γνωστή <strong>του πατέρα</strong>. SMS (19/11/2023): «Φώφη Τζανη, ειδικη παιδαγωγός, 6979943842» → Ντέμης: «Σε ευχαριστώ πολύ!» → (20/11): «Μίλησα με τη Φώφη. Θα βρεθούμε το Σάββατο στις 11:00.»</p>
+</section>
+<section id="3--μου-ζήτησε-να-της-συστήσω-παιδοψυχίατρο" class="level3">
+<h3>§3 — «Μου ζήτησε να της συστήσω παιδοψυχίατρο»</h3>
+<p><strong>ΑΠΟΔΕΔΕΙΓΜΕΝΟ — Email thread «ΕΡΩΤΗΜΑΤΟΛΟΓΙΑ» (28/11-9/12/2023, 16 μηνύματα):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ημερομηνία</th>
+<th>Ενέργεια</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>28/11/2023, 13:46</td>
+<td>Γραφείο Σταματοπούλου στέλνει ερωτηματολόγια <strong>στον πατέρα</strong></td>
+</tr>
+<tr>
+<td>28/11/2023, 14:03</td>
+<td>Ο πατέρας <strong>προωθεί στη μητέρα</strong> (CC) — εκείνη δεν κάνει τίποτα</td>
+</tr>
+<tr>
+<td>7/12/2023, 20:27</td>
+<td>Ο πατέρας στέλνει στο <strong>φροντιστήριο</strong></td>
+</tr>
+<tr>
+<td>9/12/2023, 17:23</td>
+<td>Ο πατέρας επικοινωνεί με <strong>δασκάλα La Salle</strong>: «είμαι ο μπαμπάς του Αίαντα»</td>
+</tr>
+</tbody>
+</table>
+<p>Η μητέρα ενημερώθηκε σε CC — <strong>δεν έκανε ΤΙΠΟΤΑ</strong>. Η γνωμάτευση Σταματοπούλου αναφέρει <strong>εναντιωματικές συμπεριφορές</strong> — η Τσεκούρα τις αποσιωπά σκοπίμως.</p>
+</section>
+<section id="4--ο-ντέμης-δεν-είχε-καθημερινή-παρουσία" class="level3">
+<h3>§4 — «Ο Ντέμης δεν είχε καθημερινή παρουσία»</h3>
+<p><strong>ΨΕΥΔΕΣ.</strong> Η Τσεκούρα ήταν παρούσα σε Πρωτοχρονιά 2023, Πρέβεζα 2023, Πρωτοχρονιά 2025 — βλέποντας τον πατέρα ενεργά παρόντα.</p>
+</section>
+<section id="5--εναντίωση-στον-εμβολιασμό" class="level3">
+<h3>§5 — «Εναντίωση στον εμβολιασμό»</h3>
+<p><strong>ΨΕΥΔΕΣ.</strong> Τα παιδιά πλήρως εμβολιασμένα. Βιβλιάριο υγείας.</p>
+</section>
+<section id="6--πρέβεζα-αδιαφορία" class="level3">
+<h3>§6 — «Πρέβεζα... αδιαφορία»</h3>
+<p><strong>ΑΝΤΙΚΡΟΥΕΤΑΙ ΜΕ 6 ΦΩΤΟΓΡΑΦΙΕΣ (Αύγ. 2023):</strong></p>
+<p>Rafting στον Αχέροντα (η Τσεκούρα στο ΙΔΙΟ σκάφος!) · Ντέμης με Κλειώ στους ώμους στον ποταμό · Ντέμης κρατάει Κλειώ στην αγκαλιά · Λούνα παρκ</p>
+<p><strong>Η Τσεκούρα ήταν αυτόπτης μάρτυρας</strong> ενός πατέρα που κρατά τα παιδιά στους ώμους — και ισχυρίζεται «αδιαφορία». Αποκρύπτει το περιστατικό Πρωτοχρονιάς 2022 (ο γιος της Ίωνας χτυπούσε τον Ντέμη 20 λεπτά — γραπτή συγγνώμη).</p>
+</section>
+<section id="7--γαλαξίδι--φώναξε-στον-αίαντα" class="level3">
+<h3>§7 — «Γαλαξίδι — φώναξε στον Αίαντα»</h3>
+<p><strong>ΕΞ ΑΚΟΗΣ.</strong> Η Τσεκούρα ΔΕΝ ήταν παρούσα — «σύμφωνα με τα όσα μου περιέγραψαν η κόρη μου και η πεθερά μου». Εκκρεμεί η δική μας εκδοχή.</p>
+</section>
+<section id="8--έγινε-πολύ-επιθετικός" class="level3">
+<h3>§8 — «Έγινε πολύ επιθετικός»</h3>
+<p>Η ίδια η μητέρα ΔΕΝ χρησιμοποιεί τη λέξη «επιθετικός» στα δικόγραφά της — κατασκευασμένος χαρακτηρισμός. Αίτηση ασφαλιστικών αναφέρει σύμβουλο γονέων-γάμου + ήρεμη ενημέρωση μετακόμισης.</p>
+</section>
+<section id="9--μηνύματα-με-επικριτικό-ύφος-πάρκινγκ-φαγητό" class="level3">
+<h3>§9 — «Μηνύματα με επικριτικό ύφος... πάρκινγκ... φαγητό»</h3>
+<p>Εκκρεμεί ταυτοποίηση.</p>
+</section>
+<section id="10-13--πρωτοχρονιά-2025--viber" class="level3">
+<h3>§10-13 — Πρωτοχρονιά 2025 / Viber</h3>
+<p><strong>ΠΛΗΡΗΣ ΑΝΤΙΚΡΟΥΣΗ — 14 Viber screenshots (2/1/2025):</strong></p>
+<ol type="1">
+<li>Μυστικός συντονισμός με Μπακολούκα</li>
+<li>Ψευδοδιάγνωση «κατάθλιψη + πανικός» χωρίς αξιολόγηση — <strong>100% εσφαλμένη</strong> (ΜΟ 15,8 σήμερα)</li>
+<li>Ομολογία μεροληψίας: «Δεν ήμασταν ποτέ πολύ κοντά με εσένα»</li>
+<li>Ο Αίαντας <strong>επέλεξε τον πατέρα</strong> αυθόρμητα</li>
+<li><strong>Ο πατέρας ζήτησε ενημέρωση — αρνήθηκε</strong> (βλ. Εισαγωγή §ΙΙ)</li>
+<li>Τόνος πατέρα: αξιοπρεπής — όχι «ιδιαίτερα επιθετικός»</li>
+<li>Χρονισμός: <strong>12 ημέρες πριν</strong> τα ασφαλιστικά μέτρα (14/1/2025)</li>
+</ol>
+</section>
+<section id="11--διέκοψε-γαλλικά" class="level3">
+<h3>§11 — «Διέκοψε γαλλικά»</h3>
+<p>Πόρισμα ΚΕΔΑΣΥ προτείνει απαλλαγή γαλλικών. «Ειδικός» σε μαθησιακές δυσκολίες αγνοεί σύσταση ΚΕΔΑΣΥ.</p>
+</section>
+<section id="14--κλειώ-έκλαιγε-στο-ασανσέρ" class="level3">
+<h3>§14 — «Κλειώ έκλαιγε στο ασανσέρ»</h3>
+<p>Εκκρεμεί αντίκρουση.</p>
+</section>
+<section id="15--υβριστικοί-ισχυρισμοί-στο-σχολείο" class="level3">
+<h3>§15 — «Υβριστικοί ισχυρισμοί στο σχολείο»</h3>
+<p>«Σύμφωνα με γνωστούς» — αόριστο, χωρίς μάρτυρες.</p>
+</section>
+<section id="16--ο-αίαντας-χτυπάει-τη-μητέρα" class="level3">
+<h3>§16 — «Ο Αίαντας χτυπάει τη μητέρα»</h3>
+<p><strong>ΑΝΤΙΣΤΡΟΦΗ ΒΙΑΣ — Τεκμηριωμένα περιστατικά:</strong></p>
+<ul>
+<li><strong>5 καταγεγραμμένα περιστατικά</strong> βίας μητέρας κατά Αίαντα στη μήνυση (ΑΒΜ Φ25-3866)</li>
+<li><strong>Βιντεοσκοπημένες αποδείξεις</strong> με απομαγνητοφωνήσεις</li>
+<li><strong>Ανάλυση Δρ. Αντωνοπούλου</strong> (δικαστική ψυχολόγος) — επιβεβαιωμένη ως μάρτυρας για 5 Ιουνίου 2026</li>
+<li><strong>2 ιατροδικαστικές εκθέσεις</strong> (Ασκληπιείο Βούλας, 3/4/2025)</li>
+<li><strong>Ο Αίαντας κάλεσε μόνος του την Αστυνομία</strong> (3/4/2025) για να γλιτώσει</li>
+</ul>
+</section>
+<section id="17--αποξένωση" class="level3">
+<h3>§17 — «Αποξένωση»</h3>
+<p>Αποκρύπτει: μητέρα συναίνεσε ενώπιον δικαστηρίου · Αίαντας δήλωσε ότι θέλει τον πατέρα · «αποξένωση» = αντίδραση σε κακοποίηση.</p>
+</section>
+<section id="18--η-κλειώ-δεν-θέλει-τον-πατέρα" class="level3">
+<h3>§18 — «Η Κλειώ δεν θέλει τον πατέρα»</h3>
+<p><strong>40 ΦΩΤΟΓΡΑΦΙΕΣ</strong> (επιλογή Σβορώνου, Μάρτ.-Ιούλ. 2025): Κλειώ στους ώμους πατέρα · δείπνα Γαλαξίδι · ποδήλατα · SUP · σκάφος · «SUPER DAD/SON/DAUGHTER» · Twister · κήπος. <strong>Ευτυχισμένη σε κάθε φωτογραφία.</strong></p>
+</section>
+<section id="19--θα-οδηγήσει-σε-αποξένωση" class="level3">
+<h3>§19 — «Θα οδηγήσει σε αποξένωση»</h3>
+<p>ΜΟ 15,8 — 6 μαθήματα 18-19. Χατζηδάκης: «πρόοδος υπερβαίνει τις πιο αισιόδοξες εκτιμήσεις».</p>
+<hr />
+</section>
+</section>
+<section id="εκκρεμουν" class="level2">
+<h2>ΕΚΚΡΕΜΟΥΝ</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Θέμα</th>
+<th>Προτεραιότητα</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>§7</td>
+<td>Γαλαξίδι — τι έγινε; ποιοι παρόντες;</td>
+<td>ΥΨΗΛΗ</td>
+</tr>
+<tr>
+<td>§8</td>
+<td>Μηνύματα με Μπακολούκα (συναινετική στάση)</td>
+<td>ΥΨΗΛΗ</td>
+</tr>
+<tr>
+<td>§9</td>
+<td>Περιστατικό πάρκινγκ/φαγητό</td>
+<td>ΥΨΗΛΗ</td>
+</tr>
+<tr>
+<td>§10</td>
+<td>Αντίδραση Αίαντα στο τηλέφωνο</td>
+<td>ΜΕΣΑΙΑ</td>
+</tr>
+<tr>
+<td>§14</td>
+<td>Κλειώ στο ασανσέρ</td>
+<td>ΜΕΣΑΙΑ</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</section>
+<section id="αποδεικτικα--13-τεκμηρια-ολα-διαθεσιμα" class="level2">
+<h2>ΑΠΟΔΕΙΚΤΙΚΑ — 13 ΤΕΚΜΗΡΙΑ (ΟΛΑ ΔΙΑΘΕΣΙΜΑ)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Τεκμήριο</th>
+<th>Αντικρούει</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Slack screenshot — ΚΕΔΑΣΥ πρωτοβουλία πατέρα (Οκτ-Νοε 2023)</td>
+<td>§1, §2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>SMS Οικονόμου → Ντέμης — σύσταση Τζάνη (19-20/11/2023)</td>
+<td>§1, §2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SMS Ντέμης → Χατζηδάκης (28/11/2023)</td>
+<td>§1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Viber Τσεκούρα 2/1/2025 — 14 εικόνες</td>
+<td>§10-13, Εισαγωγή</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Email ΕΡΩΤΗΜΑΤΟΛΟΓΙΑ (28/11-9/12/2023, 16 μηνύματα)</td>
+<td>§3</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Γνωμάτευση Σταματοπούλου F90.0 (29/1/2024)</td>
+<td>§1, §3</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Πόρισμα ΚΕΔΑΣΥ (17/3/2025)</td>
+<td>§11</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Έκθεση Χατζηδάκη (13/3/2026)</td>
+<td>§19</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Σημείωμα Ίωνα Τσεκούρα (Πρωτοχρονιά 2022)</td>
+<td>§6</td>
+</tr>
+<tr>
+<td>10</td>
+<td>40 φωτογραφίες Σβορώνου (Μάρτ.-Ιούλ. 2025)</td>
+<td>§4, §18</td>
+</tr>
+<tr>
+<td>11</td>
+<td>6 φωτογραφίες Πρέβεζα (Αύγ. 2023)</td>
+<td>§6</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Screenshot Χατζηδάκη: ψευδής τίτλος Τσεκούρα</td>
+<td>Εισαγωγή</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Ένορκη Τσεκούρα (PDF)</td>
+<td>Αναφορά</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Πλήρες αρχείο με downloads:</strong> <a href="https://ntemian.github.io/paklex-evidence/">https://ntemian.github.io/paklex-evidence/</a> (κωδ: paklex2026)</p>
+<hr />
+<p>Παραμένω στη διάθεσή σας.</p>
+<p><strong>Ευθύμιος Λατσούδης</strong></p>
+</section>
+</section>
 
-  <div class="doc-header">
-    <h1>ΑΠΑΝΤΗΣΕΙΣ ΣΕ MEMO PAKLEX — Μήνυση κατά Τσεκούρα (Ψευδορκία, Άρ. 224 ΠΚ)</h1>
-    <table class="meta-table">
-      <tr><td>Ημερομηνία:</td><td>3 Απριλίου 2026</td></tr>
-      <tr><td>Απαντά σε:</td><td>memo_minisi latsoudi kata mpakolouka_tsekoura_.docx (ΟΡΘΗ ΕΠΑΝΑΛΗΨΗ, 2/4/2026)</td></tr>
-      <tr><td>Προς:</td><td>Μαρλίν Κούση (kousi@paklex.gr), Αντώνης Πεπελάσης (pepelasis@paklex.gr)</td></tr>
-      <tr><td>Από:</td><td>Ευθύμιος Λατσούδης</td></tr>
-      <tr><td>Αποδεικτικά (πλήρες αρχείο):</td><td><a href="https://ntemian.github.io/paklex-evidence/" target="_blank" rel="noopener">https://ntemian.github.io/paklex-evidence/</a> (κωδικός: paklex2026)</td></tr>
-      <tr><td>Υπόθεση:</td><td>ΓΑΚ 11800/2025 — Λατσούδης κατά Μπακολούκα</td></tr>
-    </table>
-  </div>
+    </article>
 
-  <!-- PROGRESS BAR -->
-  <div class="progress-bar">
-    <div class="bar-label"><span>Ισχυρισμοί Τσεκούρα</span><strong>15 / 17 αντικρούονται</strong></div>
-    <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
-    <ul class="claim-toc">
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-1')">§1 Εντοπισμός σημαδιών</a><span class="badge badge-false">ΨΕΥΔΕΣ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-2')">§2 ΚΕΔΑΣΥ πρωτοβουλία</a><span class="badge badge-false">ΨΕΥΔΕΣ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-3')">§3 Παιδοψυχίατρος</a><span class="badge badge-true">ΑΠΟΔΕΔ.</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-4')">§4 Καθημερινή παρουσία</a><span class="badge badge-false">ΨΕΥΔΕΣ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-5')">§5 Εμβολιασμός</a><span class="badge badge-false">ΨΕΥΔΕΣ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-6')">§6 Πρέβεζα αδιαφορία</a><span class="badge badge-false">ΨΕΥΔΕΣ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-7')">§7 Γαλαξίδι</a><span class="badge badge-hearsay">ΕΞ ΑΚΟΗΣ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-8')">§8 Επιθετικότητα</a><span class="badge badge-false">ΨΕΥΔΕΣ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-9')">§9 Μηνύματα πάρκινγκ</a><span class="badge badge-pending">ΕΚΚΡΕΜΕΙ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-10')">§10-13 Πρωτοχρονιά Viber</a><span class="badge badge-false">ΨΕΥΔΕΣ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-11')">§11 Γαλλικά</a><span class="badge badge-false">ΨΕΥΔΕΣ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-14')">§14 Κλειώ ασανσέρ</a><span class="badge badge-pending">ΕΚΚΡΕΜΕΙ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-15')">§15 Υβριστικοί στο σχολείο</a><span class="badge badge-hearsay">ΑΟΡΙΣΤΟ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-16')">§16 Αίαντας χτυπάει μητέρα</a><span class="badge badge-false">ΑΝΤΙΣΤΡ.</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-17')">§17 Αποξένωση</a><span class="badge badge-false">ΨΕΥΔΕΣ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-18')">§18 Κλειώ δεν θέλει πατέρα</a><span class="badge badge-false">39 ΦΩΤΟ</span></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon','claim-19')">§19 Αποξένωση μέλλον</a><span class="badge badge-true">ΜΟ 15,8</span></li>
-    </ul>
-  </div>
+    <section class="evidence-section" id="evidence-library">
+      <h2>Αποδεικτικά Downloads</h2>
+      <p>Πλήρης βιβλιοθήκη αποδεικτικών που υπάρχει στο repository. Τα PDF εμφανίζονται ως ενσωματωμένη πρώτη σελίδα όπου το υποστηρίζει ο browser.</p>
+      <div class="evidence-grid">
+        
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/slack-kedasy-initiative.png" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/slack-kedasy-initiative.png" alt="Slack ΚΕΔΑΣΥ" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Slack ΚΕΔΑΣΥ</h3>
+                <p>Πρωτοβουλία πατέρα για ΚΕΔΑΣΥ</p>
+                <a class="download" href="evidence/screenshots/slack-kedasy-initiative.png" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
 
-  <!-- TABLE OF CONTENTS -->
-  <div class="toc">
-    <div class="toc-title">
-      <h3>Περιεχόμενα</h3>
-      <div class="toc-controls">
-        <button onclick="toggleAllSections(true)">Άνοιγμα όλων</button>
-        <button onclick="toggleAllSections(false)">Κλείσιμο όλων</button>
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/SMS-Anna-Oikonomou-Fofi-Tzanni-19-20-Nov-2023.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/SMS-Anna-Oikonomou-Fofi-Tzanni-19-20-Nov-2023.jpg" alt="SMS Οικονόμου" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>SMS Οικονόμου</h3>
+                <p>Σύσταση Φώφης Τζάνη στον πατέρα</p>
+                <a class="download" href="evidence/screenshots/SMS-Anna-Oikonomou-Fofi-Tzanni-19-20-Nov-2023.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-1.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-1.jpg" alt="Viber Τσεκούρα 1" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 1</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-1.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-2.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-2.jpg" alt="Viber Τσεκούρα 2" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 2</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-2.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-3.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-3.jpg" alt="Viber Τσεκούρα 3" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 3</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-3.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-4.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-4.jpg" alt="Viber Τσεκούρα 4" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 4</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-4.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-5.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-5.jpg" alt="Viber Τσεκούρα 5" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 5</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-5.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-6.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-6.jpg" alt="Viber Τσεκούρα 6" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 6</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-6.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-7.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-7.jpg" alt="Viber Τσεκούρα 7" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 7</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-7.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-8.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-8.jpg" alt="Viber Τσεκούρα 8" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 8</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-8.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-9.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-9.jpg" alt="Viber Τσεκούρα 9" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 9</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-9.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-10.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-10.jpg" alt="Viber Τσεκούρα 10" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 10</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-10.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-11.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-11.jpg" alt="Viber Τσεκούρα 11" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 11</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-11.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-12.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-12.jpg" alt="Viber Τσεκούρα 12" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 12</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-12.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-13.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-13.jpg" alt="Viber Τσεκούρα 13" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 13</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-13.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/viber-14.jpg" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/viber-14.jpg" alt="Viber Τσεκούρα 14" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Viber Τσεκούρα 14</h3>
+                <p>Συνομιλία 2/1/2025</p>
+                <a class="download" href="evidence/screenshots/viber-14.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/Tsekoura-NOT-eidikos-paidagogos.png" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/Tsekoura-NOT-eidikos-paidagogos.png" alt="Ψευδής τίτλος Τσεκούρα" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Ψευδής τίτλος Τσεκούρα</h3>
+                <p>Screenshot Χατζηδάκη</p>
+                <a class="download" href="evidence/screenshots/Tsekoura-NOT-eidikos-paidagogos.png" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/screenshots/Screenshot_2026-03-19_at_9.51.08_PM.png" title="Άνοιγμα εικόνας"><img src="evidence/screenshots/Screenshot_2026-03-19_at_9.51.08_PM.png" alt="Screenshot 19/3/2026" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Screenshot 19/3/2026</h3>
+                <p>Συμπληρωματικό screenshot</p>
+                <a class="download" href="evidence/screenshots/Screenshot_2026-03-19_at_9.51.08_PM.png" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <a class="thumb pdf-thumb" href="evidence/pdfs/stamatopoulou-gnomateysi.pdf" target="_blank" rel="noopener"><iframe src="evidence/pdfs/stamatopoulou-gnomateysi.pdf#page=1&toolbar=0&navpanes=0" loading="lazy" title="Γνωμάτευση Σταματοπούλου"></iframe></a>
+              <div class="evidence-meta">
+                <h3>Γνωμάτευση Σταματοπούλου</h3>
+                <p>F90.0 και εναντιωματικές συμπεριφορές</p>
+                <a class="download" href="evidence/pdfs/stamatopoulou-gnomateysi.pdf" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <a class="thumb pdf-thumb" href="evidence/pdfs/kedasy-porisma.pdf" target="_blank" rel="noopener"><iframe src="evidence/pdfs/kedasy-porisma.pdf#page=1&toolbar=0&navpanes=0" loading="lazy" title="Πόρισμα ΚΕΔΑΣΥ"></iframe></a>
+              <div class="evidence-meta">
+                <h3>Πόρισμα ΚΕΔΑΣΥ</h3>
+                <p>Επίσημη κρατική αξιολόγηση</p>
+                <a class="download" href="evidence/pdfs/kedasy-porisma.pdf" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <a class="thumb pdf-thumb" href="evidence/pdfs/chatzidakis-ekthesi.pdf" target="_blank" rel="noopener"><iframe src="evidence/pdfs/chatzidakis-ekthesi.pdf#page=1&toolbar=0&navpanes=0" loading="lazy" title="Έκθεση Χατζηδάκη"></iframe></a>
+              <div class="evidence-meta">
+                <h3>Έκθεση Χατζηδάκη</h3>
+                <p>Καθημερινή παρακολούθηση Αίαντα</p>
+                <a class="download" href="evidence/pdfs/chatzidakis-ekthesi.pdf" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <a class="thumb pdf-thumb" href="evidence/pdfs/email-erotimatologia.pdf" target="_blank" rel="noopener"><iframe src="evidence/pdfs/email-erotimatologia.pdf#page=1&toolbar=0&navpanes=0" loading="lazy" title="Email ΕΡΩΤΗΜΑΤΟΛΟΓΙΑ"></iframe></a>
+              <div class="evidence-meta">
+                <h3>Email ΕΡΩΤΗΜΑΤΟΛΟΓΙΑ</h3>
+                <p>Thread 28/11-9/12/2023</p>
+                <a class="download" href="evidence/pdfs/email-erotimatologia.pdf" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <a class="thumb pdf-thumb" href="evidence/pdfs/affidavit-tsekoura.pdf" target="_blank" rel="noopener"><iframe src="evidence/pdfs/affidavit-tsekoura.pdf#page=1&toolbar=0&navpanes=0" loading="lazy" title="Ένορκη Τσεκούρα"></iframe></a>
+              <div class="evidence-meta">
+                <h3>Ένορκη Τσεκούρα</h3>
+                <p>Πηγή ψευδών χωρίων</p>
+                <a class="download" href="evidence/pdfs/affidavit-tsekoura.pdf" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <a class="thumb pdf-thumb" href="evidence/pdfs/email-lela-ektimisi-5-12-2023.pdf" target="_blank" rel="noopener"><iframe src="evidence/pdfs/email-lela-ektimisi-5-12-2023.pdf#page=1&toolbar=0&navpanes=0" loading="lazy" title="Email Λέλα 5/12/2023"></iframe></a>
+              <div class="evidence-meta">
+                <h3>Email Λέλα 5/12/2023</h3>
+                <p>Απόκρυψη εναντιωματικότητας</p>
+                <a class="download" href="evidence/pdfs/email-lela-ektimisi-5-12-2023.pdf" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <a class="thumb pdf-thumb" href="evidence/pdfs/email-effie-klironomiko-26-27-12-2024.pdf" target="_blank" rel="noopener"><iframe src="evidence/pdfs/email-effie-klironomiko-26-27-12-2024.pdf#page=1&toolbar=0&navpanes=0" loading="lazy" title="Email Έφης 27/12/2024"></iframe></a>
+              <div class="evidence-meta">
+                <h3>Email Έφης 27/12/2024</h3>
+                <p>Άρνηση κληρονομικότητας</p>
+                <a class="download" href="evidence/pdfs/email-effie-klironomiko-26-27-12-2024.pdf" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <a class="thumb pdf-thumb" href="evidence/pdfs/email-ntemis-reply-klironomiko-27-12-2024.pdf" target="_blank" rel="noopener"><iframe src="evidence/pdfs/email-ntemis-reply-klironomiko-27-12-2024.pdf#page=1&toolbar=0&navpanes=0" loading="lazy" title="Απάντηση Ντέμη 27/12/2024"></iframe></a>
+              <div class="evidence-meta">
+                <h3>Απάντηση Ντέμη 27/12/2024</h3>
+                <p>Απάντηση στο κληρονομικό ιστορικό</p>
+                <a class="download" href="evidence/pdfs/email-ntemis-reply-klironomiko-27-12-2024.pdf" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/photos/20230102_121921.jpg" title="Άνοιγμα εικόνας"><img src="evidence/photos/20230102_121921.jpg" alt="Σημείωμα Ίωνα" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Σημείωμα Ίωνα</h3>
+                <p>Πρωτοχρονιά 2022</p>
+                <a class="download" href="evidence/photos/20230102_121921.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
+
+            <article class="evidence-card">
+              <button class="thumb image-thumb" data-src="evidence/photos/elegxos-proodou-ajax.jpg" title="Άνοιγμα εικόνας"><img src="evidence/photos/elegxos-proodou-ajax.jpg" alt="Έλεγχος προόδου Αίαντα" loading="lazy"></button>
+              <div class="evidence-meta">
+                <h3>Έλεγχος προόδου Αίαντα</h3>
+                <p>Μαθησιακή πρόοδος</p>
+                <a class="download" href="evidence/photos/elegxos-proodou-ajax.jpg" target="_blank" rel="noopener" download>Download</a>
+              </div>
+            </article>
+            
       </div>
-    </div>
-    <ol class="toc-sections">
-      <li><a href="#sec-plaisio" onclick="openAndScroll('sec-plaisio')"><span>1. Πλαίσιο — 4 ένορκες, κοινά ελαττώματα</span></a></li>
-      <li><a href="#sec-giati" onclick="openAndScroll('sec-giati')"><span>2. Γιατί η Τσεκούρα είναι ιδιαίτερα υπόλογη</span></a></li>
-      <li><a href="#sec-eisagogikes" onclick="openAndScroll('sec-eisagogikes')"><span>3. Εισαγωγικές παρατηρήσεις — 3 κρίσιμες επισημάνσεις</span></a></li>
-      <li><a href="#sec-pseudon" onclick="openAndScroll('sec-pseudon')"><span>4. Επί των ψευδών χωρίων — 17 ισχυρισμοί</span><span class="toc-badge"><span class="badge badge-green">15/17</span></span></a></li>
-      <li><a href="#sec-ekkremoun" onclick="openAndScroll('sec-ekkremoun')"><span>5. Εκκρεμούν — 5 θέματα</span><span class="toc-badge"><span class="badge badge-pending">5</span></span></a></li>
-      <li><a href="#sec-apodeiktika" onclick="openAndScroll('sec-apodeiktika')"><span>6. Αποδεικτικά — 16 τεκμήρια</span></a></li>
-    </ol>
-  </div>
 
-  <!-- ΠΛΑΙΣΙΟ -->
-  <div class="section open" id="sec-plaisio">
-    <div class="section-header" onclick="toggleSection(this)">
-      <h2>ΠΛΑΙΣΙΟ</h2>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="section-body">
-      <p>Η ένορκη βεβαίωση της Αναστασίας Τσεκούρα εντάσσεται σε ένα σύνολο <strong>4 ενόρκων βεβαιώσεων</strong> που φέρουν κοινά χαρακτηριστικά:</p>
-      <ul>
-        <li><strong>Ίδια ημέρα:</strong> 19 Μαρτίου 2026 — <strong>μία ημέρα πριν τη δίκη</strong> των ασφαλιστικών μέτρων</li>
-        <li><strong>Ίδιο γραφείο:</strong> Λεωφ. Μεσογείων 2-4, γραφείο Μπρέγιανου</li>
-        <li><strong>Ίδια δικηγόρος:</strong> Δήμητρα Κουρκουλή (ΑΜ 29253 ΔΣΑ)</li>
-        <li><strong>Διαδοχικοί αριθμοί πρωτοκόλλου:</strong> Τσεκούρα 0077759 · Marinova 0077761 · Τσάκαλου 0077762 · Κανδύλη 0077763</li>
-        <li><strong>Ταυτόσημη αφηγηματική δομή</strong> και ταυτόσημα talking points σε όλες</li>
-        <li><strong>Κατά βάση κατάθεση εξ ακοής</strong> — καμία μάρτυρας δεν ήταν παρούσα στα κρίσιμα γεγονότα</li>
-      </ul>
-      <p><strong>Ειδική επισήμανση — ΑΦΜ Marinova:</strong> Στην ένορκη βεβαίωση της Emilie Marinova (ΔΣΑ_ΕΒ_0077761_2026) αναγράφεται ΑΦΜ <strong>076733377</strong> — που είναι <strong>το ΑΦΜ της ίδιας της αντιδίκου Ευθυμίας Μπακολούκα</strong>. Αυτό δεν είναι ένα απλό τυπογραφικό λάθος. Ο ΑΦΜ στην ελληνική έννομη τάξη αποτελεί <strong>μοναδικό ταυτοποιητικό στοιχείο</strong> φυσικού προσώπου — αντίστοιχο με τον αριθμό ταυτότητας. Η εγγραφή του ΑΦΜ της αντιδίκου στο έγγραφο αλλοδαπής μάρτυρα αποκαλύπτει ότι <strong>η Μπακολούκα είχε τον πλήρη έλεγχο</strong> της διαδικασίας κατάθεσης — παρείχε τα δικά της στοιχεία, υπαγόρευσε ή συντόνισε τα κείμενα, και η δικηγόρος Κουρκουλή αντέγραψε μηχανικά χωρίς επαλήθευση. Η Μπακολούκα δεν ήταν απλώς αιτούσα — ήταν η <strong>ηθική αυτουργός</strong> αυτών των καταθέσεων. Ακόμη κι αν αποδοθεί σε αμέλεια, καταδεικνύει τον βαθμό ελέγχου της αντιδίκου επί της μαρτυρικής διαδικασίας και την πλήρη απουσία ανεξαρτησίας των μαρτύρων.</p>
-      <p>Η ένορκη Τσεκούρα κληρονομεί αυτά τα ελαττώματα, αλλά φέρει και <strong>ιδιαίτερα δικά της</strong>, που αναλύονται κατωτέρω.</p>
-    </div>
-  </div>
-
-  <!-- ΓΙΑΤΙ Η ΤΣΕΚΟΥΡΑ ΕΙΝΑΙ ΙΔΙΑΙΤΕΡΑ ΥΠΟΛΟΓΗ -->
-  <div class="section open" id="sec-giati">
-    <div class="section-header" onclick="toggleSection(this)">
-      <h2>ΓΙΑΤΙ Η ΤΣΕΚΟΥΡΑ ΕΙΝΑΙ ΙΔΙΑΙΤΕΡΑ ΥΠΟΛΟΓΗ</h2>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="section-body">
-      <p>Κατά τον χρόνο κατάθεσης της ένορκης (19/3/2026), η Τσεκούρα <strong>γνώριζε ή όφειλε να γνωρίζει</strong> τα ακόλουθα — και τα απέκρυψε <strong>όλα</strong>:</p>
-
-      <h3>Α. Επίσημη Κρατική Αξιολόγηση (ΚΕΔΑΣΥ)</h3>
-      <p>Υφίστατο ήδη <strong>επίσημο Πόρισμα ΚΕΔΑΣΥ</strong> (17/3/2025 — ένα ολόκληρο χρόνο πριν την κατάθεσή της), το οποίο:</p>
-      <ul>
-        <li>Εκδόθηκε από <strong>4 ειδικούς</strong> (ψυχολόγος, κοινωνική λειτουργός, ειδικός παιδαγωγός, λογοθεραπευτής)</li>
-        <li>Βασίστηκε σε αξιολόγηση <strong>πολλών εβδομάδων</strong></li>
-        <li>Επιβεβαίωσε: <strong>ΔΕΠΥ + δυσγραφία + εναντιωματική-προκλητική διαταραχή (ΔΕΑ)</strong></li>
-        <li>Αποτελεί <strong>επίσημο κρατικό πόρισμα</strong> — φέρει ιδιαίτερη βαρύτητα στην ελληνική έννομη τάξη</li>
-      </ul>
-      <p><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/kedasy-porisma.pdf">Πόρισμα ΚΕΔΑΣΥ</a></p>
-      <p>Επιπλέον, <strong>δύο χρόνια πριν</strong> την κατάθεσή της, υπήρχαν ήδη:</p>
-      <ul>
-        <li><strong>Γνωμάτευση παιδοψυχιάτρου Σταματοπούλου</strong> (29/1/2024 — <strong>26 μήνες πριν</strong> την ένορκη) — F90.0 + εναντιωματικές συμπεριφορές, με δύο επιβεβαιώσεις σε διαφορετικούς χρόνους <a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/stamatopoulou-gnomateysi.pdf">Γνωμάτευση Σταματοπούλου</a></li>
-        <li>Συνεχής επιβεβαίωση από <strong>ψυχολόγο</strong> και <strong>ειδικό παιδαγωγό Χατζηδάκη</strong> που παρακολουθούν τον Αίαντα καθημερινά <a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/chatzidakis-ekthesi.pdf">Έκθεση Χατζηδάκη</a></li>
-      </ul>
-      <p>Δεν υφίσταται <strong>καμία δικαιολογία</strong> για άγνοια. Η Τσεκούρα είτε γνώριζε και απέκρυψε σκοπίμως, είτε δεν γνώριζε επειδή <strong>αρνήθηκε να ενημερωθεί</strong> (βλ. §Δ κατωτέρω) — σε κάθε περίπτωση, η ευθύνη της είναι δεδομένη.</p>
-      <p>Η Τσεκούρα — ως «ψυχολόγος» που αυτοπροσδιορίζεται ως «ειδική παιδαγωγός» — <strong>δεν αναφέρει τίποτε</strong> από αυτά σε 9 σελίδες ένορκης. Η λέξη <strong>«εναντιωματικότητα» δεν εμφανίζεται ούτε μία φορά</strong>.</p>
-      <p><strong>Γιατί η απόκρυψη της εναντιωματικότητας είναι κρίσιμη:</strong></p>
-      <p>Η Εναντιωματική-Προκλητική Διαταραχή (ΔΕΑ) είναι η <strong>κεντρική διάγνωση</strong> που εξηγεί τη συμπεριφορά του Αίαντα — θυμό, εκρήξεις, αντιδράσεις. Η απόκρυψή της εξυπηρετεί συγκεκριμένη στρατηγική:</p>
-      <ul>
-        <li><strong>Ο συνδυασμός ΔΕΠΥ + ΔΕΑ είναι κληρονομικός.</strong> Τα συμπεριφορικά χαρακτηριστικά του Αίαντα (θυμός, εναντίωση, αδυναμία αυτορρύθμισης) παρατηρούνται και στη μητέρα — η οποία εμφανίζει ακριβώς τα ίδια μοτίβα: εκρήξεις θυμού, σωματική βία, αδυναμία διαχείρισης. Η αναγνώριση της ΔΕΑ θα αναδείκνυε αυτή τη σύνδεση.</li>
-        <li><strong>Παιδί με ΔΕΑ δεν «τιμωρείται» — θεραπεύεται.</strong> Τα χτυπήματα, η βία, η φωνή, η πίεση κατά παιδιού με εναντιωματικότητα δεν είναι απλώς αναποτελεσματικά — είναι <strong>κλινικά αντενδεδειγμένα</strong> και <strong>ποινικά κολάσιμα</strong>, καθώς επιδεινώνουν τα συμπτώματα. Αυτό ακριβώς έκανε η μητέρα — χτυπούσε επανειλημμένα ένα παιδί που χρειαζόταν θεραπευτική προσέγγιση.</li>
-        <li><strong>Η στρατηγική της αντιδίκου — τεκμηριωμένη σε emails:</strong>
-          <!-- EMAIL 1: Λέλα 5/12/2023 -->
-          <p><strong>5/12/2023:</strong> Η μητέρα της αντιδίκου (Λέλα Μπακολούκα) γράφει στον πατέρα προσπαθώντας να αποτρέψει την επίσκεψη στον παιδοψυχίατρο — <strong>πριν ακόμη από την αξιολόγηση ΚΕΔΑΣΥ</strong>:</p>
-          <div class="email-card evidence">
-            <div class="email-header">
-              <span><span class="label">Από:</span> Eleni Bakolouka &lt;lelabakolouka@gmail.com&gt;</span>
-              <span><span class="label">Προς:</span> elatsoudis@latsoudislaw.com</span>
-              <span><span class="label">Θέμα:</span> Εκτίμηση από παιδοψυχολόγο</span>
-              <span><span class="label">Ημ/νία:</span> 5 Δεκεμβρίου 2023, 09:51</span>
-            </div>
-            <div class="email-body">Ντέμη μετά την ανάλυση της προσωπικότητας του Αίαντα σας συνέστησαν να τον δει και ένας παιδο ψυχολόγος ή παιδοψυχίατρος για επί πλέον πληροφορίες και τούτο γιατί αφαιρείται κατά την ώρα του μαθήματος κλπ.
-
-[...ακολουθεί ανάλυση ψυχιάτρου vs ψυχολόγου...]
-
-Επομένως εσείς θα δείτε ειδικό παιδοψυχολόγο για παιδιά ακολουθώντας τις μετρήσεις των ειδικών εκπαιδευτικών.
-Μην με τρελαίνεις με κουβέντες που δεν ισχύουν.
-<span class="highlight">Πρακτικά σου λέω ότι ο Αίαντάς μας το μόνο που έχει είναι η διάσπαση της προσοχής του κατά τη μελέτη. Αν δε θέλει να τελειώσει γρήγορα συγκεντρώνεται και είναι τέλειος.</span>
-Αυτά.</div>
-          </div>
-          <p><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/email-lela-ektimisi-5-12-2023.pdf">Πλήρες email (PDF)</a></p>
-          <p>Η στρατηγική απόκρυψης ξεκίνησε <strong>από την αρχή</strong>, πριν καν υπάρξει επίσημη διάγνωση.</p>
-
-          <!-- EMAIL 2: Ντέμης → Λέλα 26/12/2024 -->
-          <p><strong>26/12/2024:</strong> Ο πατέρας ζητά από τη Λέλα πληροφορίες για το κληρονομικό ιστορικό της Έφης (υιοθετημένη — άγνωστο βιολογικό υπόβαθρο) — κρίσιμο δεδομένου ότι <strong>ΔΕΠΥ + ΔΕΑ είναι κληρονομικά</strong>:</p>
-          <div class="email-card">
-            <div class="email-header">
-              <span><span class="label">Από:</span> Efthimios G. Latsoudis &lt;elatsoudis@latsoudislaw.com&gt;</span>
-              <span><span class="label">Προς:</span> Eleni Bakolouka &lt;lelabakolouka@gmail.com&gt;</span>
-              <span><span class="label">Ημ/νία:</span> 26 Δεκεμβρίου 2024, 14:01</span>
-            </div>
-            <div class="email-body">Αγαπητή Λέλα,
-
-Ελπίζω να είσαι καλά. Σου γράφω για ένα ζήτημα που με απασχολεί έντονα και αφορά την ψυχική υγεία των παιδιών μου, του Αίαντα και της Κλειούς. Όπως γνωρίζεις, ο Αίας έχει ήδη διαγνωστεί από την παιδοψυχίατρο κ. Σταματοπούλου (στις 29/01/2024) με εναντιωματικές συμπεριφορές και συχνά παρουσιάζει ακραίες συναισθηματικές εκρήξεις, κοπρολαλία και βιαιότητα στο σπίτι και στο σχολείο. [...]
-
-<span class="highlight">Ψάχνοντας να βρω τι μπορεί να ευθύνεται από τη δική μου πλευρά, διαπίστωσα ότι τα στοιχεία που αφορούν την Εφη είναι ελλιπή ή αντικρουόμενα.</span>
-
-Σε παρακαλώ, λοιπόν, να με ενημερώσεις για την ακριβή ημερομηνία και τον τόπο γέννησης της Εφης, καθώς και για την ταυτότητα και όσα στοιχεία επικοινωνίας γνωρίζεις σχετικά με τους βιολογικούς της γονείς. [...]
-
-Με εκτίμηση,
-Ευθύμιος Λατσούδης</div>
-          </div>
-
-          <!-- EMAIL 3: Έφη → Ντέμης 27/12/2024 -->
-          <p><strong>27/12/2024:</strong> Η Έφη απαντά <strong>αρνούμενη</strong> ότι υπάρχει οποιαδήποτε κληρονομική προδιάθεση — και <strong>απειλεί</strong> με δικαστικές ενέργειες:</p>
-          <div class="email-card evidence">
-            <div class="email-header">
-              <span><span class="label">Από:</span> Efthimia G. Bakolouka &lt;ebakolouka@latsoudislaw.com&gt;</span>
-              <span><span class="label">Προς:</span> elatsoudis@latsoudislaw.com</span>
-              <span><span class="label">Θέμα:</span> Re: Μήνυμα</span>
-              <span><span class="label">Ημ/νία:</span> 27 Δεκεμβρίου 2024, 09:48</span>
-            </div>
-            <div class="email-body">Ντέμη Καλημέρα,
-
-σε απάντηση του e-mail που με έκπληξη διαπίστωσα ότι έστειλες χθες στη μητέρα μου, θα ήθελα να σε ενημερώσω για άλλη μία φορά για το αυτονόητο ότι για οποιοδήποτε θέμα αφορά εμένα και εν προκειμένω την υιοθεσία μου, θα πρέπει να απευθύνεσαι αποκλειστικά σε εμένα. [...]
-
-Η δε ζωή μου σε όλα αυτά τα 43 χρόνια καμία ένδειξη εναντιωματικής συμπεριφοράς δεν είχε, παρά το αντίθετο.
-
-<span class="highlight">Συνεπώς ποιοί είναι οι ειδικοί που έχουν πει ότι οποιοδήποτε από τα παιδιά έχει κάποια διαταραχή ή κληρονομική προδιάθεση; Επίσης από ποιον γίνεται η υποτιθέμενη ιατρική προσέγγιση και χρειάζεται τέτοιες πληροφορίες; Όπως καταλαβαίνεις τα παραπάνω πράγματα τα οποία αναφέρεις για τα παιδιά μας είναι πολύ σοβαρά και η απερισκεψία με την οποία το κάνεις θα έλεγα ότι είναι και επικίνδυνη.</span>
-
-Ενημέρωσέ με λοιπόν άμεσα <span class="highlight">μέχρι την Κυριακή 29/12 αν υπάρχει τέτοια πρόθεση από την πλευρά σου, άλλως όπως σου έχω πει και προφορικά θα προχωρήσω άμεσα δικαστικά</span>
-
-Efthimia G. Bakolouka, B.A, M.A
-Operations Manager</div>
-          </div>
-          <p><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/email-effie-klironomiko-26-27-12-2024.pdf">Email Έφης 27/12/2024 (PDF)</a>
-             <a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/email-ntemis-reply-klironomiko-27-12-2024.pdf">Απάντηση Ντέμη Re: Μήνυμα (PDF)</a></p>
-
-          <!-- ΣΥΝΔΕΣΗ: 14/1/2025 -->
-          <p><strong>14/1/2025 (18 ημέρες μετά):</strong> Η Έφη <strong>καταθέτει αίτηση ασφαλιστικών μέτρων</strong> ζητώντας την αφαίρεση της επιμέλειας του πατέρα — στο δικόγραφό της γράφει: <em>«Προφασίζεται ότι δήθεν ο υιός πάσχει από κάποια παθογένεια»</em>. Η χρονική σύνδεση είναι αποκαλυπτική: <strong>αμέσως μόλις ο πατέρας συνέδεσε τη διάγνωση με το κληρονομικό υπόβαθρο της υιοθεσίας, η μητέρα αντέδρασε καταθέτοντας αίτηση αφαίρεσης επιμέλειας</strong> — ισχυριζόμενη ότι ο πατέρας «εφευρίσκει» τη διαταραχή. Δεν αρνήθηκε απλώς τη διάγνωση — <strong>πέρασε στην επίθεση</strong> για να σταματήσει τη διερεύνηση.</p>
-        </li>
-      </ul>
-      <p>Η Τσεκούρα, <strong>ένα χρόνο μετά</strong> τη γνωμάτευση Σταματοπούλου και <strong>ένα χρόνο μετά</strong> το Πόρισμα ΚΕΔΑΣΥ, <strong>συνεχίζει ακριβώς την ίδια στρατηγική</strong> — αποκρύπτοντας την εναντιωματικότητα ώστε η βία της μητέρας κατά παιδιού με αναπτυξιακή διαταραχή να μην αναγνωσθεί ως αυτό που είναι: <strong>κακοποίηση</strong>.</p>
-
-      <h3>Β. Δικαστική Συναίνεση Μητέρας — και Αντίληψη Δικαστηρίου</h3>
-      <p>Μετά την κατάθεση της αίτησης μεταρρύθμισης, η μητέρα <strong>προσήλθε στο δικαστήριο</strong> (Απρίλιος 2025) και <strong>συναίνεσε</strong> στη <strong>διαμονή</strong> του Αίαντα στο σπίτι του πατέρα (η επιμέλεια παρέμεινε κοινή). Ο δικαστής <strong>χορήγησε εκ παραδρομής αποκλειστική επιμέλεια</strong> στον πατέρα, ενώ είχε συμφωνηθεί διαμονή. Στη συνέχεια, η δικηγόρος της Έφης (Νικόλ Τσαγκαράκη) προέβη σε <strong>απλή διόρθωση</strong> της απόφασης ώστε να αντιστοιχεί στη συμφωνία (κοινή επιμέλεια + διαμονή στον πατέρα).</p>
-      <p><strong>Αυτό αποκαλύπτει:</strong></p>
-      <p>Η μητέρα <strong>η ίδια συμφώνησε</strong> ότι ο Αίαντας πρέπει να μείνει με τον πατέρα — η ένορκη Τσεκούρα υπονοεί «αποξένωση» αποκρύπτοντας αυτή τη συναίνεση.</p>
-
-      <h3>Γ. Δύο Ποινικές Δικογραφίες κατά Μητέρας</h3>
-      <p>Σημειώνεται ότι ο πατέρας <strong>δεν είναι δικηγόρος που ασκεί τη δικαστηριακή δικηγορία</strong> — είναι σύμβουλος επιχειρήσεων και δεν επιθυμεί δικαστικές αντιπαραθέσεις. Γι' αυτό ακριβώς <strong>η αντίδικος κίνησε πρώτη</strong> δικαστικές διαδικασίες. Ο πατέρας κατέθεσε μήνυση για ενδοοικογενειακή βία <strong>μόνο μετά</strong> από πολλαπλά περιστατικά και <strong>μόνο μετά</strong> τη σύσταση της συμβούλου γονέων, της ψυχολόγου, ότι το κράτος θα αφαιρούσε τα παιδιά αν δεν ενεργούσε.</p>
-      <ul>
-        <li><strong>ΑΒΜ Φ25-3866:</strong> Μήνυση πατέρα για κατ' εξακολούθηση ενδοοικογενειακή βία — 5 τεκμηριωμένα περιστατικά, βιντεοσκοπημένα, με απομαγνητοφωνήσεις, ανάλυση Δρ. Αντωνοπούλου, 2 ιατροδικαστικές εκθέσεις. <strong>Δίκη 5 Ιουνίου 2026.</strong></li>
-        <li><strong>ΑΒΜ ΑΕ25-5389:</strong> Ο ίδιος ο <strong>Αίαντας κάλεσε μόνος του την Αστυνομία</strong> (3/4/2025) για να γλιτώσει. Ο πατέρας <strong>δεν κατέθεσε μήνυση</strong> για αυτό το δεύτερο περιστατικό — η δικογραφία προχώρησε <strong>αυτεπαγγέλτως</strong>, αφού ο Αίαντας έδωσε κατάθεση στον αστυνομικό που προσήλθε στο σπίτι. Ένα 12χρονο παιδί παίρνει τηλέφωνο την Άμεση Δράση — αυτό δεν γίνεται υπό καθοδήγηση.</li>
-      </ul>
-      <p>Η ένορκη <strong>αποσιωπά πλήρως</strong> και τις δύο δικογραφίες.</p>
-
-      <h3>Δ. Ο Πατέρας ΖΗΤΗΣΕ να την Ενημερώσει — Αρνήθηκε</h3>
-      <p>Στα Viber (2/1/2025 — 14,5 μήνες πριν την ένορκη), ο πατέρας απευθύνεται στην Τσεκούρα:</p>
-      <ul>
-        <li>Της <strong>πρότεινε γραπτώς</strong> να μιλήσουν 5 λεπτά — <strong>δεν απάντησε</strong></li>
-        <li>Της είπε: <em>«Έχω τους καλύτερους ειδικούς για το παιδί μου και αν ρωτούσες θα μάθαινες»</em> — <strong>δεν ρώτησε</strong></li>
-        <li>Της επεσήμανε: <em>«Μόνο μίλαγες με τη φίλη σου που σε ενημέρωνε αποσπασματικά»</em> — <strong>δεν αρνήθηκε</strong></li>
-      </ul>
-      <p>Παρ' όλα αυτά, <strong>είδε</strong> τον πατέρα να κρατά τα παιδιά στους ώμους στην Πρέβεζα, <strong>ήξερε</strong> ότι υπάρχουν ειδικοί, <strong>αρνήθηκε</strong> να μάθει — και ψεύδεται ενώπιον δικαστηρίου βάσει μονομερούς πληροφόρησης.</p>
-      <p><strong>Η Τσεκούρα δεν απλώς αποσιώπησε. Αρνήθηκε ενεργά να μάθει την αλήθεια, και κατέθεσε ψευδώς βάσει αποκλειστικά μονομερούς πληροφόρησης από την ηθική αυτουργό μητέρα.</strong></p>
-      <p><em>Βλ. πλήρη Viber screenshots στην ενότητα <a href="#claim-10" onclick="openAndScroll('sec-pseudon','claim-10')">§10-13</a>.</em></p>
-    </div>
-  </div>
-
-  <!-- ΕΙΣΑΓΩΓΙΚΕΣ ΠΑΡΑΤΗΡΗΣΕΙΣ -->
-  <div class="section open" id="sec-eisagogikes">
-    <div class="section-header" onclick="toggleSection(this)">
-      <h2>ΕΙΣΑΓΩΓΙΚΕΣ ΠΑΡΑΤΗΡΗΣΕΙΣ — Τρεις κρίσιμες επισημάνσεις</h2>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="section-body">
-      <h3>Ι. Η Τσεκούρα ΔΕΝ ΕΙΝΑΙ «Ειδική Παιδαγωγός»</h3>
-      <p>Αυτοπροσδιορίζεται ως «Ψυχολόγος / Ειδική Παιδαγωγός» στην ένορκη για να προσδώσει επιστημοσύνη. <strong>Ο τίτλος είναι ψευδής.</strong></p>
-      <p>Κατά το <strong>Άρθρο 20 του Ν.3699/2008</strong> (Ειδική Αγωγή &amp; Εκπαίδευση — <a href="https://www.opengov.gr/ypepth/?p=2148" target="_blank" rel="noopener">https://www.opengov.gr/ypepth/?p=2148</a>), «Εκπαιδευτικοί Ειδικής Εκπαίδευσης» ορίζονται αποκλειστικά ως:</p>
-      <ul>
-        <li><strong>(Α) Κλάδος ΠΕ 71</strong> (Δασκάλων Ειδικής Εκπαίδευσης): Πτυχίο <strong>Παιδαγωγικών Τμημάτων Δημοτικής Εκπαίδευσης Ειδικής Αγωγής</strong>, ή <strong>Τμημάτων Εκπαιδευτικής και Κοινωνικής Πολιτικής</strong> με κατεύθυνση εκπαίδευση ατόμων με αναπηρία, ή <strong>Παιδαγωγικά Τμήματα Ειδικής Αγωγής</strong> κατεύθυνσης Δασκάλων — Πανεπιστημίων ημεδαπής ή αναγνωρισμένο ισότιμο αλλοδαπής (ΔΟΑΤΑΠ) + πιστοποιητικό Ελληνομάθειας</li>
-        <li><strong>(Β) Κλάδος ΠΕ 70.50</strong>: Πτυχίο <strong>Παιδαγωγικού Τμήματος Δημοτικής Εκπαίδευσης</strong> + μεταπτυχιακό/διδακτορικό στην Ε.Ε. ή Σχολική Ψυχολογία, ή 2ετής μετεκπαίδευση Διδασκαλείων, ή 3ετής προϋπηρεσία σε δομές Ε.Ε.</li>
-      </ul>
-      <p>Η Τσεκούρα: <strong>BSc Psychology (University of Luton)</strong> + <strong>MSc Special Education (IoE, London)</strong>. Το BSc Psychology δεν είναι πτυχίο <strong>Παιδαγωγικού Τμήματος</strong> — είναι τμήμα Ψυχολογίας. Ακόμη κι αν το MSc αναγνωρίζεται ως μεταπτυχιακό Ε.Ε., απαιτείται <strong>βασικό πτυχίο</strong> Παιδαγωγικού Τμήματος (που δεν κατέχει). Δεν κατέχει ΠΕ 71, ΠΕ 78, ούτε ΠΕ 70.50. Δεν έχει αναγνώριση ΔΟΑΤΑΠ ως ειδική παιδαγωγός.</p>
-      <p><strong>Πηγές:</strong></p>
-      <ul>
-        <li><strong>Νομοθεσία:</strong> <a href="https://www.opengov.gr/ypepth/?p=2148" target="_blank" rel="noopener">Ν.3699/2008, Άρθρο 20 — Εκπαιδευτικοί Ειδικής Εκπαίδευσης</a> (Υπουργείο Παιδείας)</li>
-        <li><strong>Μάνος Χατζηδάκης</strong> (πραγματικός ΠΕ 71, καθημερινή παρακολούθηση Αίαντα): <em>«Η Τσεκούρα ΔΕΝ είναι ειδικός παιδαγωγός. Το δηλώνει για λόγους μάρκετινγκ επειδή έχει κέντρο ειδικής αγωγής.»</em></li>
-      </ul>
-        <li><strong>Νομική αξιολόγηση Πεπελάση</strong> (email 26-30/3/2026): <em>«Εντάσσεται στο πεδίο εφαρμογής του 224 ΠΚ... αυξάνει το δόλο της η ιδιότητά της... η δόλια απόκρυψη συνιστά ψευδή κατάθεση... η ηθική αυτουργία είναι δεδομένη... μπορεί να υποβληθεί καταγγελία στο ΣΕΨΥ.»</em></li>
-      </ul>
-      <p>Αποτελεί <strong>ψευδή παράσταση ιδιότητας</strong> σε ένορκη βεβαίωση — αυτοτελής βάση μήνυσης.</p>
-
-      <h3>ΙΙ. Ο πατέρας ΖΗΤΗΣΕ να ενημερώσει την Τσεκούρα — εκείνη αρνήθηκε</h3>
-      <p>Στα Viber (2/1/2025), ο πατέρας προτείνει γραπτώς στην Τσεκούρα να μιλήσουν:</p>
-      <ul>
-        <li><em>«Σου πρότεινα γραπτώς να μιλήσουμε 5 λεπτά... Και δεν μου απάντησες τίποτα»</em></li>
-        <li><em>«Έχω τους καλύτερους ειδικούς για το παιδί μου και αν ρωτούσες θα μάθαινες»</em></li>
-        <li><em>«Μόνο μίλαγες με τη φίλη σου που η ίδια σε ενημέρωνε αποσπασματικά»</em></li>
-      </ul>
-      <p><strong>Η Τσεκούρα δεν αρνείται κανένα.</strong> Δεν ρώτησε ποιοι είναι οι ειδικοί, δεν δέχτηκε την πρόταση ενημέρωσης. Η μοναδική πηγή της ήταν η Μπακολούκα — μονομερώς, φιλτραρισμένα. Ωστόσο στην ένορκη παρουσιάζεται ως αντικειμενική ειδικός.</p>
-
-      <h3>ΙΙΙ. Η πρωτοβουλία ήταν ΑΠΟΚΛΕΙΣΤΙΚΑ του πατέρα</h3>
-      <p>Η Τσεκούρα υποστηρίζει ότι η μητέρα πρωτοστάτησε. Τα αποδεικτικά δείχνουν το αντίθετο — βλ. αναλυτικά §1-3.</p>
-
-      <h3>Σύγκριση Τσεκούρα — Χατζηδάκης</h3>
-      <table class="comparison-table">
-        <thead><tr><th></th><th>Τσεκούρα</th><th>Χατζηδάκης</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Τίτλος</strong></td><td>«Ειδική Παιδαγωγός» — <span class="badge badge-false">ΨΕΥΔΗΣ</span></td><td>ΠΕ 71 — <span class="badge badge-true">ΠΡΑΓΜΑΤΙΚΟΣ</span></td></tr>
-          <tr><td><strong>Σπουδές</strong></td><td>BSc Luton + MSc IoE London</td><td>Ελληνικό Παιδαγωγικό Τμήμα</td></tr>
-          <tr><td><strong>Επαφή με Αίαντα</strong></td><td>1 διανυκτέρευση (2/1/2025)</td><td>Καθημερινά — 16+ μήνες</td></tr>
-          <tr><td><strong>«Διάγνωση»</strong></td><td>«Κατάθλιψη + πανικός» → <span class="badge badge-false">100% ΛΑΘΟΣ</span></td><td>«Πρόοδος υπερβαίνει εκτιμήσεις» → <span class="badge badge-true">ΣΩΣΤΟ</span></td></tr>
-          <tr><td><strong>Πηγή πληροφόρησης</strong></td><td>Αποκλειστικά Μπακολούκα (μονομερής)</td><td>Ανεξάρτητη επαγγελματική αξιολόγηση</td></tr>
-          <tr><td><strong>Πρόταση πατέρα για ενημέρωση</strong></td><td><strong>Αρνήθηκε</strong></td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- ΕΠΙ ΤΩΝ ΨΕΥΔΩΝ ΧΩΡΙΩΝ -->
-  <div class="section open" id="sec-pseudon">
-    <div class="section-header" onclick="toggleSection(this)">
-      <h2>ΕΠΙ ΤΩΝ ΨΕΥΔΩΝ ΧΩΡΙΩΝ</h2>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="section-body">
-
-      <h3 id="claim-1">§1 — «Ήταν εκείνη που εντόπισε τα σημάδια... αναζητούσε θεραπείες...»</h3>
-      <p><span class="badge badge-false">ΨΕΥΔΕΣ</span> — Αδιάσειστα αποδεικτικά:</p>
-      <table>
-        <thead><tr><th>Ημερομηνία</th><th>Ενέργεια</th><th>Αποδεικτικό</th></tr></thead>
-        <tbody>
-          <tr><td>29/1/2024</td><td>Ο πατέρας πηγαίνει τον Αίαντα στη Σταματοπούλου</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/stamatopoulou-gnomateysi.pdf">Γνωμάτευση F90.0</a></td></tr>
-          <tr><td>Μάρτ. 2025</td><td>ΚΕΔΑΣΥ — επίσημη αξιολόγηση (4 ειδικοί)</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/kedasy-porisma.pdf">Πόρισμα ΚΕΔΑΣΥ</a></td></tr>
-          <tr><td>13/3/2026</td><td>Έκθεση Χατζηδάκη — καθημερινή παρακολούθηση 16+ μήνες</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/chatzidakis-ekthesi.pdf">Έκθεση Χατζηδάκη</a></td></tr>
-        </tbody>
-      </table>
-      <p>Η μητέρα δεν εμφανίζεται πουθενά. Η ίδια (αίτηση ασφ., σελ. 7): <em>«του ζήτησα να ασχοληθεί με τα διαδικαστικά»</em> — ομολογία.</p>
-
-      <h3 id="claim-2">§2 — «Η Έφη είχε καταλήξει στο ΚΕΔΑΣΥ...»</h3>
-      <p><span class="badge badge-false">ΨΕΥΔΕΣ.</span> Η Τσεκούρα παρουσιάζει τη μητέρα ως πρωτεργάτη, αλλά η ίδια η μητέρα ομολογεί (αίτηση ασφ. σελ. 7): <em>«του ζήτησα να ασχοληθεί με τα διαδικαστικά»</em>. Η αλληλογραφία με ειδικούς (Σταματοπούλου, ΚΕΔΑΣΥ) δείχνει αποκλειστική πρωτοβουλία πατέρα.</p>
-
-      <h3 id="claim-3">§3 — «Μου ζήτησε να της συστήσω παιδοψυχίατρο»</h3>
-      <p><span class="badge badge-true">ΑΠΟΔΕΔΕΙΓΜΕΝΟ</span> — Email thread «ΕΡΩΤΗΜΑΤΟΛΟΓΙΑ» (28/11-9/12/2023, 16 μηνύματα):</p>
-      <table>
-        <thead><tr><th>Ημερομηνία</th><th>Ενέργεια</th></tr></thead>
-        <tbody>
-          <tr><td>28/11/2023, 13:46</td><td>Γραφείο Σταματοπούλου στέλνει ερωτηματολόγια <strong>στον πατέρα</strong></td></tr>
-          <tr><td>28/11/2023, 14:03</td><td>Ο πατέρας <strong>προωθεί στη μητέρα</strong> (CC) — εκείνη δεν κάνει τίποτα</td></tr>
-          <tr><td>7/12/2023, 20:27</td><td>Ο πατέρας στέλνει στο <strong>φροντιστήριο</strong></td></tr>
-          <tr><td>9/12/2023, 17:23</td><td>Ο πατέρας επικοινωνεί με <strong>δασκάλα La Salle</strong>: <em>«είμαι ο μπαμπάς του Αίαντα»</em></td></tr>
-        </tbody>
-      </table>
-      <p>Η μητέρα ενημερώθηκε σε CC — <strong>δεν έκανε ΤΙΠΟΤΑ</strong>. Η γνωμάτευση Σταματοπούλου αναφέρει <strong>εναντιωματικές συμπεριφορές</strong> — η Τσεκούρα τις αποσιωπά σκοπίμως.</p>
-      <p><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/email-erotimatologia.pdf">Email ΕΡΩΤΗΜΑΤΟΛΟΓΙΑ</a>
-         <a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/stamatopoulou-gnomateysi.pdf">Γνωμάτευση Σταματοπούλου</a></p>
-
-      <h3 id="claim-4">§4 — «Ο Ντέμης δεν είχε καθημερινή παρουσία»</h3>
-      <p><span class="badge badge-false">ΨΕΥΔΕΣ.</span> Η Τσεκούρα ήταν παρούσα σε Πρωτοχρονιά 2023, Πρέβεζα 2023, Πρωτοχρονιά 2025 — βλέποντας τον πατέρα ενεργά παρόντα.</p>
-
-      <h3 id="claim-5">§5 — «Εναντίωση στον εμβολιασμό»</h3>
-      <p><span class="badge badge-false">ΨΕΥΔΕΣ.</span> Τα παιδιά πλήρως εμβολιασμένα. Βιβλιάριο υγείας.</p>
-
-      <h3 id="claim-6">§6 — «Πρέβεζα... αδιαφορία»</h3>
-      <p><span class="badge badge-false">ΑΝΤΙΚΡΟΥΕΤΑΙ ΜΕ 6 ΦΩΤΟΓΡΑΦΙΕΣ</span> (Αύγ. 2023):</p>
-      <p>Ο πατέρας <strong>εμπιστεύτηκε την Τσεκούρα και τον σύζυγό της</strong> με το παιδί του σε αυτές τις διακοπές. Ο σύζυγος δεν λαμβάνει θέση, δεν παρεμβαίνει — αλλά η Τσεκούρα ξεκάθαρα συντονίζεται με την αντίδικο για να δημιουργήσει πρόβλημα.</p>
-      <div class="photo-grid">
-        <img src="evidence/preveza/preveza-2.jpg?v=3" alt="Rafting στον Αχέροντα — η Τσεκούρα στο ίδιο σκάφος με τον πατέρα και τα παιδιά" onclick="openLightbox(this.src.replace('?v=3',''))" loading="lazy">
-        <img src="evidence/preveza/preveza-3.jpg?v=3" alt="Ο πατέρας κρατά την Κλειώ στους ώμους μέσα στον Αχέροντα — ο Αίαντας δίπλα τους" onclick="openLightbox(this.src.replace('?v=3',''))" loading="lazy">
-        <img src="evidence/preveza/preveza-4.jpg?v=3" alt="Ο πατέρας με την Κλειώ στην αγκαλιά του στα βράχια του Αχέροντα" onclick="openLightbox(this.src.replace('?v=3',''))" loading="lazy">
-        <img src="evidence/preveza/preveza-1.jpg?v=3" alt="Η Κλειώ χαρούμενη στο λούνα παρκ Πρέβεζας — πάνω σε παιχνίδι αλογάκι" onclick="openLightbox(this.src.replace('?v=3',''))" loading="lazy">
-        <img src="evidence/preveza/preveza-5.jpg?v=3" alt="Η Κλειώ γελάει οδηγώντας ηλεκτρικό αυτοκινητάκι στο λούνα παρκ" onclick="openLightbox(this.src.replace('?v=3',''))" loading="lazy">
-        <img src="evidence/preveza/preveza-6.jpg?v=3" alt="Η Κλειώ παίζει παιχνίδι στο λούνα παρκ Πρέβεζας" onclick="openLightbox(this.src.replace('?v=3',''))" loading="lazy">
-      </div>
-      <p><strong>Η Τσεκούρα ήταν αυτόπτης μάρτυρας</strong> ενός πατέρα που κρατά τα παιδιά στους ώμους μέσα στο ποτάμι — και ισχυρίζεται «αδιαφορία». Ο σύζυγός της δεν καταθέτει τίποτα — αντικειμενικά δεν είδε «αδιαφορία». Αποκρύπτει επίσης το περιστατικό Πρωτοχρονιάς 2022 (ο γιος της Ίωνας χτυπούσε τον Ντέμη 20 λεπτά — γραπτή συγγνώμη).</p>
-      <div class="evidence-embed"><img src="evidence/photos/20230102_121921.jpg" alt="Σημείωμα Ίωνα Τσεκούρα" onclick="openLightbox(this.src)" loading="lazy"><div class="ev-caption">Σημείωμα γραπτής συγγνώμης Ίωνα Τσεκούρα — Πρωτοχρονιά 2022</div></div>
-
-      <h3 id="claim-7">§7 — «Γαλαξίδι — φώναξε στον Αίαντα»</h3>
-      <p><span class="badge badge-hearsay">ΕΞ ΑΚΟΗΣ</span> — Η Τσεκούρα ΔΕΝ ήταν παρούσα — <em>«σύμφωνα με τα όσα μου περιέγραψαν η κόρη μου και η πεθερά μου»</em>. Εκκρεμεί η δική μας εκδοχή.</p>
-
-      <h3 id="claim-8">§8 — «Έγινε πολύ επιθετικός»</h3>
-      <p>Η ίδια η μητέρα ΔΕΝ χρησιμοποιεί τη λέξη «επιθετικός» στα δικόγραφά της — κατασκευασμένος χαρακτηρισμός. Αίτηση ασφαλιστικών αναφέρει σύμβουλο γονέων-γάμου + ήρεμη ενημέρωση μετακόμισης.</p>
-
-      <h3 id="claim-9">§9 — «Μηνύματα με επικριτικό ύφος... πάρκινγκ... φαγητό»</h3>
-      <p><span class="badge badge-pending">ΕΚΚΡΕΜΕΙ</span> ταυτοποίηση.</p>
-
-      <h3 id="claim-10">§10-13 — Πρωτοχρονιά 2025 / Viber</h3>
-      <p><span class="badge badge-false">ΠΛΗΡΗΣ ΑΝΤΙΚΡΟΥΣΗ</span> — 14 Viber screenshots (2/1/2025):</p>
-      <ol>
-        <li>Μυστικός συντονισμός με Μπακολούκα</li>
-        <li>Ψευδοδιάγνωση «κατάθλιψη + πανικός» χωρίς αξιολόγηση — <strong>100% εσφαλμένη</strong> (ΜΟ 15,8 σήμερα)</li>
-        <li>Ομολογία μεροληψίας: <em>«Δεν ήμασταν ποτέ πολύ κοντά με εσένα»</em></li>
-        <li>Ο Αίαντας <strong>επέλεξε τον πατέρα</strong> αυθόρμητα</li>
-        <li><strong>Ο πατέρας ζήτησε ενημέρωση — αρνήθηκε</strong> (βλ. Εισαγωγή §ΙΙ)</li>
-        <li>Τόνος πατέρα: αξιοπρεπής — όχι «ιδιαίτερα επιθετικός»</li>
-        <li>Χρονισμός: <strong>12 ημέρες πριν</strong> τα ασφαλιστικά μέτρα (14/1/2025)</li>
-      </ol>
-      <div class="evidence-gallery">
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-1.jpg" alt="Viber 1" onclick="openLightbox(this.src)" loading="lazy"></div>
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-2.jpg" alt="Viber 2" onclick="openLightbox(this.src)" loading="lazy"></div>
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-3.jpg" alt="Viber 3" onclick="openLightbox(this.src)" loading="lazy"></div>
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-4.jpg" alt="Viber 4" onclick="openLightbox(this.src)" loading="lazy"></div>
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-5.jpg" alt="Viber 5" onclick="openLightbox(this.src)" loading="lazy"></div>
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-6.jpg" alt="Viber 6" onclick="openLightbox(this.src)" loading="lazy"></div>
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-7.jpg" alt="Viber 7" onclick="openLightbox(this.src)" loading="lazy"></div>
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-8.jpg" alt="Viber 8" onclick="openLightbox(this.src)" loading="lazy"></div>
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-9.jpg" alt="Viber 9" onclick="openLightbox(this.src)" loading="lazy"></div>
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-10.jpg" alt="Viber 10" onclick="openLightbox(this.src)" loading="lazy"></div>
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-11.jpg" alt="Viber 11" onclick="openLightbox(this.src)" loading="lazy"></div>
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-12.jpg" alt="Viber 12" onclick="openLightbox(this.src)" loading="lazy"></div>
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-13.jpg" alt="Viber 13" onclick="openLightbox(this.src)" loading="lazy"></div>
-        <div class="evidence-embed"><img src="evidence/screenshots/viber-14.jpg" alt="Viber 14" onclick="openLightbox(this.src)" loading="lazy"></div>
+      <h2>Φωτογραφίες Πρέβεζας</h2>
+      <div class="gallery">
+        <button class="gallery-item image-thumb" data-src="evidence/preveza/preveza-1.jpg" title="Πρέβεζα 1"><img src="evidence/preveza/preveza-1.jpg" alt="Πρέβεζα 1" loading="lazy"><span>Πρέβεζα 1</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/preveza/preveza-2.jpg" title="Πρέβεζα 2"><img src="evidence/preveza/preveza-2.jpg" alt="Πρέβεζα 2" loading="lazy"><span>Πρέβεζα 2</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/preveza/preveza-3.jpg" title="Πρέβεζα 3"><img src="evidence/preveza/preveza-3.jpg" alt="Πρέβεζα 3" loading="lazy"><span>Πρέβεζα 3</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/preveza/preveza-4.jpg" title="Πρέβεζα 4"><img src="evidence/preveza/preveza-4.jpg" alt="Πρέβεζα 4" loading="lazy"><span>Πρέβεζα 4</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/preveza/preveza-5.jpg" title="Πρέβεζα 5"><img src="evidence/preveza/preveza-5.jpg" alt="Πρέβεζα 5" loading="lazy"><span>Πρέβεζα 5</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/preveza/preveza-6.jpg" title="Πρέβεζα 6"><img src="evidence/preveza/preveza-6.jpg" alt="Πρέβεζα 6" loading="lazy"><span>Πρέβεζα 6</span></button>
       </div>
 
-      <h3 id="claim-11">§11 — «Διέκοψε γαλλικά»</h3>
-      <p>Πόρισμα ΚΕΔΑΣΥ προτείνει απαλλαγή γαλλικών. «Ειδικός» σε μαθησιακές δυσκολίες αγνοεί σύσταση ΚΕΔΑΣΥ.</p>
-      <p><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/kedasy-porisma.pdf">Πόρισμα ΚΕΔΑΣΥ</a></p>
-
-      <h3 id="claim-14">§14 — «Κλειώ έκλαιγε στο ασανσέρ»</h3>
-      <p><span class="badge badge-pending">ΕΚΚΡΕΜΕΙ</span> αντίκρουση.</p>
-
-      <h3 id="claim-15">§15 — «Υβριστικοί ισχυρισμοί στο σχολείο»</h3>
-      <p><em>«Σύμφωνα με γνωστούς»</em> — αόριστο, χωρίς μάρτυρες.</p>
-
-      <h3 id="claim-16">§16 — «Ο Αίαντας χτυπάει τη μητέρα»</h3>
-      <p><span class="badge badge-false">ΑΝΤΙΣΤΡΟΦΗ ΒΙΑΣ</span> — Τεκμηριωμένα περιστατικά:</p>
-      <ul>
-        <li><strong>5 καταγεγραμμένα περιστατικά</strong> βίας μητέρας κατά Αίαντα στη μήνυση (ΑΒΜ Φ25-3866)</li>
-        <li><strong>Βιντεοσκοπημένες αποδείξεις</strong> με απομαγνητοφωνήσεις</li>
-        <li><strong>Ανάλυση Δρ. Αντωνοπούλου</strong> (δικαστική ψυχολόγος) — επιβεβαιωμένη ως μάρτυρας για 5 Ιουνίου 2026</li>
-        <li><strong>2 ιατροδικαστικές εκθέσεις</strong> (Ασκληπιείο Βούλας, 3/4/2025)</li>
-        <li><strong>Ο Αίαντας κάλεσε μόνος του την Αστυνομία</strong> (3/4/2025) για να γλιτώσει</li>
-      </ul>
-
-      <h3 id="claim-17">§17 — «Αποξένωση»</h3>
-      <p>Αποκρύπτει: μητέρα συναίνεσε ενώπιον δικαστηρίου · Αίαντας δήλωσε ότι θέλει τον πατέρα · «αποξένωση» = αντίδραση σε κακοποίηση.</p>
-
-      <h3 id="claim-18">§18 — «Η Κλειώ δεν θέλει τον πατέρα»</h3>
-      <p><strong>39 ΦΩΤΟΓΡΑΦΙΕΣ</strong> (επιλογή Σβορώνου, Μάρτ.-Ιούλ. 2025): Κλειώ στους ώμους πατέρα · δείπνα Γαλαξίδι · ποδήλατα · SUP · σκάφος · «SUPER DAD/SON/DAUGHTER» · Twister · κήπος. <strong>Ευτυχισμένη σε κάθε φωτογραφία.</strong></p>
-      <div class="photo-grid">
-        <img src="evidence/photos/svoronou-1.jpg" alt="Κλειώ στους ώμους πατέρα" onclick="openLightbox(this.src)" loading="lazy">
-        <img src="evidence/photos/svoronou-2.jpg" alt="Δείπνα Γαλαξίδι" onclick="openLightbox(this.src)" loading="lazy">
-        <img src="evidence/photos/svoronou-3.jpg" alt="Ποδήλατα" onclick="openLightbox(this.src)" loading="lazy">
-        <img src="evidence/photos/svoronou-4.jpg" alt="SUP" onclick="openLightbox(this.src)" loading="lazy">
-        <img src="evidence/photos/svoronou-5.jpg" alt="SUPER DAD/SON/DAUGHTER" onclick="openLightbox(this.src)" loading="lazy">
-        <img src="evidence/photos/svoronou-6.jpg" alt="Κήπος" onclick="openLightbox(this.src)" loading="lazy">
+      <h2>Φωτογραφίες Σβορώνου</h2>
+      <div class="gallery">
+        <button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-1.jpg" title="Σβορώνου 1"><img src="evidence/photos/svoronou-1.jpg" alt="Σβορώνου 1" loading="lazy"><span>Σβορώνου 1</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-2.jpg" title="Σβορώνου 2"><img src="evidence/photos/svoronou-2.jpg" alt="Σβορώνου 2" loading="lazy"><span>Σβορώνου 2</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-3.jpg" title="Σβορώνου 3"><img src="evidence/photos/svoronou-3.jpg" alt="Σβορώνου 3" loading="lazy"><span>Σβορώνου 3</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-4.jpg" title="Σβορώνου 4"><img src="evidence/photos/svoronou-4.jpg" alt="Σβορώνου 4" loading="lazy"><span>Σβορώνου 4</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-5.jpg" title="Σβορώνου 5"><img src="evidence/photos/svoronou-5.jpg" alt="Σβορώνου 5" loading="lazy"><span>Σβορώνου 5</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-6.jpg" title="Σβορώνου 6"><img src="evidence/photos/svoronou-6.jpg" alt="Σβορώνου 6" loading="lazy"><span>Σβορώνου 6</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-7.jpg" title="Σβορώνου 7"><img src="evidence/photos/svoronou-7.jpg" alt="Σβορώνου 7" loading="lazy"><span>Σβορώνου 7</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-8.jpg" title="Σβορώνου 8"><img src="evidence/photos/svoronou-8.jpg" alt="Σβορώνου 8" loading="lazy"><span>Σβορώνου 8</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-9.jpg" title="Σβορώνου 9"><img src="evidence/photos/svoronou-9.jpg" alt="Σβορώνου 9" loading="lazy"><span>Σβορώνου 9</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-10.jpg" title="Σβορώνου 10"><img src="evidence/photos/svoronou-10.jpg" alt="Σβορώνου 10" loading="lazy"><span>Σβορώνου 10</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-11.jpg" title="Σβορώνου 11"><img src="evidence/photos/svoronou-11.jpg" alt="Σβορώνου 11" loading="lazy"><span>Σβορώνου 11</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-12.jpg" title="Σβορώνου 12"><img src="evidence/photos/svoronou-12.jpg" alt="Σβορώνου 12" loading="lazy"><span>Σβορώνου 12</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-13.jpg" title="Σβορώνου 13"><img src="evidence/photos/svoronou-13.jpg" alt="Σβορώνου 13" loading="lazy"><span>Σβορώνου 13</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-14.jpg" title="Σβορώνου 14"><img src="evidence/photos/svoronou-14.jpg" alt="Σβορώνου 14" loading="lazy"><span>Σβορώνου 14</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-15.jpg" title="Σβορώνου 15"><img src="evidence/photos/svoronou-15.jpg" alt="Σβορώνου 15" loading="lazy"><span>Σβορώνου 15</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-16.jpg" title="Σβορώνου 16"><img src="evidence/photos/svoronou-16.jpg" alt="Σβορώνου 16" loading="lazy"><span>Σβορώνου 16</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-17.jpg" title="Σβορώνου 17"><img src="evidence/photos/svoronou-17.jpg" alt="Σβορώνου 17" loading="lazy"><span>Σβορώνου 17</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-18.jpg" title="Σβορώνου 18"><img src="evidence/photos/svoronou-18.jpg" alt="Σβορώνου 18" loading="lazy"><span>Σβορώνου 18</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-19.jpg" title="Σβορώνου 19"><img src="evidence/photos/svoronou-19.jpg" alt="Σβορώνου 19" loading="lazy"><span>Σβορώνου 19</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-20.jpg" title="Σβορώνου 20"><img src="evidence/photos/svoronou-20.jpg" alt="Σβορώνου 20" loading="lazy"><span>Σβορώνου 20</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-21.jpg" title="Σβορώνου 21"><img src="evidence/photos/svoronou-21.jpg" alt="Σβορώνου 21" loading="lazy"><span>Σβορώνου 21</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-22.jpg" title="Σβορώνου 22"><img src="evidence/photos/svoronou-22.jpg" alt="Σβορώνου 22" loading="lazy"><span>Σβορώνου 22</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-23.jpg" title="Σβορώνου 23"><img src="evidence/photos/svoronou-23.jpg" alt="Σβορώνου 23" loading="lazy"><span>Σβορώνου 23</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-24.jpg" title="Σβορώνου 24"><img src="evidence/photos/svoronou-24.jpg" alt="Σβορώνου 24" loading="lazy"><span>Σβορώνου 24</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-25.jpg" title="Σβορώνου 25"><img src="evidence/photos/svoronou-25.jpg" alt="Σβορώνου 25" loading="lazy"><span>Σβορώνου 25</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-26.jpg" title="Σβορώνου 26"><img src="evidence/photos/svoronou-26.jpg" alt="Σβορώνου 26" loading="lazy"><span>Σβορώνου 26</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-27.jpg" title="Σβορώνου 27"><img src="evidence/photos/svoronou-27.jpg" alt="Σβορώνου 27" loading="lazy"><span>Σβορώνου 27</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-28.jpg" title="Σβορώνου 28"><img src="evidence/photos/svoronou-28.jpg" alt="Σβορώνου 28" loading="lazy"><span>Σβορώνου 28</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-29.jpg" title="Σβορώνου 29"><img src="evidence/photos/svoronou-29.jpg" alt="Σβορώνου 29" loading="lazy"><span>Σβορώνου 29</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-30.jpg" title="Σβορώνου 30"><img src="evidence/photos/svoronou-30.jpg" alt="Σβορώνου 30" loading="lazy"><span>Σβορώνου 30</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-31.jpg" title="Σβορώνου 31"><img src="evidence/photos/svoronou-31.jpg" alt="Σβορώνου 31" loading="lazy"><span>Σβορώνου 31</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-32.jpg" title="Σβορώνου 32"><img src="evidence/photos/svoronou-32.jpg" alt="Σβορώνου 32" loading="lazy"><span>Σβορώνου 32</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-33.jpg" title="Σβορώνου 33"><img src="evidence/photos/svoronou-33.jpg" alt="Σβορώνου 33" loading="lazy"><span>Σβορώνου 33</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-34.jpg" title="Σβορώνου 34"><img src="evidence/photos/svoronou-34.jpg" alt="Σβορώνου 34" loading="lazy"><span>Σβορώνου 34</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-35.jpg" title="Σβορώνου 35"><img src="evidence/photos/svoronou-35.jpg" alt="Σβορώνου 35" loading="lazy"><span>Σβορώνου 35</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-36.jpg" title="Σβορώνου 36"><img src="evidence/photos/svoronou-36.jpg" alt="Σβορώνου 36" loading="lazy"><span>Σβορώνου 36</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-37.jpg" title="Σβορώνου 37"><img src="evidence/photos/svoronou-37.jpg" alt="Σβορώνου 37" loading="lazy"><span>Σβορώνου 37</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-38.jpg" title="Σβορώνου 38"><img src="evidence/photos/svoronou-38.jpg" alt="Σβορώνου 38" loading="lazy"><span>Σβορώνου 38</span></button>
+<button class="gallery-item image-thumb" data-src="evidence/photos/svoronou-39.jpg" title="Σβορώνου 39"><img src="evidence/photos/svoronou-39.jpg" alt="Σβορώνου 39" loading="lazy"><span>Σβορώνου 39</span></button>
       </div>
+    </section>
+  </main>
 
-      <h3 id="claim-19">§19 — «Θα οδηγήσει σε αποξένωση»</h3>
-      <p>ΜΟ 15,8 — 6 μαθήματα 18-19. Χατζηδάκης: <em>«πρόοδος υπερβαίνει τις πιο αισιόδοξες εκτιμήσεις»</em>.</p>
-      <p><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/chatzidakis-ekthesi.pdf">Έκθεση Χατζηδάκη</a></p>
+  <aside class="nav">
+    <h2>Πλοήγηση</h2>
+    <a href="#πλαισιο">Πλαίσιο</a>
+    <a href="#γιατι-η-τσεκουρα-ειναι-ιδιαιτερα-υπολογη">Γιατί είναι υπόλογη</a>
+    <a href="#εισαγωγικεσ-παρατηρησεισ--τρεις-κρίσιμες-επισημάνσεις">Εισαγωγικές παρατηρήσεις</a>
+    <a href="#επι-των-ψευδων-χωριων">Επί των ψευδών χωρίων</a>
+    <a href="#εκκρεμουν">Εκκρεμούν</a>
+    <a href="#αποδεικτικα--13-τεκμηρια-ολα-διαθεσιμα">Αποδεικτικά</a>
+    <a href="#evidence-library">Evidence Library</a>
+    <div class="actions">
+      <button type="button" id="unlock-dev">Unlock</button>
+      <button type="button" id="print-page">Print</button>
     </div>
-  </div>
-
-  <!-- ΕΚΚΡΕΜΟΥΝ -->
-  <div class="section" id="sec-ekkremoun">
-    <div class="section-header" onclick="toggleSection(this)">
-      <h2>ΕΚΚΡΕΜΟΥΝ</h2>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="section-body">
-      <table>
-        <thead><tr><th>#</th><th>Θέμα</th><th>Προτεραιότητα</th></tr></thead>
-        <tbody>
-          <tr><td>§7</td><td>Γαλαξίδι — τι έγινε; ποιοι παρόντες;</td><td><span class="badge badge-false">ΥΨΗΛΗ</span></td></tr>
-          <tr><td>§8</td><td>Μηνύματα με Μπακολούκα (συναινετική στάση)</td><td><span class="badge badge-false">ΥΨΗΛΗ</span></td></tr>
-          <tr><td>§9</td><td>Περιστατικό πάρκινγκ/φαγητό</td><td><span class="badge badge-false">ΥΨΗΛΗ</span></td></tr>
-          <tr><td>§10</td><td>Αντίδραση Αίαντα στο τηλέφωνο</td><td><span class="badge badge-pending">ΜΕΣΑΙΑ</span></td></tr>
-          <tr><td>§14</td><td>Κλειώ στο ασανσέρ</td><td><span class="badge badge-pending">ΜΕΣΑΙΑ</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- ΑΠΟΔΕΙΚΤΙΚΑ -->
-  <div class="section" id="sec-apodeiktika">
-    <div class="section-header" onclick="toggleSection(this)">
-      <h2>ΑΠΟΔΕΙΚΤΙΚΑ — 16 ΤΕΚΜΗΡΙΑ (ΟΛΑ ΔΙΑΘΕΣΙΜΑ)</h2>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-    <div class="section-body">
-      <table>
-        <thead><tr><th>#</th><th>Τεκμήριο</th><th>Αντικρούει</th></tr></thead>
-        <tbody>
-          <tr><td>1</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/screenshots/slack-kedasy-initiative.png">Slack screenshot — ΚΕΔΑΣΥ πρωτοβουλία πατέρα (Οκτ-Νοε 2023)</a></td><td>§1, §2</td></tr>
-          <tr><td>2</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/screenshots/SMS-Anna-Oikonomou-Fofi-Tzanni-19-20-Nov-2023.jpg">SMS Οικονόμου → Ντέμης — σύσταση Τζάνη (19-20/11/2023)</a></td><td>§1, §2</td></tr>
-          <tr><td>3</td><td>SMS Ντέμης → Χατζηδάκης (28/11/2023)</td><td>§1</td></tr>
-          <tr><td>4</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/screenshots/viber-1.jpg">Viber Τσεκούρα 2/1/2025 — 14 εικόνες</a></td><td>§10-13, Εισαγωγή</td></tr>
-          <tr><td>5</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/email-erotimatologia.pdf">Email ΕΡΩΤΗΜΑΤΟΛΟΓΙΑ (28/11-9/12/2023, 16 μηνύματα)</a></td><td>§3</td></tr>
-          <tr><td>6</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/stamatopoulou-gnomateysi.pdf">Γνωμάτευση Σταματοπούλου F90.0 (29/1/2024)</a></td><td>§1, §3</td></tr>
-          <tr><td>7</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/kedasy-porisma.pdf">Πόρισμα ΚΕΔΑΣΥ (17/3/2025)</a></td><td>§11</td></tr>
-          <tr><td>8</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/chatzidakis-ekthesi.pdf">Έκθεση Χατζηδάκη (13/3/2026)</a></td><td>§19</td></tr>
-          <tr><td>9</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/photos/20230102_121921.jpg">Σημείωμα Ίωνα Τσεκούρα (Πρωτοχρονιά 2022)</a></td><td>§6</td></tr>
-          <tr><td>10</td><td>40 φωτογραφίες Σβορώνου (Μάρτ.-Ιούλ. 2025)</td><td>§4, §18</td></tr>
-          <tr><td>11</td><td>6 φωτογραφίες Πρέβεζα (Αύγ. 2023)</td><td>§6</td></tr>
-          <tr><td>12</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/screenshots/Tsekoura-NOT-eidikos-paidagogos.png">Screenshot Χατζηδάκη: ψευδής τίτλος Τσεκούρα</a></td><td>Εισαγωγή</td></tr>
-          <tr><td>13</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/affidavit-tsekoura.pdf">Ένορκη Τσεκούρα (PDF)</a></td><td>Αναφορά</td></tr>
-          <tr><td>14</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/email-lela-ektimisi-5-12-2023.pdf">Email Λέλα «Εκτίμηση από παιδοψυχολόγο» (5/12/2023)</a></td><td>Στρατηγική απόκρυψης</td></tr>
-          <tr><td>15</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/email-effie-klironomiko-26-27-12-2024.pdf">Email Έφης — άρνηση κληρονομικότητας + απειλή (27/12/2024)</a></td><td>Στρατηγική απόκρυψης, §10</td></tr>
-          <tr><td>16</td><td><a class="dl-link" target="_blank" rel="noopener" href="evidence/pdfs/email-ntemis-reply-klironomiko-27-12-2024.pdf">Απάντηση Ντέμη Re: Μήνυμα — «κρύβετε 25 χρόνια» (27/12/2024)</a></td><td>Στρατηγική απόκρυψης</td></tr>
-        </tbody>
-      </table>
-      <p><strong>Πλήρες αρχείο με downloads:</strong> <a href="https://ntemian.github.io/paklex-evidence/" target="_blank" rel="noopener">https://ntemian.github.io/paklex-evidence/</a> (κωδ: paklex2026)</p>
-
-      <button class="gallery-toggle" onclick="toggleGallery()">Δείτε όλες τις 39 φωτογραφίες Σβορώνου</button>
-      <div class="gallery-expanded" id="full-gallery">
-        <p style="margin:12px 0 8px;color:#64748b;font-size:.9rem">Φωτογραφίες Σβορώνου — Μάρτιος-Ιούλιος 2025 (επιλογή)</p>
-        <div class="photo-grid">
-          <img src="evidence/photos/svoronou-1.jpg" alt="Σβορώνου 1" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-2.jpg" alt="Σβορώνου 2" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-3.jpg" alt="Σβορώνου 3" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-4.jpg" alt="Σβορώνου 4" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-5.jpg" alt="Σβορώνου 5" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-6.jpg" alt="Σβορώνου 6" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-7.jpg" alt="Σβορώνου 7" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-8.jpg" alt="Σβορώνου 8" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-9.jpg" alt="Σβορώνου 9" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-10.jpg" alt="Σβορώνου 10" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-11.jpg" alt="Σβορώνου 11" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-12.jpg" alt="Σβορώνου 12" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-13.jpg" alt="Σβορώνου 13" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-14.jpg" alt="Σβορώνου 14" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-15.jpg" alt="Σβορώνου 15" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-16.jpg" alt="Σβορώνου 16" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-17.jpg" alt="Σβορώνου 17" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-18.jpg" alt="Σβορώνου 18" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-19.jpg" alt="Σβορώνου 19" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-20.jpg" alt="Σβορώνου 20" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-21.jpg" alt="Σβορώνου 21" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-22.jpg" alt="Σβορώνου 22" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-23.jpg" alt="Σβορώνου 23" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-24.jpg" alt="Σβορώνου 24" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-25.jpg" alt="Σβορώνου 25" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-26.jpg" alt="Σβορώνου 26" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-27.jpg" alt="Σβορώνου 27" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-28.jpg" alt="Σβορώνου 28" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-29.jpg" alt="Σβορώνου 29" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-30.jpg" alt="Σβορώνου 30" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-31.jpg" alt="Σβορώνου 31" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-32.jpg" alt="Σβορώνου 32" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-33.jpg" alt="Σβορώνου 33" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-34.jpg" alt="Σβορώνου 34" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-35.jpg" alt="Σβορώνου 35" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-36.jpg" alt="Σβορώνου 36" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-37.jpg" alt="Σβορώνου 37" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-38.jpg" alt="Σβορώνου 38" onclick="openLightbox(this.src)" loading="lazy">
-          <img src="evidence/photos/svoronou-39.jpg" alt="Σβορώνου 39" onclick="openLightbox(this.src)" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="signature">
-    <p>Παραμένω στη διάθεσή σας.</p>
-    <p style="margin-top:12px;font-weight:700;font-size:1.1rem">Ευθύμιος Λατσούδης</p>
-  </div>
-
+  </aside>
 </div>
-
-<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Επάνω">&#8593;</button>
+<a class="top-link" href="#page" title="Επάνω">↑</a>
 
 <script>
-async function hashPassword(pw){var enc=new TextEncoder().encode(pw);var buf=await crypto.subtle.digest('SHA-256',enc);return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('')}
-async function tryUnlock(){var p=document.getElementById('gate-pw').value;var h=await hashPassword(p);if(h==='b9cf7ae9f816157d4a15a092d4c5949f0c632828f5330957365b548b3a43c658'){document.getElementById('gate').classList.add('hidden');document.getElementById('content').classList.add('visible')}else{document.getElementById('gate-pw').classList.add('error');setTimeout(function(){document.getElementById('gate-pw').classList.remove('error')},400)}}
-document.getElementById('gate-pw').addEventListener('keydown',function(e){if(e.key==='Enter')tryUnlock()});
-function toggleSection(h){h.parentElement.classList.toggle('open')}
-var currentLbSrc='';
-function openLightbox(s){currentLbSrc=s.replace('?v=3','');document.getElementById('lb-img').src=currentLbSrc;document.getElementById('lightbox').classList.add('active')}
-function closeLightbox(){document.getElementById('lightbox').classList.remove('active')}
-function downloadImg(){if(!currentLbSrc)return;var a=document.createElement('a');a.href=currentLbSrc;a.download=currentLbSrc.split('/').pop();a.target='_blank';document.body.appendChild(a);a.click();document.body.removeChild(a)}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox()});
-function toggleGallery(){var g=document.getElementById('full-gallery');g.classList.toggle('show');var b=g.previousElementSibling;b.textContent=g.classList.contains('show')?'Κλείσιμο γκαλερί':'Δείτε όλες τις 39 φωτογραφίες Σβορώνου'}
-function openAndScroll(sectionId,claimId){var s=document.getElementById(sectionId);if(s&&!s.classList.contains('open'))s.classList.add('open');var target=claimId?document.getElementById(claimId):s;if(target)setTimeout(function(){target.scrollIntoView({behavior:'smooth',block:'start'})},100);return false}
-function toggleAllSections(open){document.querySelectorAll('.section').forEach(function(s){if(open)s.classList.add('open');else s.classList.remove('open')})}
-window.addEventListener('scroll',function(){var btn=document.getElementById('back-to-top');if(window.scrollY>400)btn.classList.add('visible');else btn.classList.remove('visible')});
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('#content img[src^="evidence/"]').forEach(function(img){
-    var parent=img.parentElement;
-    if(parent.classList.contains('pg-wrap'))return;
-    var wrap=document.createElement('div');
-    wrap.className='pg-wrap';
-    wrap.style.position='relative';
-    img.parentNode.insertBefore(wrap,img);
-    wrap.appendChild(img);
-    var src=img.getAttribute('src').replace('?v=3','');
-    var dl=document.createElement('a');
-    dl.className='img-dl';
-    dl.title='Λήψη';
-    dl.href=src;
-    dl.download=src.split('/').pop();
-    dl.textContent='\u2B07';
-    dl.addEventListener('click',function(e){e.stopPropagation()});
-    wrap.appendChild(dl);
+const EXPECTED = 'b9cf7ae9f816157d4a15a092d4c5949f0c632828f5330957365b548b3a43c658';
+async function sha256(text) {
+  const data = new TextEncoder().encode(text);
+  const hash = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+function unlock() {
+  document.getElementById('gate').classList.add('hidden');
+  sessionStorage.setItem('paklexUnlocked', '1');
+}
+document.getElementById('gate-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  const input = document.getElementById('gate-pw');
+  const ok = await sha256(input.value);
+  if (ok === EXPECTED) unlock();
+  else document.getElementById('gate-error').textContent = 'Λάθος κωδικός';
+});
+if (sessionStorage.getItem('paklexUnlocked') === '1') unlock();
+document.getElementById('unlock-dev').addEventListener('click', () => document.getElementById('gate-pw').focus());
+document.getElementById('print-page').addEventListener('click', () => window.print());
+document.querySelectorAll('a[href]').forEach(a => {
+  const href = a.getAttribute('href') || '';
+  if (href.startsWith('#')) return;
+  a.target = '_blank';
+  a.rel = 'noopener';
+});
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+const lbDownload = document.getElementById('lb-download');
+document.querySelectorAll('.image-thumb').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const src = btn.dataset.src || btn.querySelector('img')?.getAttribute('src');
+    if (!src) return;
+    lbImg.src = src;
+    lbDownload.href = src;
+    lbDownload.download = src.split('/').pop();
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
   });
 });
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  lightbox.setAttribute('aria-hidden', 'true');
+  lbImg.src = '';
+}
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', event => { if (event.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', event => { if (event.key === 'Escape') closeLightbox(); });
 </script>
-
 </body>
 </html>
